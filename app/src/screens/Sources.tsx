@@ -1,4 +1,5 @@
 import { Card } from '../components/Card.tsx';
+import { useT, type Key } from '../i18n.ts';
 import { cards, emergencyContent, missions, symptoms, systems, thresholds } from '../data/index.ts';
 
 interface Src {
@@ -7,17 +8,17 @@ interface Src {
 }
 
 // Built automatically from the data files, so a source can never be missing from this page (APP_BUILD_GUIDE.md 10.8).
-const GROUPS: { topic: string; sources: Src[] }[] = [
-  { topic: 'Safe ranges', sources: thresholds.map((t) => t.source) },
-  { topic: 'Guidance cards', sources: cards.flatMap((c) => c.sources) },
-  { topic: 'Body systems', sources: systems.flatMap((s) => s.sources) },
-  { topic: 'Missions', sources: missions.flatMap((m) => m.sources) },
-  { topic: 'Symptoms', sources: symptoms.map((s) => s.source) },
-  { topic: 'Emergency steps', sources: emergencyContent.sources },
+const GROUPS: { topic: Key; sources: Src[] }[] = [
+  { topic: 'topic_ranges', sources: thresholds.map((t) => t.source) },
+  { topic: 'topic_cards', sources: cards.flatMap((c) => c.sources) },
+  { topic: 'topic_systems', sources: systems.flatMap((s) => s.sources) },
+  { topic: 'topic_missions', sources: missions.flatMap((m) => m.sources) },
+  { topic: 'topic_symptoms', sources: symptoms.map((s) => s.source) },
+  { topic: 'topic_emergency', sources: emergencyContent.sources },
 ];
 
-function unique(): { title: string; url: string; topics: string[] }[] {
-  const map = new Map<string, { title: string; url: string; topics: string[] }>();
+function unique(): { title: string; url: string; topics: Key[] }[] {
+  const map = new Map<string, { title: string; url: string; topics: Key[] }>();
   for (const g of GROUPS) {
     for (const s of g.sources) {
       const key = `${s.url}|${s.title}`;
@@ -41,36 +42,37 @@ const LIBRARIES: Src[] = [
 
 export function Sources() {
   const list = unique();
+  const { lang, t } = useT();
   const link = 'underline underline-offset-2 hover:text-cyan-400';
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
-      <h1 className="text-[28px] font-semibold text-slate-50">Sources</h1>
+      <h1 className="text-[28px] font-semibold text-slate-50">{t('srcTitle')}</h1>
 
-      <Card title="Where the numbers and guidance come from">
+      <Card title={t('srcWhere')}>
         <ul className="flex flex-col gap-3">
           {list.map((s) => (
             <li key={s.url + s.title} className="text-base text-slate-200">
-              <a className={link} href={s.url} target="_blank" rel="noreferrer">{s.title}</a>
-              <span className="block text-sm text-slate-400">Used for: {s.topics.join(', ').toLowerCase()}</span>
+              <a dir="ltr" className={`${link} inline-block`} href={s.url} target="_blank" rel="noreferrer">{s.title}</a>
+              <span className="block text-sm text-slate-400">{t('usedFor', { list: s.topics.map((k) => t(k)).join(lang === 'ar' ? '، ' : ', ') })}</span>
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-sm text-slate-400">This guidance was drafted from the NASA documents and public health pages above, with AI help, and has not yet been reviewed by a clinician. Where no published source gives a limit (for example the point where a Watch becomes Call surgeon for heart rate), it is the team's default and is marked as such in the source note. Always follow your flight surgeon.</p>
+        <p className="mt-4 text-sm text-slate-400">{t('srcDraftNote')}</p>
       </Card>
 
-      <Card title="Data you see">
-        <p className="text-base text-slate-300">Values marked <strong>Measured by station</strong> come from the Dalil Crew Health Station. <strong>Simulated</strong> and <strong>Sample data</strong> are made up for the demo, from fictional crew members, and are always labelled. <strong>Logged by you</strong> is typed in.</p>
+      <Card title={t('srcDataTitle')}>
+        <p className="text-base text-slate-300">{t('srcDataText')}</p>
       </Card>
 
-      <Card title="AI use">
-        <ul className="list-disc pl-5 text-base text-slate-300">
-          <li>The Coach uses Cloudflare Workers AI (Meta Llama 3.3 70B Instruct) and answers only from the guidance cards above. It never diagnoses, and a red status always says to contact the flight surgeon.</li>
-          <li>Red-flag symptoms and the Emergency page never use AI.</li>
-          <li>This app's code and draft text were written with help from AI (Claude Code by Anthropic), and reviewed by the team.</li>
+      <Card title={t('srcAiTitle')}>
+        <ul className="list-disc ps-5 text-base text-slate-300">
+          <li>{t('srcAi1')}</li>
+          <li>{t('srcAi2')}</li>
+          <li>{t('srcAi3')}</li>
         </ul>
       </Card>
 
-      <Card title="Built with">
+      <Card title={t('srcBuiltWith')}>
         <p className="text-base text-slate-300">
           {LIBRARIES.map((l, i) => (
             <span key={l.url}>{i > 0 && ' · '}<a className={link} href={l.url} target="_blank" rel="noreferrer">{l.title}</a></span>
@@ -78,7 +80,7 @@ export function Sources() {
         </p>
       </Card>
 
-      <p className="text-base text-slate-400">Dalil is a guidance tool for a hackathon project. It is not a medical device and does not replace a doctor.</p>
+      <p className="text-base text-slate-400">{t('srcFooter')}</p>
     </div>
   );
 }

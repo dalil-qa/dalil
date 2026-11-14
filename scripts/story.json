@@ -398,6 +398,109 @@
         ]
       },
       "symptoms": []
+    },
+    "h1": {
+      "preflight": {
+        "hr": 72,
+        "spo2": 96,
+        "temp": 34.4,
+        "bp_sys": 130,
+        "bp_dia": 82
+      },
+      "fields": {
+        "hr": [
+          [
+            1,
+            72
+          ],
+          [
+            47,
+            72
+          ]
+        ],
+        "spo2": [
+          [
+            1,
+            96
+          ],
+          [
+            47,
+            96
+          ]
+        ],
+        "temp": [
+          [
+            1,
+            34.4
+          ],
+          [
+            47,
+            34.4
+          ]
+        ],
+        "sleep": [
+          [
+            1,
+            7.2
+          ],
+          [
+            47,
+            7.2
+          ]
+        ],
+        "mood": [
+          [
+            1,
+            4
+          ],
+          [
+            47,
+            4
+          ]
+        ],
+        "bp_sys": [
+          [
+            1,
+            130
+          ],
+          [
+            47,
+            130
+          ]
+        ],
+        "bp_dia": [
+          [
+            1,
+            82
+          ],
+          [
+            47,
+            82
+          ]
+        ],
+        "meals": [
+          [
+            1,
+            3
+          ],
+          [
+            47,
+            3
+          ]
+        ],
+        "water": [
+          [
+            1,
+            1500
+          ],
+          [
+            47,
+            1500
+          ]
+        ]
+      },
+      "symptoms": []
     }
-  }
+  },
+  "_h1_note": "Abu Ahmed (h1) is a FICTIONAL older man at home in Doha, used only by Home mode (the Qatar use case). Healthy, but drinks a little too little water, so Home mode shows one gentle Watch. Kept last in the crew list so the astronauts' seeded history doesn't change."
 }

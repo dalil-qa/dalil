@@ -22,5 +22,11 @@
     "label": "Guest",
     "role": "Visitor",
     "color": "#94a3b8"
+  },
+  {
+    "id": "h1",
+    "label": "Abu Ahmed",
+    "role": "At home",
+    "color": "#fbbf24"
   }
 ]

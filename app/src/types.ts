@@ -21,7 +21,7 @@ export type MissionId = 'iss' | 'moon' | 'rover' | 'mars';
 // ---------- the one shape every number takes ----------
 export interface Reading {
   id: string;              // crypto.randomUUID()
-  crewId: string;          // 'c1' | 'c2' | 'c3' | 'guest'
+  crewId: string;          // 'c1' | 'c2' | 'c3' | 'guest' | 'h1' (Abu Ahmed, Home mode only)
   time: string;            // ISO date-time
   missionDay: number;      // day of the mission when it was taken
   indicator: IndicatorId;
@@ -163,7 +163,7 @@ export interface Mission {
 }
 
 export interface CrewMember {
-  id: 'c1' | 'c2' | 'c3' | 'guest';
+  id: 'c1' | 'c2' | 'c3' | 'guest' | 'h1';
   label: string;                         // 'Crew Member 2' (fictional, no real people)
   role: string;                          // 'Flight Engineer'
   color: string;                         // avatar colour

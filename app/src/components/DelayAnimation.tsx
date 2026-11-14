@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { Globe, Rocket } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useT } from '../i18n.ts';
 import { formatDelay } from '../logic/format.ts';
 import { clock } from '../logic/summary.ts';
 
@@ -10,8 +11,10 @@ import { clock } from '../logic/summary.ts';
  * one-way signal delay. Nothing is really sent, and no reply is simulated: the second leg only shows the earliest
  * time a reply could arrive.
  */
-export function DelayAnimation({ oneWaySec, sentAt, from = 'Crew' }: { oneWaySec: number; sentAt: string; from?: string }) {
+export function DelayAnimation({ oneWaySec, sentAt, from }: { oneWaySec: number; sentAt: string; from?: string }) {
   const reduce = useReducedMotion();
+  const { lang, t } = useT();
+  const ar = lang === 'ar';
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 500);
@@ -52,30 +55,29 @@ export function DelayAnimation({ oneWaySec, sentAt, from = 'Crew' }: { oneWaySec
           />
         )}
       </div>
-      <p className={`text-base ${done ? 'text-ok' : 'text-slate-200'}`}>{text}</p>
+      <p dir={ar ? 'rtl' : 'ltr'} className={`text-base ${done ? 'text-ok' : 'text-slate-200'}`}>{text}</p>
     </div>
   );
 
   return (
     <div className="mt-3 rounded-xl border border-contrast/10 bg-space-950 p-4">
-      <p className="sr-only">
-        Report sent at {clock(sentAt)}. It reaches Earth after {formatDelay(oneWaySec)}, and a reply needs the same time to come back.
-      </p>
-      <div className="flex items-center gap-3">
-        {node(Rocket, from, 'border-cyan-400 bg-cyan-700/15 text-cyan-400')}
+      <p className="sr-only">{t('delaySr', { time: clock(sentAt), d: formatDelay(oneWaySec) })}</p>
+      {/* Always crew on the left and Earth on the right (in Arabic too), so the arrows keep their meaning. */}
+      <div dir="ltr" className="flex items-center gap-3">
+        {node(Rocket, from ?? t('crewNode'), 'border-cyan-400 bg-cyan-700/15 text-cyan-400')}
         <div className="flex flex-1 flex-col gap-3">
-          {leg(out, 'out', true, delivered, delivered ? `Delivered to Earth at ${clock(arrival)}` : `→ Reaches Earth in ${formatDelay(oneWaySec - elapsed)}`)}
+          {leg(out, 'out', true, delivered, delivered ? t('deliveredAt', { t: clock(arrival) }) : `→ ${t('reachesIn', { d: formatDelay(oneWaySec - elapsed) })}`)}
           {leg(
             back,
             'back',
             delivered,
             replyPossible,
             replyPossible
-              ? "← Earth's reply could arrive now (this demo doesn't simulate one)"
-              : `← Reply expected in: ${formatDelay(oneWaySec * 2 - elapsed)}`,
+              ? `← ${t('replyNow')}`
+              : `← ${t('replyExpected', { d: formatDelay(oneWaySec * 2 - elapsed) })}`,
           )}
         </div>
-        {node(Globe, 'Earth', 'border-ok bg-ok/15 text-ok')}
+        {node(Globe, t('chartEarth'), 'border-ok bg-ok/15 text-ok')}
       </div>
     </div>
   );
