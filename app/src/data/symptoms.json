@@ -5,7 +5,7 @@
     "group": "common",
     "system": "brain",
     "redFlag": false,
-    "cardId": null,
+    "cardId": "symptom-dizziness",
     "source": {
       "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
       "url": "https://www.nasa.gov/hrp/risks/"
@@ -29,7 +29,7 @@
     "group": "common",
     "system": "brain",
     "redFlag": false,
-    "cardId": null,
+    "cardId": "symptom-headache",
     "source": {
       "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
       "url": "https://www.nasa.gov/hrp/risks/"
@@ -53,7 +53,7 @@
     "group": "common",
     "system": "immune",
     "redFlag": false,
-    "cardId": null,
+    "cardId": "symptom-fatigue",
     "source": {
       "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
       "url": "https://www.nasa.gov/hrp/risks/"

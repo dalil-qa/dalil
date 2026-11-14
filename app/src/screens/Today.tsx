@@ -37,6 +37,7 @@ export function Today() {
   const readings = useStore((s) => s.readings);
   const emergencies = useStore((s) => s.emergencies);
   const go = useNav((s) => s.go);
+  const openTrend = useNav((s) => s.openTrend);
   const now = useNow();
 
   const items = useMemo(() => latestAssessments(readings, crewId, day), [readings, crewId, day]);
@@ -63,7 +64,7 @@ export function Today() {
         status={i.assessment?.status ?? null}
         source={i.reading.source}
         spark={spark(i.indicator)}
-        onClick={() => go('trends')}
+        onClick={() => openTrend(i.indicator)}
       />
     );
   };
@@ -135,7 +136,7 @@ export function Today() {
                   status={bpSys.assessment?.status ?? null}
                   source={bpSys.reading.source}
                   spark={spark('bp_sys')}
-                  onClick={() => go('trends')}
+                  onClick={() => openTrend('bp_sys')}
                 />
               );
             }

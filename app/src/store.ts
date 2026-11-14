@@ -321,7 +321,7 @@ export const useStore = create<DalilState>()(
         },
 
         openEmergency: (trigger, symptoms) => {
-          const { emergency, crewId, missionDay, lastCheck } = get();
+          const { emergency, crewId, missionDay, missionId, lastCheck } = get();
           if (emergency) {
             // A second emergency while one is open only adds the new red flags as an update.
             const added = symptoms.filter((s) => !emergency.symptoms.includes(s));
@@ -341,6 +341,7 @@ export const useStore = create<DalilState>()(
               crewId,
               startedAt: nowIso(),
               missionDay,
+              missionId,
               trigger,
               symptoms,
               latest: lastCheck?.assessments ?? [],

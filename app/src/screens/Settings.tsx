@@ -1,11 +1,14 @@
-import { Minus, Plus, RotateCcw, Usb } from 'lucide-react';
+import { Compass, Minus, Plus, RotateCcw, Usb } from 'lucide-react';
 import { Button, Card } from '../components/Card.tsx';
 import { SIM_SCENARIOS, type SimScenario } from '../device/simulator.ts';
 import { isSerialSupported, SERIAL_UNSUPPORTED_TEXT } from '../device/serial.ts';
+import { useNav } from '../nav.ts';
+import { useSession } from '../session.ts';
 import { useStore } from '../store.ts';
 
 export function Settings() {
   const s = useStore();
+  const go = useNav((n) => n.go);
   const connected = s.connection === 'connected';
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
@@ -50,9 +53,16 @@ export function Settings() {
         </div>
       </Card>
 
+      <Card title="Intro">
+        <Button variant="secondary" onClick={() => go('landing')}><Compass aria-hidden size={18} /> Show the intro and tour again</Button>
+      </Card>
+
       <Card title="Reset">
         <p className="mb-3 text-base text-slate-300">Removes everything you measured or logged, and any emergencies, and reloads the sample history.</p>
-        <Button variant="danger" onClick={() => { if (window.confirm('Reset the demo and delete everything saved on this computer?')) s.resetDemo(); }}><RotateCcw aria-hidden size={18} /> Reset demo</Button>
+        <Button variant="danger" onClick={() => { if (window.confirm('Reset the demo and delete everything saved on this computer?')) {
+            s.resetDemo();
+            useSession.getState().clear();
+          } }}><RotateCcw aria-hidden size={18} /> Reset demo</Button>
       </Card>
     </div>
   );

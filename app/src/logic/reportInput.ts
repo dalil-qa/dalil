@@ -27,7 +27,7 @@ export function emergencyReportInput(args: {
   return {
     priority: true,
     crewLabel: crewById(event.crewId).label,
-    missionName: missionById(missionId).name,
+    missionName: missionById(event.missionId ?? missionId).name,
     missionDay: event.missionDay,
     startedAt: event.startedAt,
     redFlags: event.symptoms.map((id) => symptomById(id)?.label.toLowerCase() ?? id),

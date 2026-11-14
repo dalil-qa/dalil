@@ -66,6 +66,8 @@ export interface EmergencyEvent {
   crewId: string;
   startedAt: string;                     // ISO time the page opened
   missionDay: number;
+  /** The mission it happened on, so its report still says so after the mission switch changes. */
+  missionId?: MissionId;
   trigger: 'button' | 'quicklog' | 'coach';
   symptoms: SymptomId[];                 // red flags chosen (may be empty if only the button)
   latest: Assessment[];                  // the latest readings at that moment, for the report

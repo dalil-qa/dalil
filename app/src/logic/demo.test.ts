@@ -97,7 +97,7 @@ describe('the emergency report template', () => {
     assert.match(report, /mood 2\/5 /);
     assert.match(report, /water 1\.2 L /);
     assert.match(report, /meals 2\/3 /);
-    assert.doesNotMatch(report, /1-5|ml/);
+    assert.doesNotMatch(report, /1-5| \d+ ml\b/);
   });
 
   it('says "none recorded" instead of inventing values when there are no readings', () => {
@@ -116,5 +116,16 @@ describe('the simulator follows each crew member', () => {
     assert.equal(simulatorBaseline(readings, 'c3', 47).hr, 68);
     assert.equal(simulatorBaseline(readings, 'c2', 47).hr, 65); // the 7-day normal before the rise
     assert.deepEqual(simulatorBaseline([], 'guest', 47), { hr: 65, spo2: 98, temp: 34.5 });
+  });
+});
+
+describe('an emergency report keeps the mission it happened on', () => {
+  it('says Mars transit even if the mission switch now says Space Station', () => {
+    const event = {
+      id: 'e3', crewId: 'c2', startedAt: '2026-02-16T06:42:00', missionDay: 47, missionId: 'mars' as const, trigger: 'button' as const,
+      symptoms: [], latest: [], crewAlertedAt: null, reportSentAt: null, updates: [], closedAt: null, closedReason: null,
+    };
+    const report = buildReport(emergencyReportInput({ event, missionId: 'iss', readings, symptomLogs: [] }));
+    assert.match(report, /Crew Member 2 · Mars transit · Day 47/);
   });
 });

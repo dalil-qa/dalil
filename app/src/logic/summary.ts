@@ -43,7 +43,7 @@ function readingText(r: ReportReading): string {
 export function buildReport(i: ReportInput): string {
   const lines = [
     `${i.priority ? 'PRIORITY · ' : ''}Dalil ${i.priority ? 'emergency report' : 'report'}`,
-    `${i.crewLabel} · ${i.missionName} · Day ${i.missionDay} · started ${clock(i.startedAt)}`,
+    `${i.crewLabel} · ${i.missionName} · Day ${i.missionDay} · ${i.priority ? 'started' : 'prepared'} ${clock(i.startedAt)}`,
   ];
   if (i.redFlags.length) lines.push(`Red flags: ${i.redFlags.join(', ')}`);
   lines.push(`Latest readings: ${i.latest.length ? i.latest.map(readingText).join(' · ') : 'none recorded'}`);

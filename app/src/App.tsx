@@ -1,13 +1,20 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { EmergencyBar } from './layout/EmergencyBar.tsx';
 import { Footer } from './layout/Footer.tsx';
 import { Header } from './layout/Header.tsx';
 import { NavRail } from './layout/NavRail.tsx';
 import { useNav } from './nav.ts';
+import { Tour } from './components/Tour.tsx';
+import { Body } from './screens/Body.tsx';
 import { Check } from './screens/Check.tsx';
+import { Coach } from './screens/Coach.tsx';
+import { Earth } from './screens/Earth.tsx';
+import { Landing } from './screens/Landing.tsx';
+import { Sources } from './screens/Sources.tsx';
+// Recharts is most of the bundle, so the chart screen loads only when it is opened.
+const Trends = lazy(() => import('./screens/Trends.tsx').then((m) => ({ default: m.Trends })));
 import { Emergency } from './screens/Emergency.tsx';
 import { Settings } from './screens/Settings.tsx';
-import { Soon } from './screens/Soon.tsx';
 import { Today } from './screens/Today.tsx';
 import { autoReconnectStation, useStore } from './store.ts';
 
@@ -18,10 +25,22 @@ function Screen() {
       return <Today />;
     case 'check':
       return <Check />;
-    case 'settings':
-      return <Settings />;
+    case 'body':
+      return <Body />;
+    case 'trends':
+      return (
+        <Suspense fallback={<p className="text-base text-slate-400">Loading charts…</p>}>
+          <Trends />
+        </Suspense>
+      );
+    case 'coach':
+      return <Coach />;
+    case 'earth':
+      return <Earth />;
+    case 'sources':
+      return <Sources />;
     default:
-      return <Soon screen={screen} />;
+      return <Settings />;
   }
 }
 
@@ -48,6 +67,9 @@ function App() {
     if (emergencyId) showEmergency();
   }, [emergencyId, showEmergency]);
 
+  // The intro page is full-screen. The emergency page and its red bar still work from everywhere else.
+  if (screen === 'landing') return <Landing />;
+
   return (
     <div className="flex min-h-screen flex-col">
       <EmergencyBar />
@@ -60,6 +82,7 @@ function App() {
         </main>
       </div>
       <Footer />
+      <Tour />
       {emergencyOpen && !emergencyMinimized && <Emergency />}
     </div>
   );

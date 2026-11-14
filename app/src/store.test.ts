@@ -46,6 +46,7 @@ describe('store + simulator, end to end', () => {
     s.openEmergency('button', []);
     assert.ok(useStore.getState().emergency?.reportSentAt);
     assert.equal(useStore.getState().emergency?.crewAlertedAt, null); // alerting the crew is a deliberate tap
+    assert.equal(useStore.getState().emergency?.missionId, 'mars'); // remembered, so the report stays correct
     s.closeEmergency('mistake');
   });
 

@@ -1,0 +1,175 @@
+[
+  {
+    "id": "hr-rising",
+    "indicator": "hr",
+    "level": "amber",
+    "title": "Resting heart rate above your normal",
+    "meaning": "Your resting heart rate has stayed above your own normal for several days. Less sleep, stress, too little water or hard exercise can all raise it.",
+    "actions": [
+      "Drink some water",
+      "Keep your usual sleep and wake times",
+      "Repeat the check tomorrow morning at the same time",
+      "Tell the flight surgeon if it keeps rising"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "hr-red",
+    "indicator": "hr",
+    "level": "red",
+    "title": "Resting heart rate far from the safe range",
+    "meaning": "Your heart rate is well outside the safe range for rest.",
+    "actions": [
+      "Sit down and rest",
+      "Repeat the check after 5 minutes",
+      "Contact the flight surgeon"
+    ],
+    "escalate": true,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "spo2-low-watch",
+    "indicator": "spo2",
+    "level": "amber",
+    "title": "Blood oxygen a little low",
+    "meaning": "Your blood oxygen is slightly below the safe range. A cold or moving finger can give a low reading.",
+    "actions": [
+      "Re-measure with a warm, still finger",
+      "Check the cabin air readings",
+      "Repeat the check in a few minutes"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "spo2-low",
+    "indicator": "spo2",
+    "level": "red",
+    "title": "Low blood oxygen",
+    "meaning": "Your blood oxygen is below the safe range.",
+    "actions": [
+      "Re-measure with a warm, still finger",
+      "Check cabin air readings",
+      "Contact the flight surgeon"
+    ],
+    "escalate": true,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "temp-watch",
+    "indicator": "temp",
+    "level": "amber",
+    "title": "Skin temperature outside the safe range",
+    "meaning": "Forehead skin temperature is outside its safe range. It is not core body temperature, and the room, exercise or a cold forehead can change it.",
+    "actions": [
+      "Wait a few minutes in a comfortable spot",
+      "Repeat the check",
+      "Tell the flight surgeon if you also feel unwell"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "temp-red",
+    "indicator": "temp",
+    "level": "red",
+    "title": "Skin temperature far outside the safe range",
+    "meaning": "Forehead skin temperature is far outside its safe range.",
+    "actions": [
+      "Repeat the check",
+      "Contact the flight surgeon"
+    ],
+    "escalate": true,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "symptom-dizziness",
+    "indicator": "symptom",
+    "level": "amber",
+    "title": "Feeling dizzy",
+    "meaning": "Dizziness has many possible causes. This is guidance, not a diagnosis.",
+    "actions": [
+      "Sit or hold on and stay still",
+      "Drink some water",
+      "Tell a crewmate",
+      "Contact the flight surgeon if it does not pass or you feel worse"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "symptom-fatigue",
+    "indicator": "symptom",
+    "level": "amber",
+    "title": "Feeling very tired",
+    "meaning": "Tiredness is common and is often linked to sleep, food, water and workload.",
+    "actions": [
+      "Think about how much you slept and ate today",
+      "Drink some water",
+      "Rest if you can",
+      "Tell the flight surgeon if it lasts for days"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "symptom-headache",
+    "indicator": "symptom",
+    "level": "amber",
+    "title": "Headache",
+    "meaning": "Headaches are common and have many causes. A sudden, severe headache is an emergency: use the I feel unwell now button.",
+    "actions": [
+      "Drink some water",
+      "Rest in a quiet spot",
+      "Tell the flight surgeon if it lasts or keeps coming back"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  }
+]

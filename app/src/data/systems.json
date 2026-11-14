@@ -1,0 +1,224 @@
+[
+  {
+    "id": "heart",
+    "name": "Heart and circulation",
+    "function": "Pumps blood and oxygen around the body.",
+    "indicators": [
+      "hr",
+      "bp_sys",
+      "bp_dia"
+    ],
+    "hazards": [
+      "gravity",
+      "radiation"
+    ],
+    "measureInSpace": "Dalil's station measures heart rate; blood pressure is typed in.",
+    "whyCheck": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "hazardEffects": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "whenToAct": {
+      "crew": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+      "surgeon": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    },
+    "prevention": [
+      "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    ],
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "lungs",
+    "name": "Lungs and oxygen",
+    "function": "Bring in oxygen and remove carbon dioxide.",
+    "indicators": [
+      "spo2"
+    ],
+    "hazards": [
+      "environment"
+    ],
+    "measureInSpace": "Dalil's station measures blood oxygen (SpO2).",
+    "whyCheck": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "hazardEffects": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "whenToAct": {
+      "crew": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+      "surgeon": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    },
+    "prevention": [
+      "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    ],
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "brain",
+    "name": "Brain: mood and sleep",
+    "function": "Controls thinking, mood and sleep.",
+    "indicators": [
+      "mood",
+      "sleep"
+    ],
+    "hazards": [
+      "isolation",
+      "distance"
+    ],
+    "measureInSpace": "Mood and sleep are typed in the quick log.",
+    "whyCheck": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "hazardEffects": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "whenToAct": {
+      "crew": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+      "surgeon": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    },
+    "prevention": [
+      "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    ],
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "metabolism",
+    "name": "Metabolism and nutrition",
+    "function": "Turns food and water into energy.",
+    "indicators": [
+      "glucose",
+      "water",
+      "meals"
+    ],
+    "hazards": [
+      "environment",
+      "gravity"
+    ],
+    "measureInSpace": "Blood sugar, water and meals are typed in the quick log.",
+    "whyCheck": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "hazardEffects": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "whenToAct": {
+      "crew": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+      "surgeon": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    },
+    "prevention": [
+      "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    ],
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "skin",
+    "name": "Skin and temperature",
+    "function": "Protects the body and helps control temperature.",
+    "indicators": [
+      "temp"
+    ],
+    "hazards": [
+      "environment"
+    ],
+    "measureInSpace": "Dalil's station measures forehead skin temperature.",
+    "whyCheck": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "hazardEffects": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "whenToAct": {
+      "crew": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+      "surgeon": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    },
+    "prevention": [
+      "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    ],
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "musculoskeletal",
+    "name": "Bones and muscles",
+    "function": "Hold the body up and let it move.",
+    "indicators": [
+      "exercise"
+    ],
+    "hazards": [
+      "gravity"
+    ],
+    "measureInSpace": "Exercise minutes are typed in the quick log.",
+    "whyCheck": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "hazardEffects": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "whenToAct": {
+      "crew": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+      "surgeon": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    },
+    "prevention": [
+      "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    ],
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "immune",
+    "name": "Immune system",
+    "function": "Defends the body against germs.",
+    "indicators": [],
+    "hazards": [
+      "radiation",
+      "isolation",
+      "environment"
+    ],
+    "measureInSpace": "Nothing is measured; it is coloured by the symptoms you log.",
+    "whyCheck": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "hazardEffects": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "whenToAct": {
+      "crew": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+      "surgeon": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    },
+    "prevention": [
+      "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    ],
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  },
+  {
+    "id": "eyes",
+    "name": "Eyes",
+    "function": "Let you see and judge distance.",
+    "indicators": [],
+    "hazards": [
+      "gravity"
+    ],
+    "measureInSpace": "Nothing is measured; it is coloured by the symptoms you log.",
+    "whyCheck": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "hazardEffects": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+    "whenToAct": {
+      "crew": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs.",
+      "surgeon": "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    },
+    "prevention": [
+      "DRAFT: Mechanical 2 to write this in plain words from NASA's Risks of Human Spaceflight and the NASA-STD-3001 briefs."
+    ],
+    "sources": [
+      {
+        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
+        "url": "https://www.nasa.gov/hrp/risks/"
+      }
+    ]
+  }
+]
