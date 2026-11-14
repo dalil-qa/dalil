@@ -5,6 +5,9 @@ A Cloudflare Worker that holds the Anthropic key and answers `POST /coach` for t
 
 **Never commit a key.** The key lives only in a Worker secret, or in `worker/.dev.vars` (git-ignored) for local testing.
 
+## Live address
+`https://dalil-coach.msulaiman00711.workers.dev/coach` (deployed 2026-11-14). Until `ANTHROPIC_API_KEY` is set as a secret it answers `{"error":"unavailable"}` (503).
+
 ## Local development
 1. Copy `.dev.vars.example` to `.dev.vars` and put the key in it.
 2. `npm install`, then `npm run dev` (serves on http://localhost:8787).
