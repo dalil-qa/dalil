@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Brand tokens (APP_BUILD_GUIDE.md section 9.1) */
+@theme {
+  --color-space-950: #0b1426;   /* page background */
+  --color-space-900: #0f1d33;   /* cards */
+  --color-space-800: #0a3442;   /* raised panels, gradient end */
+  --color-cyan-400:  #22d3ee;   /* primary accent, links, focus */
+  --color-cyan-700:  #0e7490;   /* buttons */
+  --color-gold-200:  #fde68a;   /* highlights: the guide star, score */
+  --color-ok:        #34d399;
+  --color-watch:     #fbbf24;
+  --color-act:       #f87171;
+}
+
+body {
+  @apply bg-space-950 text-slate-100 antialiased;
+  font-variant-numeric: tabular-nums;
+}
