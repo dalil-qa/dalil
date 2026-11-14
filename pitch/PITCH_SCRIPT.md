@@ -6,12 +6,14 @@
 
 ---
 
-## 1. Presenter Division & Stage Roles
+## 1. Presenter Division & Stage Roles (Sulaiman Owns 100% of Q&A)
+
+Because **Sulaiman handles all Q&A alone**, **Sulaiman must speak last (`2:15–2:30` on Slide 6)**. That way, when the pitch finishes at `2:30`, the microphone is already in Sulaiman's hand and the judges' eye contact is already locked on him—no awkward mic handoff when questions start.
 
 | Presenter | Role & Strengths | Sections Owned |
 |---|---|---|
-| **Abdullah** | **Human Story, Hook & Qatari Impact** *(warm, authoritative storytelling; connects deep space to Qatar's ageing population)* | **Part 1 (0:00–0:40):** Slide 1 Hook & Problem<br>**Part 3 (1:50–2:30):** Slide 5 Qatar Impact (Home Mode) & Slide 6 Close<br>**Q&A:** Qatar adoption, elderly care, clinic pilot & social impact questions |
-| **Sulaiman** | **Technical MVP, NASA Evidence & Q&A Lead** *(crisp systems explanation, live app/station demo, safety guardrails, technical & medical-source Q&A)* | **Part 2 (0:40–1:50):** Slide 2 Mind Map, Slide 3 Live MVP / Day 47 Mars Demo, Slide 4 Competitive Knockout & Team Resilience<br>**Q&A Lead:** Routes all judge questions; answers architecture, hardware, AI safety & NASA source questions |
+| **Abdullah** | **Human Story, Hook & Qatari Impact** *(warm, authoritative storytelling; connects deep space to Qatar's ageing population; **no Q&A**)* | **Part 1 (0:00–0:40):** Slide 1 Hook & Problem<br>**Part 3 (1:45–2:15):** Slide 5 Qatar Impact (WHO/IDF/STEPwise stats + built-in Home Mode)<br>**During Q&A:** Stands beside Sulaiman; Sulaiman answers all questions |
+| **Sulaiman** | **Technical MVP, NASA Evidence, Close & Sole Q&A Speaker** *(crisp systems explanation, Day 47 screenshots, competitive knockout, technical roadmap close, and **100% of Q&A**)* | **Part 2 (0:40–1:45):** Slide 2 Mind Map, Slide 3 Day 47 Mars Screenshots, Slide 4 Competitive Knockout & Resilience<br>**Part 4 (2:15–2:30):** Slide 6 Technical Roadmap & Final Close<br>**Q&A (100%):** Answers **all** judge questions (technical, NASA sources, AI safety, hardware, AND Qatar impact/rollout) |
 | **Demo / Station Host** | Judges' Table Laptop & Station | Places the live laptop + USB-connected station on the judges' table before `0:00`; advances the projector slides; guides a judge to press `START` during Q&A |
 
 ---
@@ -84,11 +86,11 @@
 
 ---
 
-### PART 3: Impact in Qatar & Close *(1:50 – 2:30 · Presenter: Abdullah)*
+### PART 3: Impact in Qatar *(1:45 – 2:15 · Presenter: Abdullah)*
 
-**[1:50 · Advance to Slide 5: From Mars to Doha — `[EMPATHY PHOTO: Older Qatari parent using Dalil at home + Home Mode screenshot]`]**
+**[1:45 · Advance to Slide 5: From Mars to Doha — `[EMPATHY PHOTO: Older Qatari parent using Dalil at home + Home Mode screenshot]`]**
 
-**[TONE/GESTURE: Abdullah — Warm, passionate, resonant voice. Gesture toward the Home Mode screen and the three big Qatar statistics.]**
+**[TONE/GESTURE: Abdullah — Warm, passionate, resonant voice. Gesture toward the Home Mode screenshot and the three big Qatar statistics.]**
 
 **Abdullah:**
 > "On Mars, the doctor is 22 minutes away. Here in Qatar, an older parent living alone faces that exact same gap.
@@ -97,27 +99,31 @@
 
 **[PAUSE - 3 SECONDS]** *(Let the tenfold number land.)*
 
-**[TONE/GESTURE: Abdullah — Count on fingers for the two health stats, then point to the live Home Mode interface on Slide 5.]**
+**[TONE/GESTURE: Abdullah — Count on fingers for the two health stats, then point to the Home Mode screenshot on Slide 5 and pass the mic back to Sulaiman.]**
 
 **Abdullah:**
-> "Nearly **one in four** adults in Qatar has diabetes, and **one in three** Qatari nationals has high blood pressure. So we built **Home Mode** directly into Dalil today: huge text, one button, plain-English results, and a one-tap alert to family or 999."
+> "Nearly **one in four** adults in Qatar has diabetes, and **one in three** Qatari nationals has high blood pressure. So we built **Home Mode** directly into Dalil today: huge text, one button, plain-English results, and a one-tap alert to family or 999. Sulaiman?"
 
-**[2:20 · Advance to Slide 6: Roadmap & Close]**
+---
 
-**[TONE/GESTURE: Abdullah — Step half a pace forward, slow down for the final three anchor words, and smile.]**
+### PART 4: Roadmap, Close & Transition to Q&A *(2:15 – 2:30 · Presenter: Sulaiman)*
 
-**Abdullah:**
-> "Next is Bluetooth cuff integration, on-board AI, and a clinic pilot right here in Doha.
+**[2:15 · Advance to Slide 6: Roadmap & Close]**
+
+**[TONE/GESTURE: Sulaiman — Step center-stage holding the mic so judges' eyes lock on Sulaiman for Q&A. Slow down for the final three anchor words.]**
+
+**Sulaiman:**
+> "Next on our engineering roadmap is Bluetooth cuff integration, on-board local AI, and a clinic pilot right here in Doha.
 >
-> **Dalil**: *guide*, and *evidence*. **Personal. Proven. Immediate.** Thank you—feel free to press START on the station in front of you while we take your questions."
+> **Dalil**: *guide*, and *evidence*. **Personal. Proven. Immediate.** Thank you—feel free to press START on the station in front of you while I take your questions."
 
 ---
 
 ## 4. Running the Judges' Desk Station During Q&A
 
 Because the live laptop + hardware station are already on the judges' table, you get a **free live hardware demo during Q&A** without using a single second of your 2:30 speaking clock:
-- Right as Abdullah says *"feel free to press START on the station in front of you"*, the **Station Host** steps beside the judges' table, wipes the finger slot with an alcohol wipe, and switches the laptop to **Guest → Check**.
-- While **Sulaiman** and **Abdullah** answer the first question, one judge rests their fingertip (20 s) and forehead (5 s) on the station and sees their own live heart rate, SpO2, and skin temperature light up the Body figure on the desk laptop.
+- Right as Sulaiman says *"feel free to press START on the station in front of you while I take your questions"*, the **Station Host** steps beside the judges' table, wipes the finger slot with an alcohol wipe, and switches the laptop to **Guest → Check**.
+- While **Sulaiman** answers the judges' questions, one judge rests their fingertip (20 s) and forehead (5 s) on the station and sees their own live heart rate, SpO2, and skin temperature light up the Body figure on the desk laptop.
 
 ---
 
@@ -130,20 +136,11 @@ Because the live laptop + hardware station are already on the judges' table, you
 
 ---
 
-## 6. Q&A Playbook: Who Answers What (Under 20 Seconds Each)
+## 6. Sulaiman's Complete Q&A Playbook (Under 20 Seconds Each)
 
-**Rule:** **Sulaiman** catches the mic first, answers technical/clinical-source questions directly, and passes Qatar impact / deployment questions to **Abdullah**. Never open with *"That's a great question"*—lead with the answer in the first sentence.
+**Rule:** **Sulaiman answers 100% of Q&A questions** (both technical/NASA questions and Qatar impact/adoption questions). Never open with *"That's a great question"*—lead with the answer in the first sentence.
 
-### Questions for Abdullah (Qatar Impact, Users & Rollout)
-
-| Judge Question | Abdullah's Answer |
-|---|---|
-| **Who would use this in Qatar, and how would you reach them?** | "In space, crew medical operations issue it in the mission kit. Here in Qatar, we target home-care services and primary health clinics following up older adults with hypertension or diabetes—starting with a small clinic pilot to validate daily adherence." |
-| **Why wouldn't an older person just use an Apple Watch?** | "Three reasons: watches require small-screen navigation, daily charging, and steady wrist contact. Dalil sits on the bedside table with one big button, huge text in Home Mode, and a one-tap 'Send to family' button." |
-| **Where did your Qatar statistics come from?** | "Every number is sourced: the tenfold growth of residents aged 60+ (from ~60,000 to ~690,000 by 2050) is from the WHO's Healthy Ageing report on Qatar; the 24.6% adult diabetes rate is from the 2024 International Diabetes Federation Atlas; and the 32.9% hypertension figure is from the Qatar STEPwise national survey of Qatari adults aged 18–64." |
-| **Is this approved as a medical device in Qatar?** | "No—today Dalil is a guidance prototype, not a diagnostic medical device, and it states that on every screen. Clinical deployment in Qatar would require clinician sign-off and Ministry of Public Health approval, which is step three on our roadmap." |
-
-### Questions for Sulaiman (Technical, NASA Sources, AI & Hardware)
+### A. Technical, NASA Sources, AI & Hardware Questions (Sulaiman)
 
 | Judge Question | Sulaiman's Answer |
 |---|---|
@@ -153,3 +150,12 @@ Because the live laptop + hardware station are already on the judges' table, you
 | **How accurate is the hardware station, and how much did it cost?** | "The station costs about QAR 290 in parts—an ESP32, a MAX30102 pulse oximeter, an MLX90614 infrared thermometer, and an OLED display. Because these are hobby-grade sensors, we don't rely on a single raw reading: the firmware checks signal quality every second, rejects motion artifacts, and tracks multi-day change against your personal baseline." |
 | **Why is forehead temperature around 33–35 °C instead of 37 °C?** | "37 °C is core body temperature. Forehead skin temperature sits lower—published infrared thermometry studies put normal forehead skin temperature between 31.0 and 35.6 °C, while 38.0 °C or above triggers an immediate fever escalation, alongside tracking a 1 °C rise above your personal 7-day baseline." |
 | **What doesn't work yet?** | "Three things we state openly in `docs/CONTENT_REVIEW.md`: first, the sensors are hobby-grade with no ECG, so they cannot rule out a heart attack—and our Emergency screen warns the crew of that. Second, sending the report to Earth or family is simulated. Third, while every card cites NASA or public health sources, our threshold table awaits formal clinician sign-off." |
+
+### B. Qatar Impact, Elderly Users & Rollout Questions (Also Answered by Sulaiman)
+
+| Judge Question | Sulaiman's Answer |
+|---|---|
+| **Who would use this in Qatar, and how would you reach them?** | "In space, crew medical operations issue it in the mission kit. Here in Qatar, we target home-care services and primary health clinics following up older adults with hypertension or diabetes—starting with a small clinic pilot to validate daily adherence." |
+| **Why wouldn't an older person just use an Apple Watch?** | "Three reasons: watches require small-screen navigation, daily charging, and steady wrist contact. Dalil sits on the bedside table with one big button, huge text in Home Mode, a steadier fingertip sensor, and a one-tap 'Send to family' button." |
+| **Where did your Qatar statistics come from?** | "Every number is sourced: the tenfold growth of residents aged 60+ (from ~60,000 to ~690,000 by 2050) is from the WHO's Healthy Ageing report on Qatar; the 24.6% adult diabetes rate is from the 2024 International Diabetes Federation Atlas; and the 32.9% hypertension figure is from the Qatar STEPwise national survey of Qatari adults aged 18–64." |
+| **Is this approved as a medical device in Qatar?** | "No—today Dalil is a guidance prototype, not a diagnostic medical device, and it states that on every screen. Clinical deployment in Qatar would require clinician sign-off and Ministry of Public Health approval, which is step three on our roadmap." |

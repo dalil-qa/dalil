@@ -1,6 +1,6 @@
 # Slides: Visual Blueprint (2.5-Minute Two-Presenter Pitch)
 
-**Presenters:** **Abdullah** (Hook & Qatar Impact) + **Sulaiman** (Technical MVP, Evidence & Q&A Lead)
+**Presenters:** **Abdullah** (Opening Hook & Qatar Impact) + **Sulaiman** (Technical MVP, Competitive Edge, Roadmap Close & **100% of Q&A**)
 **Spoken script & cues:** [PITCH_SCRIPT.md](PITCH_SCRIPT.md) · **Health sources & review log:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
 **Memory anchor (repeated 3×):** **`Personal. Proven. Immediate.`**
 
@@ -89,7 +89,7 @@
 
 ---
 
-### Slide 6 — Roadmap & Close *(2:20 – 2:30 · Abdullah → Q&A with Sulaiman)*
+### Slide 6 — Roadmap & Close *(2:15 – 2:30 · Sulaiman Closes & Leads 100% of Q&A)*
 - **Visual Layout:**
   - **Top — 3 Next Steps:**
     1. **Bluetooth Cuff & Glucometer Link** *(zero manual typing)*
@@ -97,7 +97,7 @@
     3. **Qatar Home-Care & Clinic Pilot** *(clinician sign-off + MoPH regulatory path)*
   - **Center:** Dalil logo + **"Dalil دليل — Guide, and Evidence."** + **`Personal. Proven. Immediate.`**
   - **Bottom:** QR Code to live app (`https://dalil.msulaiman00711.workers.dev`) & public GitHub repo (`https://github.com/dalil-qa/dalil`), plus team names (**Sulaiman, Abdullah & Team Dalil**).
-- **Stage Note:** Leave Slide 6 on screen during the entire Q&A session.
+- **Stage Note:** Sulaiman delivers Slide 6 so he already holds the microphone and the judges' eye contact when Q&A begins at `2:30`. Leave Slide 6 on screen during the entire Q&A session.
 
 ---
 
