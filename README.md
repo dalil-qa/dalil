@@ -20,6 +20,9 @@ when Earth is up to 22 minutes away.
 - **Home mode:** huge text, one big button, results in plain words and "Send to family", for people at home.
 - **Simulator:** the same messages as the real station, so everything can be demoed without hardware. Simulated and sample data are always labelled.
 
+## Live
+https://dalil.msulaiman00711.workers.dev (hosted on Cloudflare; deploy with `cd app && npm run build && npx wrangler deploy`). The Coach Worker only answers requests from the addresses in `worker/wrangler.jsonc` (`ALLOWED_ORIGINS`), so a new address must be added there and the Worker redeployed.
+
 ## Run it
 Needs a recent Node (tested on Node 26) and Chrome or Edge (Web Serial, for the real station).
 ```

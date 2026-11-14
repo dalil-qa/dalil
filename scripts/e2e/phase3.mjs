@@ -40,7 +40,8 @@ const results = [];
 const check = (name, ok, extra = '') => { results.push(`${ok ? 'PASS' : 'FAIL'}  ${name}${extra ? '  -> ' + extra : ''}`); };
 
 await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
-await send('Page.navigate', { url: BASE }); await sleep(1800);
+await send('Page.navigate', { url: BASE });
+await waitFor('Explore the demo mission', 20000); // a hosted page takes longer to download than a local one
 
 // ---- 1. Landing and tour
 check('First visit shows the landing page', (await text()).includes('Explore the demo mission') && (await text()).includes('Live check'));

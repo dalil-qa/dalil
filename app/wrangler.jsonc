@@ -1,0 +1,11 @@
+// Deploys the built app (dist/) as static assets: `npm run build` then `npx wrangler deploy`.
+// Live at https://dalil.msulaiman00711.workers.dev (its origin must be in worker/wrangler.jsonc ALLOWED_ORIGINS).
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "dalil",
+	"compatibility_date": "2026-11-13",
+	"assets": {
+		"directory": "./dist",
+		"not_found_handling": "single-page-application"
+	}
+}

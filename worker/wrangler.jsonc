@@ -19,6 +19,6 @@
 	"vars": {
 		// Comma-separated list of origins allowed to call /coach (CORS + origin check).
 		// After the first Cloudflare Pages deploy, add its https://<name>.pages.dev address here.
-		"ALLOWED_ORIGINS": "http://localhost:5173,http://localhost:4173,http://127.0.0.1:5173,http://127.0.0.1:4173"
+		"ALLOWED_ORIGINS": "http://localhost:5173,http://localhost:4173,http://127.0.0.1:5173,http://127.0.0.1:4173,https://dalil.msulaiman00711.workers.dev"
 	}
 }
