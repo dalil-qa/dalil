@@ -7,8 +7,8 @@ import { Ring } from '../components/Ring.tsx';
 import { STATUS_INFO, LED_WORD } from '../components/info.ts';
 import { ReasonText, StatusBadge } from '../components/Status.tsx';
 import { SystemsStrip } from '../components/SystemsStrip.tsx';
-import { isSerialSupported, SERIAL_UNSUPPORTED_TEXT } from '../device/serial.ts';
-import { useT } from '../i18n.ts';
+import { isSerialSupported } from '../device/serial.ts';
+import { errorText, useT } from '../i18n.ts';
 import { formatValue } from '../logic/format.ts';
 import { INDICATOR_LABELS } from '../logic/status.ts';
 import { useNav } from '../nav.ts';
@@ -33,7 +33,8 @@ function ConnectTips() {
   const connectError = useStore((s) => s.connectError);
   const silent = useStore((s) => s.stationSilent);
   const connection = useStore((s) => s.connection);
-  const text = connectError ?? (silent ? 'Station not answering. Re-upload the Dalil program to the board, check the cable, and click Connect again.' : connection === 'lost' ? 'The station was disconnected. Check the cable and reconnect.' : null);
+  const { t } = useT();
+  const text = connectError ?? (silent ? t('stationSilentTip') : connection === 'lost' ? t('stationLostTip') : null);
   return text ? <p role="alert" className="text-base text-watch">{text}</p> : null;
 }
 
@@ -75,14 +76,14 @@ function Ready() {
         )}
         {isSerialSupported() ? (
           <Button variant="secondary" disabled={connection === 'connecting'} onClick={() => connectDevice('serial')}>
-            <Usb aria-hidden size={20} /> {connected && !isSim ? 'Reconnect station' : 'Connect station'}
+            <Usb aria-hidden size={20} /> {connected && !isSim ? t('reconnectStation') : t('connectStation')}
           </Button>
         ) : (
-          <p className="text-base text-slate-400">{SERIAL_UNSUPPORTED_TEXT}</p>
+          <p className="text-base text-slate-400">{t('serialUnsupported')}</p>
         )}
       </div>
       <ConnectTips />
-      {!canStart && <p className="text-base text-slate-400">Connect the station, or turn on the simulator in Settings.</p>}
+      {!canStart && <p className="text-base text-slate-400">{t('connectOrSimHint')}</p>}
     </div>
   );
 }
@@ -106,7 +107,7 @@ function Measuring() {
           {finger ? (
             <div className="flex flex-col items-center gap-2">
               <BeatingHeart bpm={live.hr} />
-              <span className="text-5xl font-semibold tabular-nums text-slate-50">{live.hr ?? '–'}<span className="ml-2 text-xl text-slate-400">bpm</span></span>
+              <span className="text-5xl font-semibold tabular-nums text-slate-50">{live.hr ?? '–'}<span className="ms-2 text-xl text-slate-400">bpm</span></span>
               <span className="text-xl tabular-nums text-slate-300">SpO2 {live.spo2 ?? '–'}{live.spo2 !== null ? ' %' : ''}</span>
               <div className="mt-1 w-48" aria-label={t('signalQuality')}>
                 <div className="h-2 rounded-full bg-white/10"><div className="h-2 rounded-full bg-cyan-400" style={{ width: `${Math.round((live.q ?? 0) * 100)}%` }} /></div>
@@ -116,7 +117,7 @@ function Measuring() {
           ) : (
             <div className="flex flex-col items-center gap-2">
               <ScanFace aria-hidden size={72} className="text-cyan-400" />
-              <span className="text-5xl font-semibold tabular-nums text-slate-50">{live.temp ?? '–'}<span className="ml-2 text-xl text-slate-400">°C</span></span>
+              <span className="text-5xl font-semibold tabular-nums text-slate-50">{live.temp ?? '–'}<span className="ms-2 text-xl text-slate-400">°C</span></span>
             </div>
           )}
         </div>
@@ -180,12 +181,12 @@ function CheckError() {
   const live = useStore((s) => s.live);
   const station = useStore((s) => s.station);
   const { resetLive, startCheckWithSimulator } = useStore.getState();
-  const { t } = useT();
+  const { lang, t } = useT();
   const isSim = station?.fw === 'sim';
   return (
     <div className="mx-auto flex max-w-3xl flex-col items-start gap-5 p-4">
       <h1 className="text-[28px] font-semibold text-slate-50">{live.error?.code === 'cancelled' ? t('checkCancelled') : t('didntWork')}</h1>
-      <p role="alert" className="text-xl text-slate-200">{live.error?.text ?? t('somethingWrong')}</p>
+      <p role="alert" className="text-xl text-slate-200">{errorText(live.error, lang, t('somethingWrong'))}</p>
       <div className="flex flex-wrap gap-3">
         <Button big onClick={resetLive}><RotateCcw aria-hidden size={20} /> {t('tryAgain')}</Button>
         {!isSim && (
@@ -216,7 +217,7 @@ export function Check() {
   if (stage === 'error') return <CheckError />;
   if (stage === 'starting' || stage === 'finger' || stage === 'forehead') return <Measuring />;
   // Home mode: the result in plain words, and no quick log.
-  if (stage === 'done' && home && lastCheck) return <HomeResult assessments={lastCheck.assessments} overall={lastCheck.overall} onDone={finish} />;
+  if (stage === 'done' && home && lastCheck) return <HomeResult assessments={lastCheck.assessments} overall={lastCheck.overall} lowConfidence={lastCheck.lowConfidence} onDone={finish} />;
   if (stage === 'done') return <Result onContinue={() => setLogging(true)} />;
   return <Ready />;
 }

@@ -69,11 +69,12 @@ function App() {
 
   // Home mode makes everything bigger (the page's root font size) and switches to RTL when Arabic is active.
   useEffect(() => {
-    document.documentElement.classList.toggle('home-mode', home);
-    const isAr = home && lang === 'ar';
+    const inHome = home && screen !== 'landing';
+    document.documentElement.classList.toggle('home-mode', inHome);
+    const isAr = inHome && lang === 'ar';
     document.documentElement.dir = isAr ? 'rtl' : 'ltr';
     document.documentElement.lang = isAr ? 'ar' : 'en';
-  }, [home, lang]);
+  }, [home, lang, screen]);
 
   // The intro page is full-screen. The emergency page and its red bar still work from everywhere else.
   if (screen === 'landing') return <Landing />;

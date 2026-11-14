@@ -197,7 +197,17 @@ export const useStore = create<DalilState>()(
         // Any valid line proves the station is alive: don't stay stuck on "connecting" if its hello was missed.
         if (m.stage !== 'hello' && get().connection === 'connecting') {
           if (helloTimer) clearTimeout(helloTimer);
-          set({ connection: 'connected', stationSilent: false, connectError: null });
+          const fallbackStation: StationHello = get().station ?? {
+            stage: 'hello',
+            device: 'dalil-station',
+            fw: link?.kind === 'simulator' ? 'sim' : '1.0',
+            proto: 1,
+            hr_sensor: 'max30102',
+            temp_sensor: 'mlx90614',
+            oled: false,
+          };
+          set({ station: fallbackStation, connection: 'connected', stationSilent: false, connectError: null });
+          link?.send('PING');
         }
         switch (m.stage) {
           case 'hello':
@@ -292,6 +302,12 @@ export const useStore = create<DalilState>()(
         link?.send(get().emergency ? 'LED RED' : ledCommandFor(overall));
       };
 
+      const abortRunningCheck = (): void => {
+        clearWatchdog();
+        const stage = get().live.stage;
+        if (stage === 'starting' || stage === 'finger' || stage === 'forehead') link?.send('STOP');
+      };
+
       const closeLink = async (): Promise<void> => {
         if (helloTimer) clearTimeout(helloTimer);
         helloTimer = null;
@@ -367,10 +383,12 @@ export const useStore = create<DalilState>()(
         },
 
         stopCheck: () => {
+          clearWatchdog();
           link?.send('STOP');
-          // If the station is stuck it won't answer with `cancelled`: don't wait for it.
           const stage = get().live.stage;
-          if (stage === 'starting' || stage === 'finger' || stage === 'forehead') armWatchdog();
+          if (stage === 'starting' || stage === 'finger' || stage === 'forehead') {
+            set({ live: { ...IDLE_LIVE, stage: 'error', error: { code: 'cancelled', text: STATION_ERROR_TEXT.cancelled } } });
+          }
         },
 
         startCheckWithSimulator: async () => {
@@ -399,16 +417,20 @@ export const useStore = create<DalilState>()(
         },
 
         // Starting a guest session always starts empty, so one visitor never sees the previous visitor's values.
-        setCrew: (crewId) =>
+        setCrew: (crewId) => {
+          abortRunningCheck();
           set((s) => ({
             crewId,
             lastCheck: null,
             live: IDLE_LIVE,
             ...(crewId === 'guest' ? withoutGuest(s) : {}),
-          })),
+          }));
+        },
 
-        endGuestSession: () =>
-          set((s) => ({ ...withoutGuest(s), crewId: s.crewId === 'guest' ? 'c2' : s.crewId, lastCheck: null, live: IDLE_LIVE })),
+        endGuestSession: () => {
+          abortRunningCheck();
+          set((s) => ({ ...withoutGuest(s), crewId: s.crewId === 'guest' ? 'c2' : s.crewId, lastCheck: null, live: IDLE_LIVE }));
+        },
         setMission: (missionId) => set({ missionId }),
         setMissionDay: (day) => set({ missionDay: Math.trunc(day) }),
 
@@ -421,13 +443,14 @@ export const useStore = create<DalilState>()(
         setLang: (lang) => set({ lang }),
 
         resetDemo: () => {
+          abortRunningCheck();
           set({ readings: sampleReadings(), symptoms: sampleSymptoms(), emergency: null, emergencies: [], lastCheck: null, live: IDLE_LIVE });
           useStore.persist.clearStorage();
         },
 
         openEmergency: (trigger, symptoms) => {
           const { emergency, crewId, missionDay, missionId, lastCheck } = get();
-          if (emergency) {
+          if (emergency && emergency.crewId === crewId) {
             // A second emergency while one is open only adds the new red flags as an update.
             const added = symptoms.filter((s) => !emergency.symptoms.includes(s));
             if (added.length === 0) return;
@@ -500,7 +523,7 @@ export const useStore = create<DalilState>()(
           symptoms: [...current.symptoms.filter(isSampleLog), ...(p.symptoms ?? [])],
           // The demo opens on day 47, but real readings saved on later days (Settings → Next day) must not
           // vanish after a reload: screens only show readings up to the current mission day.
-          missionDay: Math.max(current.missionDay, ...savedReadings.map((r) => r.missionDay)),
+          missionDay: savedReadings.reduce((max, r) => (Number.isFinite(r.missionDay) && r.missionDay > max ? r.missionDay : max), current.missionDay),
         };
       },
       partialize: (s) => ({

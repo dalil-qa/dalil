@@ -188,8 +188,8 @@ export function buildMessages(req: CoachRequest): { role: 'user' | 'assistant'; 
 // ---------- answer clean-up ----------
 
 const MAX_ANSWER_CHARS = { chat: 1200, summary: 2400 } as const;
-/** Block answers that violate rule 3 by prescribing doses or common medications. */
-const UNSAFE_MEDICAL_RE = /\b(?:\d+\s*mg\b|prescribe|take\s+(?:ibuprofen|aspirin|paracetamol|acetaminophen|tylenol|antibiotics|medication))\b/i;
+/** Block answers that violate rule 3 by prescribing doses or common medications (without blocking mg/dL glucose units). */
+const UNSAFE_MEDICAL_RE = /\b(?:\d+\s*mg(?!\s*\/\s*(?:dl|l)\b)\b|prescribe|take\s+(?:ibuprofen|aspirin|paracetamol|acetaminophen|tylenol|antibiotics|medication))\b/i;
 
 /**
  * Checks the model's JSON and applies the safety rules again, so they hold even if the model forgets:

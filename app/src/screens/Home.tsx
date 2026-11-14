@@ -62,6 +62,22 @@ function SendToFamily({ text }: { text?: string }) {
   );
 }
 
+/** Collapse bp_sys + bp_dia into a single blood pressure entry with the worse status so it is not repeated twice. */
+function dedupeBloodPressure(assessments: Assessment[]): Assessment[] {
+  const bp = assessments.filter((a) => a.indicator === 'bp_sys' || a.indicator === 'bp_dia');
+  if (bp.length <= 1) return assessments;
+  const combined: Assessment = { ...bp[0], indicator: 'bp_sys', status: overallStatus(bp) };
+  let inserted = false;
+  return assessments.flatMap((a) => {
+    if (a.indicator === 'bp_sys' || a.indicator === 'bp_dia') {
+      if (inserted) return [];
+      inserted = true;
+      return [combined];
+    }
+    return [a];
+  });
+}
+
 export function HomeToday() {
   const crewId = useStore((s) => s.crewId);
   const day = useStore((s) => s.missionDay);
@@ -69,7 +85,7 @@ export function HomeToday() {
   const go = useNav((s) => s.go);
   const { lang, t } = useT();
   const items = latestAssessments(readings, crewId, day);
-  const assessed = items.flatMap((i) => (i.assessment ? [i.assessment] : []));
+  const assessed = dedupeBloodPressure(items.flatMap((i) => (i.assessment ? [i.assessment] : [])));
   const overall = overallStatus(assessed);
   const hour = useNow().getHours();
   const greeting = hour < 12 ? t('goodMorning') : hour < 18 ? t('goodAfternoon') : t('goodEvening');
@@ -98,9 +114,10 @@ export function HomeToday() {
   );
 }
 
-export function HomeResult({ assessments, overall, onDone }: { assessments: Assessment[]; overall: Assessment['status']; onDone: () => void }) {
+export function HomeResult({ assessments, overall, lowConfidence = false, onDone }: { assessments: Assessment[]; overall: Assessment['status']; lowConfidence?: boolean; onDone: () => void }) {
   const [asked, setAsked] = useState(false);
   const { lang, t } = useT();
+  const list = dedupeBloodPressure(assessments);
   const headline = lang === 'ar' ? plainHeadlineAr(overall) : plainHeadline(overall);
   const sentence = (a: Assessment) => (lang === 'ar' ? plainSentenceAr(a.indicator, a.status) : plainSentence(a.indicator, a.status));
   return (
@@ -109,6 +126,11 @@ export function HomeResult({ assessments, overall, onDone }: { assessments: Asse
         <StatusBadge status={overall} size="lg" />
         <h1 className={`text-4xl font-semibold ${STATUS_INFO[overall].text}`}>{headline}</h1>
       </div>
+      {lowConfidence && (
+        <p role="status" className="rounded-2xl border border-watch/50 bg-watch/10 px-5 py-4 text-xl text-watch">
+          {t('lowConfidence')}
+        </p>
+      )}
       {overall === 'act' && (
         <div role="alert" className="flex flex-col gap-3 rounded-2xl border-2 border-act bg-act/10 p-5 text-2xl text-act">
           <p>{t('callNowIfUnwell')}</p>
@@ -116,8 +138,8 @@ export function HomeResult({ assessments, overall, onDone }: { assessments: Asse
         </div>
       )}
       <ul className="flex flex-col gap-3 text-2xl text-slate-100">
-        {assessments.map((a) => <li key={a.indicator}>{sentence(a)}</li>)}
-        {assessments.length === 0 && <li>{t('nothingMeasured')}</li>}
+        {list.map((a) => <li key={a.indicator}>{sentence(a)}</li>)}
+        {list.length === 0 && <li>{t('nothingMeasured')}</li>}
       </ul>
       <SendToFamily text={overall === 'ok' ? t('sendFamily') : t('tellFamily')} />
       <div className="flex flex-wrap gap-4">

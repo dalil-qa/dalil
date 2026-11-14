@@ -50,9 +50,20 @@ const EN = {
   somethingWrong: 'Something went wrong. Please try again.',
   tryAgain: 'Try again',
   useSimulator: 'Use the simulator',
+  connectStation: 'Connect station',
+  reconnectStation: 'Reconnect station',
+  serialUnsupported: 'Live checks need Chrome or Edge on a computer. You can still explore with the simulator.',
+  connectOrSimHint: 'Connect the station, or turn on the simulator in Settings.',
+  stationSilentTip: 'Station not answering. Re-upload the Dalil program to the board, check the cable, and click Connect again.',
+  stationLostTip: 'The station was disconnected. Check the cable and reconnect.',
   lowConfidence: 'The signal was weak, so treat this result with caution and measure again.',
   // emergency (home)
   emergency: 'EMERGENCY',
+  emergencyOpenBar: 'Emergency open',
+  reportSentBar: 'report sent',
+  reportNotSentBar: 'report not sent',
+  returnToEmergency: 'Return to emergency page',
+  updates: 'Updates',
   started: 'started',
   justNow: 'just now',
   minAgo: '{n} min ago',
@@ -123,8 +134,19 @@ const AR: Record<Key, string> = {
   somethingWrong: 'حدث خطأ ما. يرجى المحاولة مرة أخرى.',
   tryAgain: 'حاول مرة أخرى',
   useSimulator: 'استخدم المحاكاة',
+  connectStation: 'توصيل الجهاز',
+  reconnectStation: 'إعادة توصيل الجهاز',
+  serialUnsupported: 'تحتاج الفحوصات المباشرة إلى متصفح Chrome أو Edge على جهاز كمبيوتر. لا يزال بإمكانك التجربة باستخدام المحاكاة.',
+  connectOrSimHint: 'وصّل الجهاز، أو فعّل المحاكاة من الإعدادات.',
+  stationSilentTip: 'الجهاز لا يستجيب. أعد رفع برنامج دليل إلى اللوحة، وتحقق من الكابل، ثم اضغط توصيل مرة أخرى.',
+  stationLostTip: 'تم فصل الجهاز. تحقق من الكابل وأعد التوصيل.',
   lowConfidence: 'كانت الإشارة ضعيفة، لذا تعامل مع هذه النتيجة بحذر وأعد القياس.',
   emergency: 'حالة طارئة',
+  emergencyOpenBar: 'حالة طارئة مفتوحة',
+  reportSentBar: 'تم إرسال التقرير',
+  reportNotSentBar: 'لم يُرسل التقرير',
+  returnToEmergency: 'العودة إلى صفحة الطوارئ',
+  updates: 'التحديثات',
   started: 'بدأت',
   justNow: 'الآن',
   minAgo: 'قبل {n} دقيقة',
@@ -192,6 +214,32 @@ export function plainHeadlineAr(overall: Status): string {
   if (overall === 'ok') return 'كل شيء على ما يرام اليوم.';
   if (overall === 'watch') return 'هناك شيء مختلف قليلًا عن المعتاد.';
   return 'يرجى الاتصال بطبيبك الآن.';
+}
+
+/** Status badge wording: avoids "Call surgeon" in Home mode and translates into Arabic when active. */
+export function statusWord(status: Status, homeMode: boolean, lang: Lang): string {
+  if (homeMode && lang === 'ar') {
+    return status === 'ok' ? 'طبيعي' : status === 'watch' ? 'للمتابعة' : 'اتصل بالطبيب';
+  }
+  if (homeMode) {
+    return status === 'ok' ? 'OK' : status === 'watch' ? 'Watch' : 'Call doctor';
+  }
+  return status === 'ok' ? 'OK' : status === 'watch' ? 'Watch' : 'Call surgeon';
+}
+
+const STATION_ERROR_AR: Record<string, string> = {
+  no_finger: 'لم يتم اكتشاف الإصبع. ضع طرف إصبعك في الفتحة وحاول مرة أخرى.',
+  bad_signal: 'كانت الإشارة ضعيفة جدًا ولا يمكن الوثوق بها. دفّئ يدك، وابقَ ثابتًا، وحاول مرة أخرى.',
+  cancelled: 'تم إلغاء الفحص.',
+  no_sensors: 'لا يستطيع الجهاز العثور على المستشعرات. اطلب من المسؤول التحقق من الأسلاك.',
+  no_reading: 'لم يقِس الجهاز أي شيء هذه المرة، لذا لا توجد نتيجة. ضع طرف إصبعك في الفتحة وحاول مرة أخرى.',
+  stuck: 'توقف الجهاز عن الاستجابة. تحقق من الكابل، ثم حاول مرة أخرى أو استخدم المحاكاة.',
+};
+
+export function errorText(error: { code: string; text: string | null } | null, lang: Lang, fallback: string): string {
+  if (!error) return fallback;
+  if (lang === 'ar' && STATION_ERROR_AR[error.code]) return STATION_ERROR_AR[error.code];
+  return error.text ?? fallback;
 }
 
 // ---------- red-flag labels and home emergency steps ----------

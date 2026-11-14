@@ -154,8 +154,8 @@ export function Emergency() {
         </p>
 
         {emergency.updates.length > 0 && (
-          <section aria-label="Updates">
-            <h2 className="mb-1 text-lg font-semibold text-slate-100">Updates</h2>
+          <section aria-label={t('updates')}>
+            <h2 className="mb-1 text-lg font-semibold text-slate-100">{t('updates')}</h2>
             <ul className="text-base text-slate-300">{emergency.updates.map((u) => <li key={u.time + u.text}>{u.text.startsWith('Update') || u.text.startsWith('Report') || u.text.startsWith('New') ? u.text : `${clock(u.time)}: ${u.text}`}</li>)}</ul>
           </section>
         )}
