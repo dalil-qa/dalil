@@ -1,0 +1,10 @@
+{
+  // Type-checks everything including the *.test.ts files (they use node:test). Run: npm run typecheck:test
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
+    "types": ["vite/client", "w3c-web-serial", "node"]
+  },
+  "include": ["src"],
+  "exclude": []
+}

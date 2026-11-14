@@ -1,0 +1,29 @@
+[
+  {
+    "indicator": "spo2",
+    "unit": "%",
+    "green": { "min": 95, "max": null },
+    "amber": { "min": 90, "max": null },
+    "baseline": null,
+    "howToMeasure": "Measured by the station. Warm, still finger; rest the lid on it, don't press.",
+    "source": { "title": "DRAFT placeholder (format example from APP_BUILD_GUIDE 5.1; Mechanical 2 to replace with NASA-STD-3001 values)", "url": "https://www.nasa.gov/ochmo/human-spaceflight-and-aviation-standards/" }
+  },
+  {
+    "indicator": "hr",
+    "unit": "bpm",
+    "green": { "min": 50, "max": 100 },
+    "amber": { "min": 40, "max": 130 },
+    "baseline": { "band": 8, "bandType": "abs", "days": 3, "drift": 12 },
+    "howToMeasure": "Measured by the station. Do the check at the same time each morning, before exercise or coffee.",
+    "source": { "title": "DRAFT placeholder (format example from APP_BUILD_GUIDE 5.1; Mechanical 2 to replace with NASA-STD-3001 values)", "url": "https://www.nasa.gov/ochmo/human-spaceflight-and-aviation-standards/" }
+  },
+  {
+    "indicator": "temp",
+    "unit": "°C",
+    "green": { "min": 33, "max": 36.5 },
+    "amber": { "min": 32, "max": 37.5 },
+    "baseline": { "band": 1, "bandType": "abs", "days": 3, "drift": null },
+    "howToMeasure": "Measured by the station. Hold your forehead at the window, about 5 cm away, hair and sweat wiped off.",
+    "source": { "title": "DRAFT placeholder (forehead skin is about 33-36 C, not core temperature; Mechanical 2 to replace)", "url": "https://www.nasa.gov/ochmo/human-spaceflight-and-aviation-standards/" }
+  }
+]
