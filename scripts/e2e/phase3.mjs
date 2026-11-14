@@ -73,7 +73,7 @@ check('Every system opens a panel with NASA\'s five questions', allOpen);
 // keyboard: focus Eyes, press Enter -> Eyes panel; Space on Skin
 await evalJs(`(() => { const g=[...document.querySelectorAll('svg g[role=button]')].find(x=>x.getAttribute('aria-label').startsWith('Heart')); g.focus(); g.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true})); })()`); await sleep(200);
 check('Enter on a focused system opens it (keyboard)', (await evalJs(`document.querySelector('main h2')?.innerText`)) === 'Heart and circulation');
-check('Heart panel explains why it is Watch and shows the guidance card', (await text()).includes('above your normal') && (await text()).includes('Resting heart rate above your normal'));
+check('Heart panel explains why it is Watch and shows the guidance card', (await text()).includes('above your normal') && (await text()).includes('Resting heart rate outside your usual range'));
 await click('Show hazards'); await sleep(300);
 check('Hazards toggle shows the five hazard chips with the mission risks starred', (await text()).includes('Radiation') && (await text()).includes('Distance from Earth') && (await text()).includes('★'));
 await shot('p3-2b-body-hazards');
@@ -87,7 +87,7 @@ check('Trends shows the Before-launch line and Earth band legend', (await text()
 await click('Blood pressure'); await sleep(700);
 check('Blood pressure draws two lines', (await evalJs(`document.querySelectorAll('.recharts-line').length`)) >= 2);
 await click('Sleep'); await sleep(300); await click('7 days'); await sleep(500);
-check('Range and indicator switches work without errors', (await text()).includes('No safe range is set for this indicator yet'));
+check('Range and indicator switches work without errors', (await text()).includes('Safe range or target'));
 await shot('p3-3b-trends-sleep');
 
 // ---- 4. Coach
@@ -97,12 +97,12 @@ await click('Why is my resting heart rate amber?');
 const answered = await waitFor('Sources:', 35000);
 await sleep(300); await shot('p3-4-coach');
 const coachText = await text();
-check('Live Coach answers with its sources (cards used)', answered && /Resting heart rate above your normal/.test(coachText), answered ? '' : 'no answer in 35 s: ' + coachText.slice(-300));
+check('Live Coach answers with its sources (cards used)', answered && /Resting heart rate outside your usual range/.test(coachText), answered ? '' : 'no answer in 35 s: ' + coachText.slice(-300));
 // offline fallback
 await send('Network.emulateNetworkConditions', { offline: true, latency: 0, downloadThroughput: 0, uploadThroughput: 0 });
 await setInput('#coach-input', 'What should I do about fatigue?'); await sleep(100); await click('Send');
 check('Offline: Coach shows the guidance cards instead', await waitFor('Offline: showing the guidance cards.', 25000));
-check('Offline cards include the matching ones', (await text()).includes('Feeling very tired') && (await text()).includes('Resting heart rate above your normal'));
+check('Offline cards include the matching ones', (await text()).includes('Feeling very tired') && (await text()).includes('Resting heart rate outside your usual range'));
 await shot('p3-4b-coach-offline');
 await send('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
 // red flag word check

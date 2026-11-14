@@ -24,10 +24,10 @@ describe('the demo data (sample history)', () => {
     assert.match(hr?.assessment?.reason ?? '', /above your normal .* for 3 days\.$/);
   });
 
-  it('the other indicators with thresholds stay OK for Crew Member 2, and everything is OK for crew 1 and 3', () => {
-    const c2 = latestAssessments(readings, 'c2', 47).filter((i) => i.assessment && i.indicator !== 'hr');
-    assert.ok(c2.length >= 2);
-    assert.ok(c2.every((i) => i.assessment?.status === 'ok'), JSON.stringify(c2.map((i) => [i.indicator, i.assessment?.status])));
+  it('Crew Member 2: vitals stay OK, while sleep, mood, water and meals are off target; crew 1 and 3 are all OK', () => {
+    const status = (crew: string, i: string) => latestAssessments(readings, crew, 47).find((x) => x.indicator === i)?.assessment?.status;
+    for (const ok of ['spo2', 'temp', 'bp_sys', 'bp_dia', 'exercise']) assert.equal(status('c2', ok), 'ok', ok);
+    for (const watch of ['sleep', 'mood', 'water', 'meals']) assert.equal(status('c2', watch), 'watch', watch);
     for (const crew of ['c1', 'c3']) {
       const items = latestAssessments(readings, crew, 47).filter((i) => i.assessment);
       assert.ok(items.every((i) => i.assessment?.status === 'ok'), `${crew}: ${JSON.stringify(items.map((i) => [i.indicator, i.assessment?.status, i.assessment?.reason]))}`);
@@ -112,7 +112,7 @@ describe('the emergency report template', () => {
 
 describe('the simulator follows each crew member', () => {
   it('uses their own 7-day normal, and sensible defaults when there is no history', () => {
-    assert.deepEqual(simulatorBaseline(readings, 'c1', 47), { hr: 58, spo2: 98, temp: 34.3 });
+    assert.deepEqual(simulatorBaseline(readings, 'c1', 47), { hr: 62, spo2: 98, temp: 34.3 });
     assert.equal(simulatorBaseline(readings, 'c3', 47).hr, 68);
     assert.equal(simulatorBaseline(readings, 'c2', 47).hr, 65); // the 7-day normal before the rise
     assert.deepEqual(simulatorBaseline([], 'guest', 47), { hr: 65, spo2: 98, temp: 34.5 });

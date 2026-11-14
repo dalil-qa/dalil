@@ -14,10 +14,10 @@ const states = (crewId: string, emergencies: EmergencyEvent[] = [], symptomLogs 
 const byId = (s: ReturnType<typeof states>, id: string) => s.find((x) => x.system.id === id)!;
 
 describe('guidance cards for the demo day', () => {
-  it('Crew Member 2 gets the heart-rate and fatigue cards, and nothing that escalates', () => {
+  it('Crew Member 2 gets the cards for heart rate, sleep, mood, water, meals and fatigue, and none that escalate', () => {
     const items = latestAssessments(readings, 'c2', 47);
     const picked = cardsFor(items.flatMap((i) => (i.assessment ? [i.assessment] : [])), recentSymptomIds(logs, 'c2', 47));
-    assert.deepEqual(picked.map((c) => c.id), ['hr-rising', 'symptom-fatigue']);
+    assert.deepEqual(picked.map((c) => c.id).sort(), ['hr-rising', 'meals-low', 'mood-low', 'sleep-low', 'symptom-fatigue', 'water-low']);
     assert.ok(picked.every((c) => !c.escalate));
   });
   it('a red status brings the red, escalating card', () => {
@@ -42,11 +42,20 @@ describe('body system colours', () => {
     assert.equal(byId(s, 'lungs').status, 'ok');
     assert.equal(byId(s, 'skin').status, 'ok');
   });
-  it('symptom-only systems are OK with "No symptoms reported"; systems with no thresholds yet are grey, not green', () => {
+  it('symptom-only systems are OK with "No symptoms reported"; a system with nothing measured is grey, not green', () => {
     const s = states('c1');
     assert.equal(byId(s, 'eyes').status, 'ok');
     assert.equal(byId(s, 'eyes').reason, 'No symptoms reported.');
-    assert.equal(byId(s, 'brain').status, null);
+    assert.equal(byId(s, 'brain').status, 'ok'); // mood and sleep are on target for Crew Member 1
+    const empty = systemStates({ items: [], symptomLogs: [], emergencies: [], crewId: 'c1', day: 47 });
+    assert.equal(empty.find((x) => x.system.id === 'brain')?.status, null);
+  });
+  it('Crew Member 2: brain and metabolism are Watch (sleep, mood, water and meals are off target), bones are OK', () => {
+    const s = states('c2');
+    assert.equal(byId(s, 'brain').status, 'watch');
+    assert.match(byId(s, 'brain').reason, /below the target/);
+    assert.equal(byId(s, 'metabolism').status, 'watch');
+    assert.equal(byId(s, 'musculoskeletal').status, 'ok');
   });
   it('an emergency red flag keeps its system red for 3 days, then stops', () => {
     const e = { id: 'e', crewId: 'c1', startedAt: '2026-02-16T06:42:00', missionDay: 47, trigger: 'button', symptoms: ['chest_pain'], latest: [], crewAlertedAt: null, reportSentAt: null, updates: [], closedAt: 'x', closedReason: 'help_arrived' } as EmergencyEvent;
@@ -60,7 +69,7 @@ describe('insights (rules, not AI)', () => {
   it('Crew Member 2: heart rate above normal for 3 days, with the sleep link', () => {
     const out = insights(readings, 'c2', 47);
     assert.equal(out.length, 1);
-    assert.match(out[0], /^Your resting heart rate has been \d+(\.\d)? bpm above your normal for 3 days, while sleep dropped to 5\.5 h\. Poor sleep can raise resting heart rate\.$/);
+    assert.match(out[0], /^Your resting heart rate has been \d+(\.\d)? bpm above your normal for 3 days, while sleep dropped to 5\.5 h\. NASA warns that sleep loss affects health and performance\.$/);
   });
   it('Crew Member 1 is steady all week', () => {
     assert.deepEqual(insights(readings, 'c1', 47), ['All indicators steady this week. Keep your routine.']);

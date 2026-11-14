@@ -1,6 +1,6 @@
 // Typed access to the content files in this folder (APP_BUILD_GUIDE.md section 5).
-// Several are DRAFT seeds built from the guide's own tables: M2 (thresholds, symptoms, emergency, cards,
-// systems) and M3 (missions, crew, story) replace them with sourced content. Keep the shapes.
+// Drafted from NASA documents and public health pages; see docs/CONTENT_REVIEW.md for sources, team defaults and sign-off.
+// Keep the shapes: the guide (section 5) and the tests in content.test.ts rely on them.
 import type { BodySystem, CrewMember, EmergencyContent, GuidanceCard, IndicatorId, Mission, MissionId, SymptomId, SymptomInfo, Threshold } from '../types.ts';
 import cardsJson from './cards.json' with { type: 'json' };
 import crewJson from './crew.json' with { type: 'json' };

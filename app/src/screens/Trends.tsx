@@ -138,7 +138,7 @@ export function Trends() {
           </ResponsiveContainer>
         </div>
         <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-slate-400">
-          {threshold && <li><span aria-hidden className="mr-1 inline-block h-3 w-3 rounded-sm bg-ok/30 align-middle" />Safe range (NASA / medical)</li>}
+          {threshold && <li><span aria-hidden className="mr-1 inline-block h-3 w-3 rounded-sm bg-ok/30 align-middle" />Safe range or target (see Sources)</li>}
           {base !== null && <li><span aria-hidden className="mr-1 inline-block h-3 w-3 rounded-sm bg-cyan-400/40 align-middle" />Your normal ± {limit}</li>}
           {pre !== null && <li><span aria-hidden className="mr-1 inline-block h-0.5 w-4 border-t-2 border-dashed border-gold-200 align-middle" /> Before launch</li>}
           <li>Dots: <span className="text-ok">OK</span> · <span className="text-watch">Watch</span> · <span className="text-act">Call surgeon</span></li>

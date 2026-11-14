@@ -64,7 +64,7 @@ describe('sendCoachMessage', () => {
     const r = await sendCoachMessage('Why is my resting heart rate amber?', fakeFetch(() => jsonResponse({ answer: 'It is above your normal.', cardIds: ['hr-rising', 'ghost'], escalate: false })));
     assert.equal(r, 'answered');
     const sent = calls[0].body;
-    assert.deepEqual(sent.cards.map((c) => c.id), ['hr-rising', 'symptom-fatigue']);
+    assert.deepEqual(sent.cards.map((c) => c.id).sort(), ['hr-rising', 'meals-low', 'mood-low', 'sleep-low', 'symptom-fatigue', 'water-low']); // the cards for Crew Member 2's Watch statuses and recent symptom
     assert.equal(sent.question, 'Why is my resting heart rate amber?');
     assert.deepEqual(sent.history, []); // the question is not repeated in the history
     assert.ok(!JSON.stringify(sent).includes('Crew Member'));
@@ -79,7 +79,7 @@ describe('sendCoachMessage', () => {
     const last = useSession.getState().chats.c2.at(-1);
     assert.equal(last?.text, OFFLINE_NOTE);
     assert.equal(last?.fallback, true);
-    assert.deepEqual(last?.cardIds, ['hr-rising', 'symptom-fatigue']);
+    assert.deepEqual([...(last?.cardIds ?? [])].sort(), ['hr-rising', 'meals-low', 'mood-low', 'sleep-low', 'symptom-fatigue', 'water-low']);
   });
 
   it('says so plainly when offline and no card matches', async () => {

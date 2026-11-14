@@ -55,7 +55,7 @@ export function Sources() {
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-sm text-slate-400">Some entries are placeholders marked DRAFT: the health team is replacing them with the exact sources. Treat DRAFT content as unchecked.</p>
+        <p className="mt-4 text-sm text-slate-400">This guidance was drafted from the NASA documents and public health pages above, with AI help, and has not yet been reviewed by a clinician. Where no published source gives a limit (for example the point where a Watch becomes Call surgeon for heart rate), it is the team's default and is marked as such in the source note. Always follow your flight surgeon.</p>
       </Card>
 
       <Card title="Data you see">

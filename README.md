@@ -46,7 +46,7 @@ The app works offline; only the Coach uses the internet, and it falls back to th
 - **The Coach** uses Cloudflare Workers AI (Meta Llama 3.3 70B Instruct). It answers only from the guidance cards the app sends, never diagnoses, and the app re-checks its output (known card ids only, escalate on red).
 - **The Emergency page and red-flag detection use no AI.**
 - **This code and its draft text were written with AI assistance** (Claude Code by Anthropic), directed by the team and covered by automated tests and browser checks.
-- **Health content must be checked by people.** Safe ranges, guidance cards, emergency steps and body-system text start as draft placeholders and are marked DRAFT until the team's health researchers replace them with cited sources. Team review log: _to be filled in by the team before submission._
+- **Health content must be checked by people.** Safe ranges, guidance cards, emergency steps and body-system text were drafted from NASA documents and public health pages (NHS, CDC, WHO, MedlinePlus), with every source cited. A clinician has not reviewed them yet. Where no source gives a limit, it is marked as the team's default. See [docs/CONTENT_REVIEW.md](docs/CONTENT_REVIEW.md) for what each number is based on, the decisions still open, and the sign-off table (empty until someone reviews).
 
 ## Sources and licences
 - Our code is open source under the [MIT licence](LICENSE).

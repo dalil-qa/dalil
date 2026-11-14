@@ -1,29 +1,210 @@
 [
   {
-    "indicator": "spo2",
-    "unit": "%",
-    "green": { "min": 95, "max": null },
-    "amber": { "min": 90, "max": null },
-    "baseline": null,
-    "howToMeasure": "Measured by the station. Warm, still finger; rest the lid on it, don't press.",
-    "source": { "title": "DRAFT placeholder (format example from APP_BUILD_GUIDE 5.1; Mechanical 2 to replace with NASA-STD-3001 values)", "url": "https://www.nasa.gov/ochmo/human-spaceflight-and-aviation-standards/" }
-  },
-  {
     "indicator": "hr",
     "unit": "bpm",
-    "green": { "min": 50, "max": 100 },
-    "amber": { "min": 40, "max": 130 },
-    "baseline": { "band": 8, "bandType": "abs", "days": 3, "drift": 12 },
-    "howToMeasure": "Measured by the station. Do the check at the same time each morning, before exercise or coffee.",
-    "source": { "title": "DRAFT placeholder (format example from APP_BUILD_GUIDE 5.1; Mechanical 2 to replace with NASA-STD-3001 values)", "url": "https://www.nasa.gov/ochmo/human-spaceflight-and-aviation-standards/" }
+    "green": {
+      "min": 60,
+      "max": 100
+    },
+    "amber": {
+      "min": 40,
+      "max": 130
+    },
+    "baseline": {
+      "band": 8,
+      "bandType": "abs",
+      "days": 3,
+      "drift": 12
+    },
+    "howToMeasure": "Measured by the station. Sit still and rest for at least 10 minutes first, and do the check at the same time each morning, before exercise.",
+    "source": {
+      "title": "MedlinePlus, Pulse (reviewed 1/1/2025): 60 to 100 beats per minute for adults at rest, measured after at least 10 minutes of rest. The watch/act limits (40 and 130) and the personal-baseline settings are the team's defaults and need a clinician's confirmation.",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    }
+  },
+  {
+    "indicator": "spo2",
+    "unit": "%",
+    "green": {
+      "min": 95,
+      "max": null
+    },
+    "amber": {
+      "min": 93,
+      "max": null
+    },
+    "baseline": null,
+    "howToMeasure": "Measured by the station. Rest for about 5 minutes with a warm hand, no nail varnish or false nail on the finger, and keep still. Read the number once it stops changing.",
+    "source": {
+      "title": "NHS England, Using a pulse oximeter to check you are OK (2022), pp. 6-7 and 12-16: 92% or less means urgent help; 93 or 94, or lower than your usual, means contact a doctor. 95 and above is the normal reading (NHS England, Important information to keep you safe at home, p. 5). Written for patients at home, so a clinician should confirm it for crew.",
+      "url": "https://www.england.nhs.uk/coronavirus/wp-content/uploads/sites/52/2022/02/pulse-oximeter-easy-read-2022-digital.pdf"
+    }
   },
   {
     "indicator": "temp",
     "unit": "°C",
-    "green": { "min": 33, "max": 36.5 },
-    "amber": { "min": 32, "max": 37.5 },
-    "baseline": { "band": 1, "bandType": "abs", "days": 3, "drift": null },
-    "howToMeasure": "Measured by the station. Hold your forehead at the window, about 5 cm away, hair and sweat wiped off.",
-    "source": { "title": "DRAFT placeholder (forehead skin is about 33-36 C, not core temperature; Mechanical 2 to replace)", "url": "https://www.nasa.gov/ochmo/human-spaceflight-and-aviation-standards/" }
+    "green": {
+      "min": 31.0,
+      "max": 35.6
+    },
+    "amber": {
+      "min": null,
+      "max": 37.9
+    },
+    "baseline": {
+      "band": 1,
+      "bandType": "abs",
+      "days": 3,
+      "drift": null
+    },
+    "howToMeasure": "Measured by the station. Hold your forehead at the window about 5 cm away, with hair and sweat wiped off, in a comfortable room. This is forehead skin temperature, not core body temperature.",
+    "source": {
+      "title": "Ng et al. 2005, Am J Infect Control 33(4):227-229: normal forehead range 31.0 to 35.6 °C in 1,000 healthy adults with one handheld infrared thermometer (devices differ, so our sensor needs its own check). NHS: 38 °C or above is usually considered a fever (reviewed 19 Oct 2026). The personal-baseline settings are the team's defaults.",
+      "url": "https://doi.org/10.1016/j.ajic.2005.01.003"
+    }
+  },
+  {
+    "indicator": "bp_sys",
+    "unit": "mmHg",
+    "green": {
+      "min": 90,
+      "max": 134
+    },
+    "amber": {
+      "min": null,
+      "max": 180
+    },
+    "baseline": null,
+    "howToMeasure": "Sit still for 5 minutes, feet flat, cuff on the bare upper arm at heart level, same arm each time, and don't talk.",
+    "source": {
+      "title": "NHS (High blood pressure, reviewed 19 July 2024): 135/85 or higher at home is usually considered high. NHS (Low blood pressure, reviewed 11 July 2023): below 90/60 is low. CDC (updated 13 Oct 2026): above 180 and/or above 120 is severe. The measuring tip is the team's.",
+      "url": "https://www.nhs.uk/conditions/high-blood-pressure/"
+    }
+  },
+  {
+    "indicator": "bp_dia",
+    "unit": "mmHg",
+    "green": {
+      "min": 60,
+      "max": 84
+    },
+    "amber": {
+      "min": null,
+      "max": 120
+    },
+    "baseline": null,
+    "howToMeasure": "Sit still for 5 minutes, feet flat, cuff on the bare upper arm at heart level, same arm each time, and don't talk.",
+    "source": {
+      "title": "NHS (High blood pressure, reviewed 19 July 2024): 135/85 or higher at home is usually considered high. NHS (Low blood pressure, reviewed 11 July 2023): below 90/60 is low. CDC (updated 13 Oct 2026): above 180 and/or above 120 is severe.",
+      "url": "https://www.nhs.uk/conditions/high-blood-pressure/"
+    }
+  },
+  {
+    "indicator": "glucose",
+    "unit": "mg/dL",
+    "green": {
+      "min": 70,
+      "max": 99
+    },
+    "amber": {
+      "min": 54,
+      "max": 125
+    },
+    "baseline": null,
+    "howToMeasure": "Follow the meter's instructions, and measure before eating (fasting). These ranges are for fasting readings: after a meal, higher numbers are normal.",
+    "source": {
+      "title": "CDC, Diabetes Testing (15 May 2024): fasting blood sugar 99 mg/dL or below is normal, 100 to 125 is prediabetes, 126 or above is diabetes. CDC, Low Blood Sugar (16 May 2024): below 70 is low and below 54 is severe. A doctor may re-test to confirm a result.",
+      "url": "https://www.cdc.gov/diabetes/diabetes-testing/index.html"
+    }
+  },
+  {
+    "indicator": "sleep",
+    "unit": "h",
+    "green": {
+      "min": 7,
+      "max": null
+    },
+    "amber": {
+      "min": 0,
+      "max": null
+    },
+    "baseline": null,
+    "howToMeasure": "Hours actually asleep, not hours in the sleeping bag.",
+    "source": {
+      "title": "NASA OCHMO Technical Brief 041: Sleep Accommodations, p. 5: an average adult needs 7-9 hours of sleep; astronauts sleep about 6 hours on average in space. NASA sets no required number of hours, so low sleep shows as Watch and never as Call surgeon.",
+      "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-041-sleep-accommodations.pdf"
+    }
+  },
+  {
+    "indicator": "mood",
+    "unit": "1-5",
+    "green": {
+      "min": 3,
+      "max": 5
+    },
+    "amber": {
+      "min": 1,
+      "max": 5
+    },
+    "baseline": null,
+    "howToMeasure": "How you feel overall today, 1 (very low) to 5 (very good).",
+    "source": {
+      "title": "NASA OCHMO Technical Brief 016: Behavioral Health, pp. 3 and 6: stress, low mood and anxiety are common in spaceflight, and NASA provides private psychological conferences. The 1-5 scale is the team's own; NASA documents give no numeric mood scale, so low mood shows as Watch and never as Call surgeon.",
+      "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-016-behavioral-health.pdf"
+    }
+  },
+  {
+    "indicator": "water",
+    "unit": "ml",
+    "green": {
+      "min": 2000,
+      "max": null
+    },
+    "amber": {
+      "min": 0,
+      "max": null
+    },
+    "baseline": null,
+    "howToMeasure": "Everything you drank today, in litres.",
+    "source": {
+      "title": "NASA OCHMO Technical Brief 027: Water, pp. 3-4: ISS crews averaged about 2.0 to 2.3 litres a day, and NASA plans at least 2.5 litres per crew member per day, including water used to rehydrate food. Our goal of 2 litres is the lower end of what crews drank. Low intake shows as Watch.",
+      "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-027-water.pdf"
+    }
+  },
+  {
+    "indicator": "exercise",
+    "unit": "min",
+    "green": {
+      "min": 22,
+      "max": null
+    },
+    "amber": {
+      "min": 0,
+      "max": null
+    },
+    "baseline": null,
+    "howToMeasure": "Minutes of exercise today.",
+    "source": {
+      "title": "WHO physical activity fact sheet (4 Nov 2026): at least 150 minutes of moderate-intensity activity a week for adults (about 22 minutes a day). NASA crews do far more: earlier requirements were 2 hours per workday (NASA OCHMO Medical Technical Brief 013: Bone Loss, p. 14). Low exercise shows as Watch.",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/physical-activity"
+    }
+  },
+  {
+    "indicator": "meals",
+    "unit": "meals",
+    "green": {
+      "min": 3,
+      "max": null
+    },
+    "amber": {
+      "min": 0,
+      "max": null
+    },
+    "baseline": null,
+    "howToMeasure": "Meals eaten today, 0 to 3.",
+    "source": {
+      "title": "NASA OCHMO Technical Brief 013: Food and Nutrition, pp. 3 and 12: inadequate food has led to weight loss, bone and muscle loss and weaker immune function, and skipped meals can happen when meal times are not kept. NASA gives no number of meals a day: three is the team's convention. Skipped meals show as Watch.",
+      "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-013-food-and-nutrition.pdf"
+    }
   }
 ]

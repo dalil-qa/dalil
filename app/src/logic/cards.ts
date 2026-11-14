@@ -20,7 +20,9 @@ export function cardsFor(assessments: Assessment[], symptomIds: SymptomId[]): Gu
   for (const a of assessments) {
     if (a.status === 'ok') continue;
     const level = a.status === 'watch' ? 'amber' : 'red';
-    for (const c of cards) if (c.indicator === a.indicator && c.level === level) found.set(c.id, c);
+    // Blood pressure's top and bottom numbers share one set of cards (filed under bp_sys).
+    const indicator = a.indicator === 'bp_dia' ? 'bp_sys' : a.indicator;
+    for (const c of cards) if (c.indicator === indicator && c.level === level) found.set(c.id, c);
   }
   for (const id of symptomIds) {
     const cardId = symptomById(id)?.cardId;

@@ -72,7 +72,7 @@ const em = await text();
 check('Emergency page opens', em.includes('EMERGENCY'));
 check('Report is sent automatically', em.includes('PRIORITY report sent'));
 check("Warning line is visible", em.includes("Normal readings don't rule out a heart problem"));
-check('While-you-wait steps come from emergency.json', em.includes("Don't stay alone."));
+check('While-you-wait steps come from emergency.json', em.includes('Do not stay alone'));
 await shot('b1-emergency');
 await click('Alert crew'); await sleep(300);
 check('Alert crew confirms with names and time', (await text()).includes('Crew alerted: Crew Member 1'));

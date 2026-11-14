@@ -1,14 +1,59 @@
 {
   "general": [
-    "Stop what you're doing.",
-    "Rest in a safe position.",
-    "Don't stay alone."
+    "Sit or lie down and rest in a comfortable position.",
+    "Do not stay alone: ask a crewmate to stay with you and keep checking that you are responding and breathing.",
+    "A crewmate who finds you not responding and not breathing should start CPR: NASA trains crew in first aid and CPR."
   ],
-  "bySymptom": {},
+  "bySymptom": {
+    "chest_pain": [
+      "Sit with your back supported and your knees bent, and keep still."
+    ],
+    "breathing": [
+      "Check the cabin air alarms. If you think the air may be the cause, put on an oxygen mask: crew are trained to do this whenever symptoms of low oxygen appear."
+    ],
+    "fainting": [
+      "If you feel faint, lie down with your legs raised, or sit with your head lowered between your knees.",
+      "Someone who has fainted and is breathing normally can be laid on their back with their legs raised."
+    ],
+    "severe_headache": [
+      "Note the time it started. Tell the flight surgeon about any numbness, weakness, confusion, trouble speaking or loss of vision."
+    ],
+    "confusion": [
+      "Check the cabin air alarms: low oxygen can cause mental changes that are hard to notice yourself.",
+      "Ask a crewmate to stay with you."
+    ],
+    "stroke_signs": [
+      "Note the time the signs started. Stroke signs need urgent medical help even if they pass after a short time."
+    ]
+  },
   "sources": [
     {
-      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
-      "url": "https://www.nasa.gov/hrp/risks/"
+      "title": "NHS, Heart attack (reviewed 31 Mar 2026)",
+      "url": "https://www.nhs.uk/conditions/heart-attack/"
+    },
+    {
+      "title": "NHS, Fainting (reviewed 17 Aug 2026)",
+      "url": "https://www.nhs.uk/conditions/fainting/"
+    },
+    {
+      "title": "NHS, Symptoms of a stroke (reviewed 12 Sep 2024)",
+      "url": "https://www.nhs.uk/conditions/stroke/symptoms/"
+    },
+    {
+      "title": "NHS, Headaches (reviewed 17 Apr 2024)",
+      "url": "https://www.nhs.uk/conditions/headaches/"
+    },
+    {
+      "title": "NASA OCHMO Technical Brief 003: Habitable Atmosphere, pp. 3, 5",
+      "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-003-habitable-atmosphere.pdf"
+    },
+    {
+      "title": "NASA-STD-3001 Vol. 1 Rev C (crew health standard), V1 5002: crew first aid and CPR training",
+      "url": "https://www.nasa.gov/wp-content/uploads/2023/11/nasa-std-3001-vol-1-rev-c-with-signature.pdf"
+    },
+    {
+      "title": "NASA OCHMO Technical Brief 044: Medical Operations, p. 16",
+      "url": "https://www.nasa.gov/wp-content/uploads/2025/08/ochmo-tb-044-medical-operations.pdf"
     }
   ]
 }

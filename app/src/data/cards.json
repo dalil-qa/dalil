@@ -3,19 +3,23 @@
     "id": "hr-rising",
     "indicator": "hr",
     "level": "amber",
-    "title": "Resting heart rate above your normal",
-    "meaning": "Your resting heart rate has stayed above your own normal for several days. Less sleep, stress, too little water or hard exercise can all raise it.",
+    "title": "Resting heart rate outside your usual range",
+    "meaning": "Most adults at rest have a heart rate of 60 to 100 beats per minute, and your own normal matters most. A fast pulse can signal dehydration or an infection, and any change from your normal can point to a health problem.",
     "actions": [
-      "Drink some water",
-      "Keep your usual sleep and wake times",
-      "Repeat the check tomorrow morning at the same time",
-      "Tell the flight surgeon if it keeps rising"
+      "Sit still for 10 minutes, then check again",
+      "Drink some water: dehydration is one cause",
+      "Think about how much you slept, ate and drank today",
+      "Tell the flight surgeon if it stays outside your usual range"
     ],
     "escalate": false,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "MedlinePlus, Pulse (reviewed 1/1/2025)",
+        "url": "https://medlineplus.gov/ency/article/003399.htm"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 027: Water, p. 2",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-027-water.pdf"
       }
     ]
   },
@@ -23,18 +27,22 @@
     "id": "hr-red",
     "indicator": "hr",
     "level": "red",
-    "title": "Resting heart rate far from the safe range",
-    "meaning": "Your heart rate is well outside the safe range for rest.",
+    "title": "Resting heart rate far outside the safe range",
+    "meaning": "Your resting heart rate is far from the typical 60 to 100 beats per minute.",
     "actions": [
       "Sit down and rest",
-      "Repeat the check after 5 minutes",
+      "Check again after 10 minutes of rest",
       "Contact the flight surgeon"
     ],
     "escalate": true,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "MedlinePlus, Pulse (reviewed 1/1/2025)",
+        "url": "https://medlineplus.gov/ency/article/003399.htm"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 044: Medical Operations, p. 16: medical decisions lie with the crew surgeon",
+        "url": "https://www.nasa.gov/wp-content/uploads/2025/08/ochmo-tb-044-medical-operations.pdf"
       }
     ]
   },
@@ -43,17 +51,21 @@
     "indicator": "spo2",
     "level": "amber",
     "title": "Blood oxygen a little low",
-    "meaning": "Your blood oxygen is slightly below the safe range. A cold or moving finger can give a low reading.",
+    "meaning": "A reading of 93 or 94, or lower than your usual, is a reason to ask a doctor for advice. A cold hand, nail varnish or movement can give a false low reading, and low oxygen in the cabin air can also cause it.",
     "actions": [
-      "Re-measure with a warm, still finger",
-      "Check the cabin air readings",
-      "Repeat the check in a few minutes"
+      "Rest, warm your hand and keep still, then measure again",
+      "Check the cabin air readings and alarms",
+      "Tell the flight surgeon if it stays at 93 or 94, or lower than your usual"
     ],
     "escalate": false,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "NHS England, Using a pulse oximeter to check you are OK (2022), pp. 6-7, 16",
+        "url": "https://www.england.nhs.uk/coronavirus/wp-content/uploads/sites/52/2022/02/pulse-oximeter-easy-read-2022-digital.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 003: Habitable Atmosphere, pp. 5-6",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-003-habitable-atmosphere.pdf"
       }
     ]
   },
@@ -62,17 +74,22 @@
     "indicator": "spo2",
     "level": "red",
     "title": "Low blood oxygen",
-    "meaning": "Your blood oxygen is below the safe range.",
+    "meaning": "A reading that stays at 92% or less needs urgent medical help. In a spacecraft it can also mean a problem with the cabin air.",
     "actions": [
-      "Re-measure with a warm, still finger",
-      "Check cabin air readings",
-      "Contact the flight surgeon"
+      "Measure again straight away with a warm, still hand",
+      "Check the cabin air readings and alarms",
+      "If you also feel tired, sick, dizzy or have a headache, put on an oxygen mask: crew are trained to do this at any sign of low oxygen",
+      "Contact the flight surgeon now"
     ],
     "escalate": true,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "NHS England, Using a pulse oximeter to check you are OK (2022), pp. 12-13",
+        "url": "https://www.england.nhs.uk/coronavirus/wp-content/uploads/sites/52/2022/02/pulse-oximeter-easy-read-2022-digital.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 003: Habitable Atmosphere, pp. 3, 5",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-003-habitable-atmosphere.pdf"
       }
     ]
   },
@@ -80,18 +97,22 @@
     "id": "temp-watch",
     "indicator": "temp",
     "level": "amber",
-    "title": "Skin temperature outside the safe range",
-    "meaning": "Forehead skin temperature is outside its safe range. It is not core body temperature, and the room, exercise or a cold forehead can change it.",
+    "title": "Skin temperature outside the usual range",
+    "meaning": "Forehead skin temperature is not core body temperature. In one study of 1,000 healthy adults the normal forehead range was about 31.0 to 35.6 °C, and readings above 35.6 °C suggested a fever. The room, exercise or a cold forehead can change a reading.",
     "actions": [
-      "Wait a few minutes in a comfortable spot",
-      "Repeat the check",
-      "Tell the flight surgeon if you also feel unwell"
+      "Rest for a few minutes in a comfortable room, then measure again",
+      "Drink some water",
+      "Tell the flight surgeon if you also feel unwell or it does not improve"
     ],
     "escalate": false,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "Ng et al. 2005, Am J Infect Control 33(4):227-229: normal forehead temperature by handheld infrared thermometer",
+        "url": "https://doi.org/10.1016/j.ajic.2005.01.003"
+      },
+      {
+        "title": "NHS, High temperature (fever) in adults (reviewed 19 Oct 2026)",
+        "url": "https://www.nhs.uk/conditions/fever-in-adults/"
       }
     ]
   },
@@ -99,17 +120,220 @@
     "id": "temp-red",
     "indicator": "temp",
     "level": "red",
-    "title": "Skin temperature far outside the safe range",
-    "meaning": "Forehead skin temperature is far outside its safe range.",
+    "title": "Skin temperature at fever level",
+    "meaning": "A temperature of 38 °C or above is usually considered a fever.",
     "actions": [
-      "Repeat the check",
+      "Rest, then measure again",
+      "Drink some water",
       "Contact the flight surgeon"
     ],
     "escalate": true,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "NHS, High temperature (fever) in adults (reviewed 19 Oct 2026)",
+        "url": "https://www.nhs.uk/conditions/fever-in-adults/"
+      }
+    ]
+  },
+  {
+    "id": "bp-watch",
+    "indicator": "bp_sys",
+    "level": "amber",
+    "title": "Blood pressure outside your usual range",
+    "meaning": "At home, 135/85 or higher is usually considered high, and below 90/60 is considered low. Low blood pressure can cause dizziness, feeling sick, blurred vision, weakness, confusion or fainting. One reading is not a diagnosis.",
+    "actions": [
+      "Sit still for 5 minutes, then measure again on the same arm",
+      "Note any dizziness, feeling sick, blurred vision, confusion or fainting",
+      "Tell the flight surgeon if your readings stay outside the range or you keep having these symptoms"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NHS, High blood pressure (reviewed 19 July 2024)",
+        "url": "https://www.nhs.uk/conditions/high-blood-pressure/"
+      },
+      {
+        "title": "NHS, Low blood pressure (hypotension) (reviewed 11 July 2023)",
+        "url": "https://www.nhs.uk/conditions/low-blood-pressure-hypotension/"
+      }
+    ]
+  },
+  {
+    "id": "bp-red",
+    "indicator": "bp_sys",
+    "level": "red",
+    "title": "Very high blood pressure",
+    "meaning": "A reading above 180 (top number) and/or above 120 (bottom number) is severe. With chest pain, shortness of breath, back pain, numbness, weakness, a change in vision or difficulty speaking it is an emergency.",
+    "actions": [
+      "Sit still for 5 minutes, then measure again",
+      "Contact the flight surgeon now",
+      "If you have chest pain, shortness of breath, back pain, numbness, weakness, a change in vision or difficulty speaking, press 'I feel unwell now'"
+    ],
+    "escalate": true,
+    "sources": [
+      {
+        "title": "CDC, About High Blood Pressure (updated 13 Oct 2026)",
+        "url": "https://www.cdc.gov/high-blood-pressure/about/index.html"
+      },
+      {
+        "title": "NHS, High blood pressure (reviewed 19 July 2024)",
+        "url": "https://www.nhs.uk/conditions/high-blood-pressure/"
+      }
+    ]
+  },
+  {
+    "id": "glucose-watch",
+    "indicator": "glucose",
+    "level": "amber",
+    "title": "Blood sugar outside the usual range",
+    "meaning": "For a fasting reading, 99 mg/dL or below is normal and 100 to 125 is in the prediabetes range. Below 70 mg/dL is low, which can bring a racing heart, shaking, sweating, dizziness, hunger or confusion.",
+    "actions": [
+      "Check you measured before eating, as your meter instructs",
+      "Measure again",
+      "Tell the flight surgeon: a doctor may want to re-test to be sure",
+      "If you feel shaky, sweaty, dizzy or confused, tell a crewmate"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "CDC, Diabetes Testing (15 May 2024)",
+        "url": "https://www.cdc.gov/diabetes/diabetes-testing/index.html"
+      },
+      {
+        "title": "CDC, Low Blood Sugar (Hypoglycemia) (16 May 2024)",
+        "url": "https://www.cdc.gov/diabetes/about/low-blood-sugar-hypoglycemia.html"
+      }
+    ]
+  },
+  {
+    "id": "glucose-red",
+    "indicator": "glucose",
+    "level": "red",
+    "title": "Blood sugar far outside the usual range",
+    "meaning": "A fasting reading of 126 mg/dL or above is in the diabetes range, and below 54 mg/dL is severe low blood sugar.",
+    "actions": [
+      "Measure again",
+      "Contact the flight surgeon now",
+      "If you have a seizure, faint or are confused, press 'I feel unwell now'"
+    ],
+    "escalate": true,
+    "sources": [
+      {
+        "title": "CDC, Diabetes Testing (15 May 2024)",
+        "url": "https://www.cdc.gov/diabetes/diabetes-testing/index.html"
+      },
+      {
+        "title": "CDC, Low Blood Sugar (Hypoglycemia) (16 May 2024)",
+        "url": "https://www.cdc.gov/diabetes/about/low-blood-sugar-hypoglycemia.html"
+      }
+    ]
+  },
+  {
+    "id": "sleep-low",
+    "indicator": "sleep",
+    "level": "amber",
+    "title": "Less sleep than you need",
+    "meaning": "Adults need 7 to 9 hours of sleep. Astronauts sleep about 6 hours on average in space, and NASA warns that sleep loss slows thinking, memory and judgement, and can affect mood and health.",
+    "actions": [
+      "Keep your sleep space cool, dark and quiet",
+      "Avoid caffeine for 6 to 12 hours before sleep",
+      "Avoid bright and blue light for 1 to 2 hours before bed",
+      "Avoid vigorous exercise and large or spicy meals within 2 hours of sleep",
+      "Skip daytime naps unless your schedule includes one",
+      "Ask the flight surgeon for advice if sleep problems continue"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NASA OCHMO Technical Brief 041: Sleep Accommodations, pp. 3, 5, 7-8",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-041-sleep-accommodations.pdf"
+      },
+      {
+        "title": "NASA OCHMO Medical Technical Brief 009: Circadian Desynchrony, pp. 3-4",
+        "url": "https://www.nasa.gov/wp-content/uploads/2026/03/ochmo-mtb-009-circadian-desynchrony.pdf"
+      }
+    ]
+  },
+  {
+    "id": "mood-low",
+    "indicator": "mood",
+    "level": "amber",
+    "title": "Feeling low",
+    "meaning": "Stress, low mood and anxiety are common in spaceflight. They can pass with time or support, or grow into something that needs care. Sleep, workload, low oxygen, food and carbon dioxide can all contribute.",
+    "actions": [
+      "Talk to a crewmate or someone you trust",
+      "Ask the flight surgeon for a private psychological conference: NASA provides them",
+      "Try journaling or photographing Earth: NASA lists both as ways astronauts manage stress",
+      "Check your sleep, food and water today"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NASA OCHMO Technical Brief 016: Behavioral Health, pp. 3, 6-7, 14",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-016-behavioral-health.pdf"
+      }
+    ]
+  },
+  {
+    "id": "water-low",
+    "indicator": "water",
+    "level": "amber",
+    "title": "Low water intake today",
+    "meaning": "ISS crews drank about 2 to 2.3 litres a day, and NASA plans at least 2.5 litres per crew member per day, including water used to rehydrate food. Too little water can reduce concentration and physical performance, and cause headache, sleepiness and less urine.",
+    "actions": [
+      "Drink water regularly through the day",
+      "Limit alcohol and caffeine: NASA lists them as causes of dehydration",
+      "Drink more after exercise lasting over 60 minutes",
+      "Tell the flight surgeon if you have a headache, confusion or much less urine"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NASA OCHMO Technical Brief 027: Water, pp. 2-4",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-027-water.pdf"
+      }
+    ]
+  },
+  {
+    "id": "exercise-low",
+    "indicator": "exercise",
+    "level": "amber",
+    "title": "Not enough exercise today",
+    "meaning": "In microgravity bones and muscles carry less load, which reduces bone density and can raise the risk of fracture. Exercise is NASA's first line of defence: earlier crew requirements were 2 hours per workday.",
+    "actions": [
+      "Do today's planned exercise session",
+      "Resistance exercise that loads the bones works best",
+      "Ask the exercise specialists to adjust your programme",
+      "Keep eating and drinking enough: nutrition also protects bone"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NASA OCHMO Medical Technical Brief 013: Bone Loss, pp. 2, 8, 12, 14",
+        "url": "https://www.nasa.gov/wp-content/uploads/2026/02/ochmo-mtb-013-bone-loss.pdf"
+      },
+      {
+        "title": "WHO, Physical activity fact sheet (4 Nov 2026)",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/physical-activity"
+      }
+    ]
+  },
+  {
+    "id": "meals-low",
+    "indicator": "meals",
+    "level": "amber",
+    "title": "Skipped meals",
+    "meaning": "NASA links too little food in space to weight loss, bone and muscle loss, cardiovascular deconditioning and weaker immune function, and notes that skipped meals can happen when meal times are not kept.",
+    "actions": [
+      "Eat your planned meals, even if you are not hungry",
+      "Drink water with your food",
+      "If nausea or space sickness stops you eating, tell the flight surgeon: controlling it is essential for a healthy appetite"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NASA OCHMO Technical Brief 013: Food and Nutrition, pp. 3, 12",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-013-food-and-nutrition.pdf"
       }
     ]
   },
@@ -118,38 +342,56 @@
     "indicator": "symptom",
     "level": "amber",
     "title": "Feeling dizzy",
-    "meaning": "Dizziness has many possible causes. This is guidance, not a diagnosis.",
+    "meaning": "Dizziness has many causes. After spaceflight, standing up can cause light-headedness or fainting because blood pressure is harder to keep up. Low oxygen in the cabin air, dehydration and low blood pressure can also cause it. This is guidance, not a diagnosis.",
     "actions": [
-      "Sit or hold on and stay still",
+      "If you feel faint, lie down with your legs raised, or sit with your head lowered between your knees",
       "Drink some water",
-      "Tell a crewmate",
-      "Contact the flight surgeon if it does not pass or you feel worse"
+      "Check the cabin air alarms; put on an oxygen mask if you think the air is the cause",
+      "Tell a crewmate and the flight surgeon",
+      "If you faint, press 'I feel unwell now'"
     ],
     "escalate": false,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "NASA OCHMO Technical Brief 019: Orthostatic Intolerance, pp. 1, 3",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-019-orthostatic-intolerance.pdf"
+      },
+      {
+        "title": "NHS, Fainting (reviewed 17 Aug 2026)",
+        "url": "https://www.nhs.uk/conditions/fainting/"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 003: Habitable Atmosphere, pp. 3, 5",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-003-habitable-atmosphere.pdf"
       }
     ]
   },
   {
-    "id": "symptom-fatigue",
+    "id": "symptom-nausea",
     "indicator": "symptom",
     "level": "amber",
-    "title": "Feeling very tired",
-    "meaning": "Tiredness is common and is often linked to sleep, food, water and workload.",
+    "title": "Feeling sick",
+    "meaning": "Nausea is common in the first days of spaceflight: space adaptation sickness affects 70 to 90% of crew, usually starts in the first 3 to 7 days and lasts 2 to 3 days or longer. Low oxygen in the cabin, dehydration and food-borne illness can also cause it.",
     "actions": [
-      "Think about how much you slept and ate today",
-      "Drink some water",
-      "Rest if you can",
-      "Tell the flight surgeon if it lasts for days"
+      "Limit head movements and avoid sudden turns",
+      "Get more air moving around you",
+      "Stay hydrated",
+      "Restrict your activity, close your eyes or concentrate on a task",
+      "Tell the flight surgeon if it is severe or lasts more than a few days"
     ],
     "escalate": false,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "NASA OCHMO Medical Technical Brief 004: Space Adaptation Sickness, pp. 1-2, 6-8",
+        "url": "https://www.nasa.gov/wp-content/uploads/2025/09/ochmo-mtb-004-space-adaptation-sickness-sas.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 003: Habitable Atmosphere, p. 5",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-003-habitable-atmosphere.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 013: Food and Nutrition, p. 18",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-013-food-and-nutrition.pdf"
       }
     ]
   },
@@ -158,17 +400,168 @@
     "indicator": "symptom",
     "level": "amber",
     "title": "Headache",
-    "meaning": "Headaches are common and have many causes. A sudden, severe headache is an emergency: use the I feel unwell now button.",
+    "meaning": "Headaches are very common in the first days of spaceflight (reported by up to 90% of astronauts), and can also come from low oxygen or dehydration. A headache that starts suddenly and is extremely painful, or comes with numbness, weakness, confusion, trouble speaking or loss of vision, is an emergency.",
     "actions": [
       "Drink some water",
-      "Rest in a quiet spot",
-      "Tell the flight surgeon if it lasts or keeps coming back"
+      "Rest in a quiet place",
+      "Check the cabin air alarms",
+      "Tell the flight surgeon if it keeps coming back or gets worse",
+      "If it started suddenly and is extremely painful, or you have the signs above, press 'I feel unwell now'"
     ],
     "escalate": false,
     "sources": [
       {
-        "title": "DRAFT placeholder: Mechanical 2 to replace with a real medical source",
-        "url": "https://www.nasa.gov/hrp/risks/"
+        "title": "NASA OCHMO Medical Technical Brief 004: Space Adaptation Sickness, p. 3",
+        "url": "https://www.nasa.gov/wp-content/uploads/2025/09/ochmo-mtb-004-space-adaptation-sickness-sas.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 003: Habitable Atmosphere, p. 5",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-003-habitable-atmosphere.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 027: Water, p. 2",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-027-water.pdf"
+      },
+      {
+        "title": "NHS, Headaches (reviewed 17 Apr 2024)",
+        "url": "https://www.nhs.uk/conditions/headaches/"
+      }
+    ]
+  },
+  {
+    "id": "symptom-fatigue",
+    "indicator": "symptom",
+    "level": "amber",
+    "title": "Feeling very tired",
+    "meaning": "Tiredness is common and has many causes: too little sleep, food or water, stress, and low oxygen in the cabin, which NASA notes can be mistaken for fatigue.",
+    "actions": [
+      "Think about how much you slept, ate and drank today",
+      "Check the cabin air alarms if you are unusually tired",
+      "Rest if you can",
+      "Tell the flight surgeon if it lasts for several days"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NASA OCHMO Technical Brief 041: Sleep Accommodations, p. 3",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-041-sleep-accommodations.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 003: Habitable Atmosphere, p. 6",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-003-habitable-atmosphere.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 027: Water, p. 2",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-027-water.pdf"
+      }
+    ]
+  },
+  {
+    "id": "symptom-fever",
+    "indicator": "symptom",
+    "level": "amber",
+    "title": "Feeling feverish",
+    "meaning": "A temperature of 38 °C or above is usually considered a fever. NASA lists influenza and other infections among the conditions seen in flight, and food-borne illness can cause fever, nausea, vomiting and diarrhoea.",
+    "actions": [
+      "Measure your temperature with the station",
+      "Rest and drink water",
+      "Tell the flight surgeon: contact them urgently if it is not improving or is getting worse"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NHS, High temperature (fever) in adults (reviewed 19 Oct 2026)",
+        "url": "https://www.nhs.uk/conditions/fever-in-adults/"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 033: Spaceflight Experience and Medical Care, p. 13",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-033-spaceflight-experience-medical-care.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 013: Food and Nutrition, p. 18",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-013-food-and-nutrition.pdf"
+      }
+    ]
+  },
+  {
+    "id": "symptom-rash",
+    "indicator": "symptom",
+    "level": "amber",
+    "title": "Skin rash",
+    "meaning": "A rash can have many causes. A rash that does not fade when a glass is rolled over it needs emergency help.",
+    "actions": [
+      "Roll a clear glass or cup over the rash: if it does not fade, press 'I feel unwell now'",
+      "Otherwise tell the flight surgeon",
+      "Photographs of skin changes can help the doctors: NASA uses skin photo-documentation"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NHS England, Using a pulse oximeter to check you are OK (2022), p. 14",
+        "url": "https://www.england.nhs.uk/coronavirus/wp-content/uploads/sites/52/2022/02/pulse-oximeter-easy-read-2022-digital.pdf"
+      },
+      {
+        "title": "NHS, Headaches (reviewed 17 Apr 2024)",
+        "url": "https://www.nhs.uk/conditions/headaches/"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 043: Longitudinal Health Surveillance, p. 3",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-043-longitudinal-health-surveillance.pdf"
+      }
+    ]
+  },
+  {
+    "id": "symptom-infection",
+    "indicator": "symptom",
+    "level": "amber",
+    "title": "Sore throat or cold sore",
+    "meaning": "NASA says the immune system can be affected by the stress of long missions, and lists throat infections (pharyngitis) among conditions seen in flight.",
+    "actions": [
+      "Rest and drink water",
+      "Check your temperature with the morning check",
+      "Tell the flight surgeon about new symptoms: they keep your health record"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NASA OCHMO Technical Brief 033: Spaceflight Experience and Medical Care, p. 13",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-033-spaceflight-experience-medical-care.pdf"
+      },
+      {
+        "title": "NASA-STD-3001 Vol. 1 Rev C (crew health standard), p. 35 and V1 7001",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/11/nasa-std-3001-vol-1-rev-c-with-signature.pdf"
+      }
+    ]
+  },
+  {
+    "id": "symptom-vision",
+    "indicator": "symptom",
+    "level": "amber",
+    "title": "Vision changes",
+    "meaning": "Some astronauts get vision changes on long missions: NASA calls it SANS, eye changes linked to fluid shifting towards the head. About 16% of crew show swelling of the optic disc, most of it mild. Low oxygen can also dim colour, night and side vision.",
+    "actions": [
+      "Tell the flight surgeon about any change in vision",
+      "NASA can provide glasses with stronger lenses if needed",
+      "Check the cabin air alarms",
+      "Eye checks are part of your scheduled health exams"
+    ],
+    "escalate": false,
+    "sources": [
+      {
+        "title": "NASA OCHMO Technical Brief 033: Spaceflight Experience and Medical Care, p. 5",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-033-spaceflight-experience-medical-care.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 003: Habitable Atmosphere, p. 5",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-003-habitable-atmosphere.pdf"
+      },
+      {
+        "title": "NASA OCHMO Technical Brief 043: Longitudinal Health Surveillance, p. 4",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-043-longitudinal-health-surveillance.pdf"
+      },
+      {
+        "title": "NASA-STD-3001 Vol. 1 Rev C (crew health standard), V1 3004 g",
+        "url": "https://www.nasa.gov/wp-content/uploads/2023/11/nasa-std-3001-vol-1-rev-c-with-signature.pdf"
       }
     ]
   }

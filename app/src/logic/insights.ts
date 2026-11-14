@@ -38,7 +38,7 @@ export function insights(allReadings: Reading[], crewId: string, day: number): s
     const sleepToday = dayValue(mine, 'sleep', day);
     const sleepBase = computeBaseline(mine, 'sleep', day).value;
     if (indicator === 'hr' && sleepToday !== undefined && sleepBase !== null && sleepBase - sleepToday >= 1) {
-      text += `, while sleep dropped to ${round1(sleepToday)} h. Poor sleep can raise resting heart rate.`;
+      text += `, while sleep dropped to ${round1(sleepToday)} h. NASA warns that sleep loss affects health and performance.`;
     } else {
       text += '.';
     }

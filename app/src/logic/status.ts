@@ -3,6 +3,7 @@
 // red only ever comes from the NASA / medical ranges (and from red-flag symptoms, 12.5).
 import type { Assessment, IndicatorId, Range, Reading, Status, StationCommand, Threshold } from '../types.ts';
 import { BASELINE_MIN_DAYS, computeBaseline, computePreflightNormal, dailyValues } from './baseline.ts';
+import { formatValue } from './format.ts';
 
 export const INDICATOR_LABELS: Record<IndicatorId, string> = {
   hr: 'Resting heart rate',
@@ -31,30 +32,34 @@ export function ledCommandFor(status: Status): StationCommand {
 
 const inRange = (v: number, r: Range): boolean => (r.min === null || v >= r.min) && (r.max === null || v <= r.max);
 
-const fmt = (v: number, unit: string): string => `${Number.isInteger(v) ? v : Math.round(v * 10) / 10} ${unit}`;
+/** A number the way people read it: "2/5" for mood, "1.2 L" for water, "5.5 h" for sleep. */
+const show = (indicator: IndicatorId, v: number, unit: string): string => {
+  const f = formatValue(indicator, v, unit);
+  return f.unit ? `${f.value} ${f.unit}` : f.value;
+};
 
-function describeRange(r: Range, unit: string): string {
-  if (r.min !== null && r.max !== null) return `${fmt(r.min, unit)} to ${fmt(r.max, unit)}`;
-  if (r.min !== null) return `${fmt(r.min, unit)} or more`;
-  if (r.max !== null) return `${fmt(r.max, unit)} or less`;
+/** Everyday habits have targets; vital signs have safe ranges. */
+const TARGET_INDICATORS: IndicatorId[] = ['sleep', 'mood', 'water', 'exercise', 'meals'];
+
+function describeRange(indicator: IndicatorId, r: Range, unit: string): string {
+  if (r.min !== null && r.max !== null) return `${show(indicator, r.min, unit)} to ${show(indicator, r.max, unit)}`;
+  if (r.min !== null) return `${show(indicator, r.min, unit)} or more`;
+  if (r.max !== null) return `${show(indicator, r.max, unit)} or less`;
   return 'any value';
 }
 
+// A number for the baseline sentences (heart rate and temperature only).
+const fmt = (v: number, unit: string): string => `${Number.isInteger(v) ? v : Math.round(v * 10) / 10} ${unit}`;
+
 function rangeResult(value: number, t: Threshold): { status: Status; reason: string } {
   const label = INDICATOR_LABELS[t.indicator];
-  const here = fmt(value, t.unit);
-  if (inRange(value, t.green)) return { status: 'ok', reason: `${label} ${here} is inside the safe range (${describeRange(t.green, t.unit)}).` };
+  const here = show(t.indicator, value, t.unit);
+  const noun = TARGET_INDICATORS.includes(t.indicator) ? 'target' : 'safe range';
+  const safe = describeRange(t.indicator, t.green, t.unit);
+  if (inRange(value, t.green)) return { status: 'ok', reason: `${label} ${here} is ${noun === 'target' ? 'on target' : 'inside the safe range'} (${safe}).` };
   const status: Status = inRange(value, t.amber) ? 'watch' : 'act';
   const below = t.green.min !== null && value < t.green.min;
-  const side = below ? 'below' : 'above';
-  const safe = describeRange(t.green, t.unit);
-  return {
-    status,
-    reason:
-      status === 'watch'
-        ? `${label} ${here} is ${side} the safe range (${safe}), but not yet in the call-the-surgeon zone.`
-        : `${label} ${here} is ${side} the safe range (${safe}).`,
-  };
+  return { status, reason: `${label} ${here} is ${below ? 'below' : 'above'} the ${noun} (${safe}).` };
 }
 
 export interface AssessInput {
