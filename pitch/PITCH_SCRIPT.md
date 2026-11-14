@@ -12,11 +12,22 @@
 |---|---|---|
 | **Abdullah** | **Human Story, Hook & Qatari Impact** *(warm, authoritative storytelling; connects deep space to Qatar's ageing population)* | **Part 1 (0:00–0:40):** Slide 1 Hook & Problem<br>**Part 3 (1:50–2:30):** Slide 5 Qatar Impact (Home Mode) & Slide 6 Close<br>**Q&A:** Qatar adoption, elderly care, clinic pilot & social impact questions |
 | **Sulaiman** | **Technical MVP, NASA Evidence & Q&A Lead** *(crisp systems explanation, live app/station demo, safety guardrails, technical & medical-source Q&A)* | **Part 2 (0:40–1:50):** Slide 2 Mind Map, Slide 3 Live MVP / Day 47 Mars Demo, Slide 4 Competitive Knockout & Team Resilience<br>**Q&A Lead:** Routes all judge questions; answers architecture, hardware, AI safety & NASA source questions |
-| **Demo / Station Support** | Laptop & Hardware Station | Advances slides, switches to the live app/simulator on cue, holds the hardware station visible during Slide 2/3 |
+| **Demo / Station Host** | Judges' Table Laptop & Station | Places the live laptop + USB-connected station on the judges' table before `0:00`; advances the projector slides; guides a judge to press `START` during Q&A |
 
 ---
 
-## 2. The 2.5-Minute Word-for-Word Script (~340 Words)
+## 2. The Two-Screen Stage Setup (Why It Works & How to Run It)
+
+- **Main Stage Screen (Projector):** Shows **only the slides** (`Slide 0` to `Slide 6`) with crisp screenshots of the app. **Zero `Alt+Tab` switching** on the projector—eliminating HDMI lag, resolution glitches, and lost seconds.
+- **Judges' Desk (Right in Front of Judges):** A dedicated laptop running the live Dalil web app (`F11` full-screen, sleep disabled) connected via USB to the physical **Dalil Crew Health Station**.
+- **How to Keep Judges Focused on Your Words:**
+  1. **Before `0:00`:** Leave the judges' laptop open on Crew Member 2's **Today** screen so it isn't flashing or distracting while Abdullah delivers the `0:00–0:40` hook.
+  2. **At `0:40`:** Sulaiman explicitly points to the laptop on their desk (*"The live station and app are right on your desk—and on the screen behind me, here is how it works"*).
+  3. **At `2:30` (Start of Q&A):** As Abdullah closes, invite a judge to press **START** on the station right in front of them while Q&A begins—giving them a live 30-second hands-on check **without spending a single second of your 2:30 pitch clock**.
+
+---
+
+## 3. The 2.5-Minute Word-for-Word Script (~340 Words)
 
 > **Before 0:00:** **Slide 0 (Silent Title Slide)** is on screen (`Dalil دليل — Evidence-Based Health Guidance, From Deep Space to Every Home | Category: HealthTech | Stage: Working MVP`). Abdullah stands center-left; Sulaiman stands center-right next to the station and demo screen. Do **not** start with names.
 
@@ -42,23 +53,23 @@
 
 ---
 
-### PART 2: How It Works, Live MVP & Competitive Edge *(0:40 – 1:50 · Presenter: Sulaiman)*
+### PART 2: How It Works, Working MVP & Competitive Edge *(0:40 – 1:50 · Presenter: Sulaiman)*
 
 **[0:40 · Advance to Slide 2: Mind Map — How Dalil Works in 30 Seconds]**
 
-**[TONE/GESTURE: Sulaiman — Crisp, confident engineering cadence. Pick up the physical Dalil station in one hand on "station", then gesture across the 4-step Mind Map on the slide.]**
+**[TONE/GESTURE: Sulaiman — Crisp, confident engineering cadence. Gesture first toward the live laptop and physical Dalil station on the judges' table, then across the 4-step Mind Map on Slide 2.]**
 
 **Sulaiman:**
-> "Thank you, Abdullah. Every morning, you rest your finger and forehead on the Dalil station for 30 seconds. If your finger moves, our signal check rejects the noisy reading instead of guessing.
+> "Thank you, Abdullah. We placed our working Dalil station and live app right on your desk. Every morning, you rest your finger and forehead on that station for 30 seconds. If your finger moves, our signal check rejects the noisy reading instead of guessing.
 >
 > Instead of relying only on generic averages, Dalil learns **your** 7-day personal baseline and pairs it with verified guidance from **NASA's crew health standard** and public health authorities."
 
-**[1:00 · Advance to Slide 3 / Switch to Live App: Day 47 to Mars]**
+**[1:00 · Advance to Slide 3: Day 47 to Mars — App Screenshots]**
 
-**[TONE/GESTURE: Sulaiman — Point to the rising trend line on screen, then to the Flight Surgeon countdown.]**
+**[TONE/GESTURE: Sulaiman — Point to the left screenshot (Trends + Coach in amber), then to the right screenshot (Flight Surgeon countdown in red).]**
 
 **Sulaiman:**
-> "Look at **Day 47 to Mars** in our working MVP. Crew Member 2's resting heart rate has crept up for several days while sleep dropped. One reading alone looks normal—but against their personal baseline, Dalil catches the drift early in **amber**, and our Coach explains why, citing the exact NASA source.
+> "Here is **Day 47 to Mars** from the app in front of you. Crew Member 2's resting heart rate has crept up for several days while sleep dropped. One reading alone looks normal—but against their personal baseline, Dalil catches the drift early in **amber**, and our Coach explains why, citing the exact NASA source.
 >
 > If a reading turns **red**—or you tap *'I feel unwell now'*—Dalil skips AI completely, works 100% offline, builds a doctor's report, and starts a live Mars signal countdown with immediate first steps."
 
@@ -98,30 +109,28 @@
 **Abdullah:**
 > "Next is Bluetooth cuff integration, on-board AI, and a clinic pilot right here in Doha.
 >
-> **Dalil**: *guide*, and *evidence*. **Personal. Proven. Immediate.** Thank you—we're ready for your questions."
+> **Dalil**: *guide*, and *evidence*. **Personal. Proven. Immediate.** Thank you—feel free to press START on the station in front of you while we take your questions."
 
 ---
 
-## 3. Optional 30-Second Live Judge Check *(If Pitch Slot is 3:00 Instead of 2:30)*
+## 4. Running the Judges' Desk Station During Q&A
 
-If Doha gives **3 minutes** (180 seconds) on stage, use the extra 30 seconds at **`0:50`** (right after Slide 2) for a **live fingertip/forehead check** in Guest Mode:
-- **Station host** wipes the sensor in front of the judge and says: *"30 seconds, Guest mode—nothing is saved."*
-- While it measures (20 s), **Sulaiman** delivers the Slide 2 Mind Map explanation so there is zero dead air.
-- When the green result appears, Sulaiman reads `[Judge's name], heart rate [74], oxygen [98], green` out loud and transitions immediately into **Day 47 to Mars** (`1:20`).
+Because the live laptop + hardware station are already on the judges' table, you get a **free live hardware demo during Q&A** without using a single second of your 2:30 speaking clock:
+- Right as Abdullah says *"feel free to press START on the station in front of you"*, the **Station Host** steps beside the judges' table, wipes the finger slot with an alcohol wipe, and switches the laptop to **Guest → Check**.
+- While **Sulaiman** and **Abdullah** answer the first question, one judge rests their fingertip (20 s) and forehead (5 s) on the station and sees their own live heart rate, SpO2, and skin temperature light up the Body figure on the desk laptop.
 
 ---
 
-## 4. Fallback Ladder *(Never Lose More Than 10 Seconds)*
+## 5. Fallback Ladder for the Judges' Desk Laptop
 
-| What happens | What Sulaiman says | Action |
+| What happens on the desk laptop | What Sulaiman / Station Host says | Action |
 |---|---|---|
-| Station shows "Try again" | *"That's our signal-quality gate rejecting finger motion instead of guessing—exactly as designed."* | Retry once, or switch to simulator |
-| USB cable disconnects | *"Let me show this on our built-in hardware simulator, which uses the exact same JSON stream."* | Flip the Simulator switch in the app |
-| Browser or laptop hiccup | *"Here is Crew Member 2's Day 47 trajectory on Slide 3."* | Stay on Slide 3 (screenshots already embedded) |
+| Station shows "Try again" | *"That's our signal-quality gate rejecting finger motion instead of guessing—exactly as designed."* | Retry once with warm, still finger |
+| USB cable gets bumped / disconnects | *"Let me show you the exact same JSON stream on our built-in hardware simulator."* | Flip the Simulator switch in the app |
 
 ---
 
-## 5. Q&A Playbook: Who Answers What (Under 20 Seconds Each)
+## 6. Q&A Playbook: Who Answers What (Under 20 Seconds Each)
 
 **Rule:** **Sulaiman** catches the mic first, answers technical/clinical-source questions directly, and passes Qatar impact / deployment questions to **Abdullah**. Never open with *"That's a great question"*—lead with the answer in the first sentence.
 

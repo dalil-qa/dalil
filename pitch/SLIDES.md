@@ -9,7 +9,7 @@
 ## 1. Visual & Formatting Rules (Projector-First Design)
 
 - **High-Contrast Light Mode (NO Dark Mode slides):** Use a clean, bright off-white background (`#F8FAFC`), deep space-navy text (`#0B1426`), teal accents (`#0E7490`), and high-contrast status pills (`✓ OK` green, `! Watch` amber, `✕ Act` red). Bright slides stay razor-sharp under venue projector lights, while dark-mode app screenshots pop inside laptop/tablet frames.
-- **NO Embedded Videos:** Never rely on video playback on stage. Use live switching to the working MVP (or crisp static screenshots on Slide 3 as instant backup).
+- **NO Embedded Videos & NO Alt-Tab Switching on the Projector:** The main stage screen stays 100% on these slides (with high-resolution screenshots of the app), while a **second laptop connected to the physical Dalil station sits directly on the judges' table** so judges can see and try the live MVP up close without risking projector/HDMI hiccups.
 - **One Idea Per Slide:** Large typography, minimal text, and **high-empathy human photography** (crediting any external photo; no under-18 photos).
 - **Every Fact Has a Source Line:** Small footer text on every slide with numbers (`Source: NASA HRP · WHO · IDF · Qatar STEPwise`).
 - **Export a PDF Copy:** Save a PDF on the demo laptop desktop and on both presenters' phones.
@@ -54,10 +54,10 @@
 
 ---
 
-### Slide 3 — Day 47 to Mars: Catching Drift Early *(1:00 – 1:30 · Sulaiman — Live App or Slide)*
-- **Visual Layout (Split Screen / Live App Switch):**
-  - **Left Card — Personal Baseline Drift (`! Watch / Amber`):** Screenshot of Crew Member 2's **Trends** chart on Day 47 to Mars. Resting heart rate steps up above their personal 7-day baseline while sleep and mood drop—each single number looks "normal" in a textbook, but Dalil flags the personal trend early and cites NASA sleep & cardiovascular guidance.
-  - **Right Card — Flight Surgeon & Delay Countdown (`✕ Act / Red`):** Screenshot of the **Earth (Flight Surgeon)** screen showing the structured medical report, the live Mars one-way signal countdown, and offline first-step actions while waiting.
+### Slide 3 — Day 47 to Mars: Catching Drift Early *(1:00 – 1:30 · Sulaiman — App Screenshots on Slide)*
+- **Visual Layout (Two High-Resolution App Screenshots Side-by-Side inside Laptop Frames):**
+  - **Left Screenshot — Personal Baseline Drift (`! Watch / Amber`):** Screenshot of Crew Member 2's **Trends** & **Coach** view on Day 47 to Mars. Resting heart rate steps up above their personal 7-day baseline while sleep and mood drop—each single number looks "normal" in a textbook, but Dalil flags the personal trend early and cites NASA sleep & cardiovascular guidance.
+  - **Right Screenshot — Flight Surgeon & Delay Countdown (`✕ Act / Red`):** Screenshot of the **Earth (Flight Surgeon)** screen showing the structured medical report, the live Mars one-way signal countdown, and offline first-step actions while waiting.
 - **Source Footer:** `Spaceflight guidance: NASA-STD-3001, NASA OCHMO Technical Briefs & CSA · Vital ranges: NHS, CDC, WHO & MedlinePlus`
 
 ---
