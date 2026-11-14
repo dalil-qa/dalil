@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { Globe, Satellite } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useT } from '../i18n.ts';
 import { formatDelay } from '../logic/format.ts';
 import { clock } from '../logic/summary.ts';
 
@@ -10,6 +11,7 @@ import { clock } from '../logic/summary.ts';
  */
 export function DelayAnimation({ oneWaySec, sentAt }: { oneWaySec: number; sentAt: string }) {
   const reduce = useReducedMotion();
+  const { t } = useT();
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 500);
@@ -36,9 +38,9 @@ export function DelayAnimation({ oneWaySec, sentAt }: { oneWaySec: number; sentA
         <Globe aria-hidden size={22} />
       </div>
       <p className="mt-2 text-base text-slate-300">
-        {delivered ? `Delivered to Earth at ${clock(arrival)}` : `Reaches Earth in ${formatDelay(oneWaySec - elapsed)}`}
+        {delivered ? t('deliveredAt', { t: clock(arrival) }) : t('reachesIn', { d: formatDelay(oneWaySec - elapsed) })}
         {' · '}
-        Earth's reply can take about {formatDelay(oneWaySec * 2)} to come back
+        {t('replyTakes', { d: formatDelay(oneWaySec * 2) })}
       </p>
     </div>
   );

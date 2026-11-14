@@ -3,6 +3,7 @@ import { EmergencyBar } from './layout/EmergencyBar.tsx';
 import { Footer } from './layout/Footer.tsx';
 import { Header } from './layout/Header.tsx';
 import { NavRail } from './layout/NavRail.tsx';
+import { useT } from './i18n.ts';
 import { useNav } from './nav.ts';
 import { Tour } from './components/Tour.tsx';
 import { Body } from './screens/Body.tsx';
@@ -48,6 +49,7 @@ function App() {
   const emergencyId = useStore((s) => s.emergency?.id ?? null);
   const emergencyOpen = emergencyId !== null;
   const home = useStore((s) => s.homeMode);
+  const { t } = useT();
   const lang = useStore((s) => s.lang);
   const guest = useStore((s) => s.crewId === 'guest');
   const endGuestSession = useStore((s) => s.endGuestSession);
@@ -71,7 +73,7 @@ function App() {
   useEffect(() => {
     const inHome = home && screen !== 'landing';
     document.documentElement.classList.toggle('home-mode', inHome);
-    const isAr = inHome && lang === 'ar';
+    const isAr = lang === 'ar'; // Arabic (right-to-left) applies to the whole app, on every screen
     document.documentElement.dir = isAr ? 'rtl' : 'ltr';
     document.documentElement.lang = isAr ? 'ar' : 'en';
   }, [home, lang, screen]);
@@ -97,9 +99,9 @@ function App() {
       <Header />
       {guest && (
         <div role="status" className="flex flex-wrap items-center justify-between gap-3 bg-watch/15 px-4 py-2 text-base text-watch">
-          <span>Guest mode: nothing is saved.</span>
+          <span>{t('guestBanner')}</span>
           <button type="button" onClick={endGuestSession} className="rounded-lg border border-watch/50 px-3 py-1 text-sm font-medium hover:bg-watch/20 focus-visible:outline-2 focus-visible:outline-watch">
-            End guest session
+            {t('endGuest')}
           </button>
         </div>
       )}

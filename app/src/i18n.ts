@@ -1,11 +1,13 @@
-// Arabic and English for Home mode (the Qatar use case). The space screens stay in English.
-// Arabic is shown right-to-left: App.tsx sets <html dir="rtl" lang="ar"> while Home mode is in Arabic.
+// Arabic and English for the whole app interface. Health content (guidance cards, body-system text, sources) stays in English
+// until it has an Arabic clinical review. Arabic is shown right-to-left: App.tsx sets <html dir="rtl" lang="ar">.
+import { APP_AR, APP_EN } from './i18n-app.ts';
 import { useStore } from './store.ts';
 import type { IndicatorId, Status, SymptomId } from './types.ts';
 
 export type Lang = 'en' | 'ar';
 
 const EN = {
+  ...APP_EN,
   appName: 'Dalil',
   exitHome: 'Exit Home mode',
   unwell: 'I feel unwell now',
@@ -88,9 +90,10 @@ const EN = {
   source: 'Source:',
 };
 
-type Key = keyof typeof EN;
+export type Key = keyof typeof EN;
 
 const AR: Record<Key, string> = {
+  ...APP_AR,
   appName: 'دليل',
   exitHome: 'الخروج من الوضع المنزلي',
   unwell: 'أشعر بتوعك الآن',
@@ -176,9 +179,9 @@ export function translate(lang: Lang, key: Key, vars: Record<string, string | nu
   return text.replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? ''));
 }
 
-/** The active language: Arabic only applies inside Home mode. */
-export function activeLang(homeMode: boolean, lang: Lang): Lang {
-  return homeMode && lang === 'ar' ? 'ar' : 'en';
+/** The active language. Arabic applies to the whole app, not only Home mode. */
+export function activeLang(_homeMode: boolean, lang: Lang): Lang {
+  return lang;
 }
 
 /** `t('startCheck')` in the language Home mode is using (English everywhere else). */
@@ -218,8 +221,8 @@ export function plainHeadlineAr(overall: Status): string {
 
 /** Status badge wording: avoids "Call surgeon" in Home mode and translates into Arabic when active. */
 export function statusWord(status: Status, homeMode: boolean, lang: Lang): string {
-  if (homeMode && lang === 'ar') {
-    return status === 'ok' ? 'طبيعي' : status === 'watch' ? 'للمتابعة' : 'اتصل بالطبيب';
+  if (lang === 'ar') {
+    return status === 'ok' ? 'طبيعي' : status === 'watch' ? 'للمتابعة' : homeMode ? 'اتصل بالطبيب' : 'اتصل بطبيب الرحلة';
   }
   if (homeMode) {
     return status === 'ok' ? 'OK' : status === 'watch' ? 'Watch' : 'Call doctor';
