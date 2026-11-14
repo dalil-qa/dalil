@@ -1,2 +1,0 @@
-# Copy to .dev.vars (git-ignored) for local testing with `npm run dev`. Never commit the real file.
-ANTHROPIC_API_KEY=

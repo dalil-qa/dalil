@@ -1,9 +1,6 @@
 /**
  * The Dalil Coach Worker (APP_BUILD_GUIDE.md section 11).
- * Holds the Anthropic key so the browser never sees it.
- *
- * Secrets (never in this file):  npx wrangler secret put ANTHROPIC_API_KEY
- * Local key for `npm run dev`:   worker/.dev.vars  (git-ignored; see .dev.vars.example)
+ * The model runs on Cloudflare Workers AI through the `AI` binding below, so there is no API key to keep.
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
@@ -14,6 +11,10 @@
 	"workers_dev": true,
 	"observability": {
 		"enabled": true
+	},
+	// Workers AI. `npm run dev` runs the model remotely on your Cloudflare account (you must be logged in).
+	"ai": {
+		"binding": "AI"
 	},
 	"vars": {
 		// Comma-separated list of origins allowed to call /coach (CORS + origin check).

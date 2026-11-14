@@ -1,6 +1,7 @@
 import { SELF } from 'cloudflare:test';
 import { describe, expect, it } from 'vitest';
 import { buildMessages, finalizeAnswer, parseRequest, type CoachRequest } from '../src/coach';
+import { handleCoach, type ModelRunner } from '../src/handler';
 
 const card = (id: string, escalate = false) => ({
 	id,
@@ -92,9 +93,78 @@ describe('POST /coach guards', () => {
 		expect(await big.json()).toEqual({ error: 'unavailable' });
 		expect((await post({ Origin: 'http://localhost:5173' }, '{nope')).status).toBe(400);
 	});
-	it('says unavailable (so the app shows the cards) when no key is set', async () => {
-		const res = await post({ Origin: 'http://localhost:5173' }, JSON.stringify(valid));
-		expect(res.status).toBe(503);
-		expect(await res.json()).toEqual({ error: 'unavailable' });
+});
+
+describe('handleCoach with a fake model', () => {
+	const env = { ALLOWED_ORIGINS: 'http://localhost:5173' };
+	const call = (runModel: ModelRunner, body: unknown = valid) =>
+		handleCoach(
+			new Request('https://coach.test/coach', {
+				method: 'POST',
+				headers: { Origin: 'http://localhost:5173', 'Content-Type': 'application/json' },
+				body: JSON.stringify(body),
+			}),
+			env,
+			runModel,
+		);
+	const good = { answer: 'Your heart rate is above your normal.', cardIds: ['hr-rising'], escalate: false };
+
+	it('returns the answer when the model sends a JSON string', async () => {
+		const res = await call(async () => JSON.stringify(good));
+		expect(res.status).toBe(200);
+		expect(await res.json()).toEqual(good);
+		expect(res.headers.get('Access-Control-Allow-Origin')).toBe('http://localhost:5173');
+	});
+
+	it('also accepts an already-parsed object', async () => {
+		expect(await (await call(async () => good)).json()).toEqual(good);
+	});
+
+	it('sends the model a system prompt first and the question last', async () => {
+		let seen: Parameters<ModelRunner>[0] = [];
+		await call(async (messages) => {
+			seen = messages;
+			return good;
+		});
+		expect(seen[0].role).toBe('system');
+		expect(seen.at(-1)?.content).toContain('Why is my heart rate amber?');
+	});
+
+	it('says unavailable when the model throws, is cut off, or sends garbage', async () => {
+		for (const run of [
+			async () => {
+				throw new Error('model down');
+			},
+			async () => '{"answer":"cut off mid-sen',
+			async () => 'Sure! Here is some text, not JSON.',
+			async () => undefined,
+			async () => ({ answer: 5 }),
+		] as ModelRunner[]) {
+			const res = await call(run);
+			expect(res.status).toBe(502);
+			expect(await res.json()).toEqual({ error: 'unavailable' });
+		}
+	});
+
+	it('forces escalate and drops unknown card ids even if the model gets them wrong', async () => {
+		const out = (await (await call(async () => ({ answer: 'x', cardIds: ['spo2-low', 'ghost'], escalate: false }))).json()) as { cardIds: string[]; escalate: boolean };
+		expect(out.cardIds).toEqual(['spo2-low']);
+		expect(out.escalate).toBe(true);
+	});
+
+	it('never calls the model for a bad request or a foreign origin', async () => {
+		let calls = 0;
+		const run: ModelRunner = async () => {
+			calls++;
+			return good;
+		};
+		expect((await call(run, { ...valid, question: '' })).status).toBe(400);
+		const foreign = await handleCoach(
+			new Request('https://coach.test/coach', { method: 'POST', headers: { Origin: 'https://evil.example' }, body: JSON.stringify(valid) }),
+			env,
+			run,
+		);
+		expect(foreign.status).toBe(403);
+		expect(calls).toBe(0);
 	});
 });

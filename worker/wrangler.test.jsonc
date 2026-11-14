@@ -1,0 +1,11 @@
+// Used only by `npm test` (see vitest.config.mts). Same as wrangler.jsonc but without the `ai` binding,
+// which always reaches Cloudflare remotely and could incur usage charges. Keep "vars" in sync.
+{
+	"name": "dalil-coach-test",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-11-13",
+	"compatibility_flags": ["nodejs_compat"],
+	"vars": {
+		"ALLOWED_ORIGINS": "http://localhost:5173,http://localhost:4173"
+	}
+}
