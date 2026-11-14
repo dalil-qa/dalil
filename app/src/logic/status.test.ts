@@ -39,6 +39,11 @@ describe('median and baselines', () => {
     assert.equal(computePreflightNormal(pre, 'hr').value, 62);
     assert.equal(computePreflightNormal(pre.slice(0, 2), 'hr').value, null);
   });
+  it('ignores low-confidence readings (quality < 0.5) when computing baselines', () => {
+    const clean = series('hr', 40, [63, 65, 64, 66, 64, 65, 67]);
+    const noisy = clean.map((r, i) => (i < 3 ? { ...r, value: 120, quality: 0.3 } : { ...r, quality: 0.9 }));
+    assert.deepEqual(computeBaseline(noisy, 'hr', 47), { value: null, daysUsed: 4 });
+  });
 });
 
 describe('assessReading: ranges', () => {

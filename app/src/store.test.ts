@@ -64,4 +64,13 @@ describe('store + simulator, end to end', () => {
     assert.equal(useStore.getState().emergency, null);
     assert.equal(useStore.getState().emergencies[0].closedReason, 'mistake');
   });
+
+  it('switches language between English and Arabic', () => {
+    const s = useStore.getState();
+    assert.equal(s.lang, 'en');
+    s.setLang('ar');
+    assert.equal(useStore.getState().lang, 'ar');
+    s.setLang('en');
+    assert.equal(useStore.getState().lang, 'en');
+  });
 });

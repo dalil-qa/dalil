@@ -62,13 +62,15 @@ export function parseLine(line: string): StationMessage | null {
   }
 }
 
-/** Splits streamed text into complete lines. Keeps the unfinished tail for the next chunk. */
+/** Splits streamed text into complete lines. Keeps the unfinished tail for the next chunk (capped at 4 KB). */
 export class LineBuffer {
   private tail = '';
 
   push(chunk: string): string[] {
-    const parts = (this.tail + chunk).split('\n');
-    this.tail = parts.pop() ?? '';
+    const combined = this.tail + chunk;
+    const parts = combined.split('\n');
+    const nextTail = parts.pop() ?? '';
+    this.tail = nextTail.length > 4096 ? nextTail.slice(-4096) : nextTail;
     return parts.map((p) => p.replace(/\r$/, ''));
   }
 

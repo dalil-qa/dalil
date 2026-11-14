@@ -4,6 +4,10 @@ import type { IndicatorId, Reading } from '../types.ts';
 export const BASELINE_WINDOW_DAYS = 7;
 export const BASELINE_MIN_DAYS = 5;
 export const PREFLIGHT_MIN_READINGS = 3;
+/** Station readings with signal quality below this are marked low-confidence and excluded from baselines. */
+export const LOW_QUALITY = 0.5;
+
+const isTrustedQuality = (r: Reading): boolean => r.quality === undefined || r.quality === null || r.quality >= LOW_QUALITY;
 
 export function median(values: number[]): number | null {
   if (values.length === 0) return null;
@@ -16,7 +20,7 @@ export function median(values: number[]): number | null {
 export function dailyValues(readings: Reading[], indicator: IndicatorId): Map<number, number> {
   const byDay = new Map<number, number[]>();
   for (const r of readings) {
-    if (r.indicator !== indicator) continue;
+    if (r.indicator !== indicator || !isTrustedQuality(r)) continue;
     const list = byDay.get(r.missionDay) ?? [];
     list.push(r.value);
     byDay.set(r.missionDay, list);
@@ -57,7 +61,7 @@ export interface PreflightNormal {
 
 /** The normal from before launch: the median of all readings taken on Earth (missionDay <= 0). Needs 3. */
 export function computePreflightNormal(readings: Reading[], indicator: IndicatorId): PreflightNormal {
-  const values = readings.filter((r) => r.indicator === indicator && r.missionDay <= 0).map((r) => r.value);
+  const values = readings.filter((r) => r.indicator === indicator && r.missionDay <= 0 && isTrustedQuality(r)).map((r) => r.value);
   if (values.length < PREFLIGHT_MIN_READINGS) return { value: null, count: values.length };
   return { value: median(values), count: values.length };
 }

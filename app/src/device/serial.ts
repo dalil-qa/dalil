@@ -7,6 +7,7 @@ import { LineBuffer, parseLine } from './parse.ts';
 
 const BAUD_RATE = 115200;
 const PING_EVERY_MS = 10_000;
+let lastGrantedPort: SerialPort | null = null;
 
 export const SERIAL_UNSUPPORTED_TEXT =
   'Live checks need Chrome or Edge on a computer. You can still explore with the simulator.';
@@ -68,9 +69,13 @@ export class SerialLink implements DeviceLink {
 
     let port: SerialPort | undefined;
     try {
-      if (options.reuseGranted) port = (await navigator.serial.getPorts())[0];
+      if (options.reuseGranted) {
+        const granted = await navigator.serial.getPorts();
+        port = (lastGrantedPort && granted.includes(lastGrantedPort) ? lastGrantedPort : undefined) ?? granted[0];
+      }
       port ??= await navigator.serial.requestPort();
       await port.open({ baudRate: BAUD_RATE });
+      lastGrantedPort = port;
     } catch (err) {
       throw explain(err);
     }

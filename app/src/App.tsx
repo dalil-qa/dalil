@@ -48,6 +48,7 @@ function App() {
   const emergencyId = useStore((s) => s.emergency?.id ?? null);
   const emergencyOpen = emergencyId !== null;
   const home = useStore((s) => s.homeMode);
+  const lang = useStore((s) => s.lang);
   const guest = useStore((s) => s.crewId === 'guest');
   const endGuestSession = useStore((s) => s.endGuestSession);
 
@@ -66,10 +67,13 @@ function App() {
     if (emergencyId) showEmergency();
   }, [emergencyId, showEmergency]);
 
-  // Home mode makes everything bigger (the page's root font size).
+  // Home mode makes everything bigger (the page's root font size) and switches to RTL when Arabic is active.
   useEffect(() => {
     document.documentElement.classList.toggle('home-mode', home);
-  }, [home]);
+    const isAr = home && lang === 'ar';
+    document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+    document.documentElement.lang = isAr ? 'ar' : 'en';
+  }, [home, lang]);
 
   // The intro page is full-screen. The emergency page and its red bar still work from everywhere else.
   if (screen === 'landing') return <Landing />;

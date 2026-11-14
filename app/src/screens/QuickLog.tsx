@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Button, Card } from '../components/Card.tsx';
 import { redFlagSymptoms, symptoms as allSymptoms, thresholdFor } from '../data/index.ts';
 import { UNIT_OF } from '../data/units.ts';
+import { newId } from '../id.ts';
+import { assessReading, overallStatus } from '../logic/status.ts';
 import { useNav } from '../nav.ts';
 import { useStore } from '../store.ts';
 import type { IndicatorId, Reading, SymptomId } from '../types.ts';
@@ -54,7 +56,11 @@ const MOODS = ['😞', '😕', '😐', '🙂', '😄'];
 const MOOD_WORDS = ['very low', 'low', 'okay', 'good', 'very good'];
 
 export function QuickLog({ onDone }: { onDone: () => void }) {
-  const { crewId, missionDay, station, lastCheck, addReadings, addSymptoms, openEmergency } = useStore();
+  const crewId = useStore((s) => s.crewId);
+  const missionDay = useStore((s) => s.missionDay);
+  const station = useStore((s) => s.station);
+  const lastCheck = useStore((s) => s.lastCheck);
+  const { addReadings, addSymptoms, openEmergency, showStatusLight } = useStore.getState();
   const showEmergency = useNav((s) => s.showEmergency);
 
   const [sys, setSys] = useState('');
@@ -70,8 +76,14 @@ export function QuickLog({ onDone }: { onDone: () => void }) {
 
   const needsSpo2 = station?.hr_sensor === 'pulsesensor' && !lastCheck?.readings.some((r) => r.indicator === 'spo2');
 
+  const sysNum = num(sys);
+  const diaNum = num(dia);
+  const bpRangeError = outside(sysNum, 60, 260) ?? outside(diaNum, 30, 160);
   const errors = {
-    bp: (num(sys) === null) !== (num(dia) === null) ? 'Enter both blood pressure numbers.' : outside(num(sys), 60, 260) ?? outside(num(dia), 30, 160),
+    bp:
+      (sysNum === null) !== (diaNum === null)
+        ? 'Enter both blood pressure numbers.'
+        : bpRangeError ?? (sysNum !== null && diaNum !== null && sysNum <= diaNum ? 'Systolic must be higher than diastolic.' : null),
     glucose: outside(num(glucose), 20, 600),
     water: outside(num(water), 0, 10),
     exercise: outside(num(exercise), 0, 600),
@@ -82,10 +94,10 @@ export function QuickLog({ onDone }: { onDone: () => void }) {
   const save = () => {
     const time = new Date().toISOString();
     const make = (indicator: IndicatorId, value: number): Reading => ({
-      id: crypto.randomUUID(), crewId, time, missionDay, indicator, value, unit: UNIT_OF[indicator], source: 'logged', checkId: lastCheck?.checkId,
+      id: newId(), crewId, time, missionDay, indicator, value, unit: UNIT_OF[indicator], source: 'logged', checkId: lastCheck?.checkId,
     });
     const out: Reading[] = [];
-    if (num(sys) !== null && num(dia) !== null) out.push(make('bp_sys', num(sys) as number), make('bp_dia', num(dia) as number));
+    if (sysNum !== null && diaNum !== null) out.push(make('bp_sys', sysNum), make('bp_dia', diaNum));
     if (num(glucose) !== null) out.push(make('glucose', num(glucose) as number));
     if (sleep !== null) out.push(make('sleep', sleep));
     if (mood !== null) out.push(make('mood', mood));
@@ -93,7 +105,16 @@ export function QuickLog({ onDone }: { onDone: () => void }) {
     if (num(exercise) !== null) out.push(make('exercise', num(exercise) as number));
     if (meals !== null) out.push(make('meals', meals));
     if (needsSpo2 && num(spo2) !== null) out.push(make('spo2', num(spo2) as number));
-    if (out.length) addReadings(out);
+    if (out.length) {
+      const history = useStore.getState().readings.filter((r) => r.crewId === crewId);
+      const typedAssessments = out.flatMap((r) => {
+        const t = thresholdFor(r.indicator);
+        return t ? [assessReading({ indicator: r.indicator, value: r.value, missionDay }, history, t)] : [];
+      });
+      const combined = [...(lastCheck?.assessments ?? []), ...typedAssessments];
+      if (combined.length) showStatusLight(overallStatus(combined));
+      addReadings(out);
+    }
     if (chips.length) addSymptoms(chips);
     onDone();
   };

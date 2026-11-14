@@ -8,6 +8,7 @@ import { STATUS_INFO, LED_WORD } from '../components/info.ts';
 import { ReasonText, StatusBadge } from '../components/Status.tsx';
 import { SystemsStrip } from '../components/SystemsStrip.tsx';
 import { isSerialSupported, SERIAL_UNSUPPORTED_TEXT } from '../device/serial.ts';
+import { useT } from '../i18n.ts';
 import { formatValue } from '../logic/format.ts';
 import { INDICATOR_LABELS } from '../logic/status.ts';
 import { useNav } from '../nav.ts';
@@ -42,6 +43,7 @@ function Ready() {
   const useSimulator = useStore((s) => s.useSimulator);
   const { connectDevice, startCheck, startCheckWithSimulator } = useStore.getState();
   const [busy, setBusy] = useState(false);
+  const { t } = useT();
   const connected = connection === 'connected';
   const isSim = station?.fw === 'sim';
   const canStart = connected || useSimulator;
@@ -54,22 +56,22 @@ function Ready() {
   };
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-5">
-      <h1 className="text-[28px] font-semibold text-slate-50">Ready for your check</h1>
+    <div className="mx-auto flex max-w-4xl flex-col gap-5 p-4">
+      <h1 className="text-[28px] font-semibold text-slate-50">{t('readyTitle')}</h1>
       <p className="text-base text-slate-300">
-        {connected ? (isSim ? 'The simulator is connected.' : 'The station is connected.') : 'No station connected yet.'} It takes about 30 seconds, in two steps.
+        {connected ? (isSim ? t('simConnected') : t('stationConnected')) : t('noStation')} {t('takesAbout')}
       </p>
       <div className="flex flex-col gap-3 md:flex-row">
-        <Step n={1} title="Finger in the slot" hint="About 20 seconds. Keep still." icon={<Fingerprint size={26} />} />
-        <Step n={2} title="Forehead at the window" hint="About 5 seconds, 5 cm away." icon={<ScanFace size={26} />} />
+        <Step n={1} title={t('stepFinger')} hint={t('stepFingerHint')} icon={<Fingerprint size={26} />} />
+        <Step n={2} title={t('stepForehead')} hint={t('stepForeheadHint')} icon={<ScanFace size={26} />} />
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <Button big disabled={!canStart || busy} onClick={start}>
-          <Play aria-hidden size={22} /> {busy ? 'Starting…' : connected && !isSim ? 'Start check' : 'Start check (simulator)'}
+          <Play aria-hidden size={22} /> {busy ? t('starting') : connected && !isSim ? t('startCheck') : t('startSim')}
         </Button>
         {connected && !isSim && (
           // The fallback ladder (pitch script section 4): one click to the simulator, clearly labelled.
-          <Button variant="secondary" onClick={() => connectDevice('simulator')}>Use the simulator instead</Button>
+          <Button variant="secondary" onClick={() => connectDevice('simulator')}>{t('useSimulator')}</Button>
         )}
         {isSerialSupported() ? (
           <Button variant="secondary" disabled={connection === 'connecting'} onClick={() => connectDevice('serial')}>
@@ -88,26 +90,27 @@ function Ready() {
 function Measuring() {
   const live = useStore((s) => s.live);
   const stopCheck = useStore((s) => s.stopCheck);
+  const { t } = useT();
   const finger = live.stage === 'finger' || live.stage === 'starting';
   const total = finger ? 20 : 5;
   const left = live.left ?? total;
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-5">
-      <h1 className="text-[28px] font-semibold text-slate-50">{finger ? 'Step 1 of 2 · Finger' : 'Step 2 of 2 · Forehead'}</h1>
+    <div className="mx-auto flex max-w-4xl flex-col gap-5 p-4">
+      <h1 className="text-[28px] font-semibold text-slate-50">{finger ? t('step1') : t('step2')}</h1>
       <Card>
         <div className="flex flex-wrap items-center justify-around gap-8">
           <Ring value={live.stage === 'starting' ? 1 : left / total} size={190} strokeClass="stroke-cyan-400">
             <span className="text-6xl font-semibold tabular-nums text-slate-50">{live.stage === 'starting' ? '…' : left}</span>
-            <span className="text-sm text-slate-400">seconds left</span>
+            <span className="text-sm text-slate-400">{t('secondsLeft')}</span>
           </Ring>
           {finger ? (
             <div className="flex flex-col items-center gap-2">
               <BeatingHeart bpm={live.hr} />
               <span className="text-5xl font-semibold tabular-nums text-slate-50">{live.hr ?? '–'}<span className="ml-2 text-xl text-slate-400">bpm</span></span>
               <span className="text-xl tabular-nums text-slate-300">SpO2 {live.spo2 ?? '–'}{live.spo2 !== null ? ' %' : ''}</span>
-              <div className="mt-1 w-48" aria-label="Signal quality">
+              <div className="mt-1 w-48" aria-label={t('signalQuality')}>
                 <div className="h-2 rounded-full bg-white/10"><div className="h-2 rounded-full bg-cyan-400" style={{ width: `${Math.round((live.q ?? 0) * 100)}%` }} /></div>
-                <span className="text-sm text-slate-400">Signal quality</span>
+                <span className="text-sm text-slate-400">{t('signalQuality')}</span>
               </div>
             </div>
           ) : (
@@ -118,10 +121,10 @@ function Measuring() {
           )}
         </div>
         <p className="mt-6 text-center text-xl text-slate-200" aria-live="polite">
-          {live.stage === 'starting' ? 'Waiting for the station…' : finger ? (live.finger ? 'Keep still.' : 'Rest your fingertip in the slot.') : 'Hold your forehead at the window, about 5 cm away.'}
+          {live.stage === 'starting' ? t('waitingStation') : finger ? (live.finger ? t('keepStill') : t('restFinger')) : t('holdForehead')}
         </p>
       </Card>
-      <div><Button variant="secondary" onClick={stopCheck}><X aria-hidden size={20} /> Cancel</Button></div>
+      <div><Button variant="secondary" onClick={stopCheck}><X aria-hidden size={20} /> {t('cancel')}</Button></div>
     </div>
   );
 }
@@ -129,8 +132,9 @@ function Measuring() {
 function Result({ onContinue }: { onContinue: () => void }) {
   const lastCheck = useStore((s) => s.lastCheck);
   const station = useStore((s) => s.station);
+  const { t } = useT();
   if (!lastCheck) return <Ready />;
-  const { assessments, readings, overall } = lastCheck;
+  const { assessments, readings, overall, lowConfidence, unassessed } = lastCheck;
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5">
       <div className="flex flex-wrap items-center gap-4">
@@ -138,8 +142,18 @@ function Result({ onContinue }: { onContinue: () => void }) {
         <StatusBadge status={overall} size="lg" />
         <span className="text-base text-slate-300">Light on the station: <strong className={STATUS_INFO[overall].text}>{LED_WORD[overall]}</strong>{station?.fw === 'sim' ? ' (simulated)' : ''}</span>
       </div>
+      {lowConfidence && (
+        <p role="status" className="rounded-xl border border-watch/50 bg-watch/10 px-4 py-3 text-base text-watch">
+          {t('lowConfidence')}
+        </p>
+      )}
+      {unassessed.length > 0 && (
+        <p role="status" className="text-sm text-slate-400">
+          Not assessed yet (no threshold table entry): {unassessed.map((i) => INDICATOR_LABELS[i]).join(', ')}.
+        </p>
+      )}
       {readings.length === 0 ? (
-        <Card><p className="text-base text-slate-300">The station did not measure anything this time. Try again.</p></Card>
+        <Card><p className="text-base text-slate-300">{t('nothingMeasured')}</p></Card>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {readings.map((r) => {
@@ -164,12 +178,22 @@ function Result({ onContinue }: { onContinue: () => void }) {
 
 function CheckError() {
   const live = useStore((s) => s.live);
-  const resetLive = useStore((s) => s.resetLive);
+  const station = useStore((s) => s.station);
+  const { resetLive, startCheckWithSimulator } = useStore.getState();
+  const { t } = useT();
+  const isSim = station?.fw === 'sim';
   return (
-    <div className="mx-auto flex max-w-3xl flex-col items-start gap-5">
-      <h1 className="text-[28px] font-semibold text-slate-50">{live.error?.code === 'cancelled' ? 'Check cancelled' : "That didn't work"}</h1>
-      <p role="alert" className="text-xl text-slate-200">{live.error?.text ?? 'Something went wrong. Please try again.'}</p>
-      <Button big onClick={resetLive}><RotateCcw aria-hidden size={20} /> Try again</Button>
+    <div className="mx-auto flex max-w-3xl flex-col items-start gap-5 p-4">
+      <h1 className="text-[28px] font-semibold text-slate-50">{live.error?.code === 'cancelled' ? t('checkCancelled') : t('didntWork')}</h1>
+      <p role="alert" className="text-xl text-slate-200">{live.error?.text ?? t('somethingWrong')}</p>
+      <div className="flex flex-wrap gap-3">
+        <Button big onClick={resetLive}><RotateCcw aria-hidden size={20} /> {t('tryAgain')}</Button>
+        {!isSim && (
+          <Button big variant="secondary" onClick={() => void startCheckWithSimulator()}>
+            <Play aria-hidden size={20} /> {t('useSimulator')}
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

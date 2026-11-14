@@ -7,11 +7,15 @@ import { STATION_ERROR_TEXT, type DeviceLink, type StationHello, type StationMea
 import { SerialLink, isSerialSupported } from './device/serial.ts';
 import { SimulatorLink, type SimScenario } from './device/simulator.ts';
 import { assessReading, ledCommandFor, overallStatus } from './logic/status.ts';
+import { LOW_QUALITY } from './logic/baseline.ts';
 import { simulatorBaseline } from './logic/overview.ts';
 import { clock } from './logic/summary.ts';
+import { newId } from './id.ts';
+import type { Lang } from './i18n.ts';
 import type {
   Assessment,
   EmergencyEvent,
+  IndicatorId,
   MissionId,
   Reading,
   Source,
@@ -43,10 +47,18 @@ export interface CheckResult {
   readings: Reading[];
   assessments: Assessment[];
   overall: Status;
+  /** Readings that were measured but have no thresholds yet, so they are not part of `overall`. */
+  unassessed: IndicatorId[];
+  /** The station's signal quality was below LOW_QUALITY: shown with a caution, and kept out of the baselines. */
+  lowConfidence: boolean;
 }
 
 const IDLE_LIVE: LiveCheck = { stage: 'idle', hr: null, spo2: null, temp: null, q: null, left: null, finger: false, error: null };
 const HELLO_TIMEOUT_MS = 5000;
+/** No message from the station for this long during a check = it is stuck (cable fine, firmware not answering). */
+export const CHECK_WATCHDOG_MS = 6000;
+export const NO_READING_TEXT = "The station didn't measure anything this time, so there is no result. Rest your fingertip in the slot and try again.";
+export const STUCK_TEXT = 'The station stopped responding. Check the cable, then try again or use the simulator.';
 
 interface DalilState {
   // who and where
@@ -70,6 +82,8 @@ interface DalilState {
   useSimulator: boolean;
   simScenario: SimScenario;
   homeMode: boolean;
+  /** Home mode language (the space screens stay in English). */
+  lang: Lang;
 
   // actions
   connectDevice: (kind: 'serial' | 'simulator', options?: { reuseGranted?: boolean }) => Promise<void>;
@@ -90,6 +104,9 @@ interface DalilState {
   setSimScenario: (scenario: SimScenario) => void;
   setUseSimulator: (on: boolean) => void;
   setHomeMode: (on: boolean) => void;
+  setLang: (lang: Lang) => void;
+  /** Light the station for a status (used after typed readings). An open emergency keeps it red. */
+  showStatusLight: (status: Status) => void;
   resetDemo: () => void;
   openEmergency: (trigger: EmergencyEvent['trigger'], symptoms: SymptomId[]) => void;
   alertCrew: () => void;
@@ -102,6 +119,7 @@ interface DalilState {
 let link: DeviceLink | null = null;
 let unsubscribe: (() => void)[] = [];
 let helloTimer: ReturnType<typeof setTimeout> | null = null;
+let checkTimer: ReturnType<typeof setTimeout> | null = null;
 
 /**
  * localStorage that never throws. In private windows, or with site data blocked, the browser's storage can be
@@ -157,8 +175,30 @@ const UNITS: Record<'hr' | 'spo2' | 'temp', string> = { hr: 'bpm', spo2: '%', te
 export const useStore = create<DalilState>()(
   persist(
     (set, get) => {
+      // ---------- the check watchdog ----------
+      const clearWatchdog = (): void => {
+        if (checkTimer) clearTimeout(checkTimer);
+        checkTimer = null;
+      };
+      /** (Re)arm it: called on START and on every live message, so only silence trips it. */
+      const armWatchdog = (): void => {
+        clearWatchdog();
+        checkTimer = setTimeout(() => {
+          checkTimer = null;
+          const stage = get().live.stage;
+          if (stage !== 'starting' && stage !== 'finger' && stage !== 'forehead') return;
+          link?.send('STOP');
+          set({ live: { ...IDLE_LIVE, stage: 'error', error: { code: 'stuck', text: STUCK_TEXT } } });
+        }, CHECK_WATCHDOG_MS);
+      };
+
       /** Everything the station sends comes through here (APP_BUILD_GUIDE.md 7.3). */
       const handleMessage = (m: StationMessage): void => {
+        // Any valid line proves the station is alive: don't stay stuck on "connecting" if its hello was missed.
+        if (m.stage !== 'hello' && get().connection === 'connecting') {
+          if (helloTimer) clearTimeout(helloTimer);
+          set({ connection: 'connected', stationSilent: false, connectError: null });
+        }
         switch (m.stage) {
           case 'hello':
             if (helloTimer) clearTimeout(helloTimer);
@@ -168,18 +208,21 @@ export const useStore = create<DalilState>()(
             return; // the station is waiting; nothing to show
           case 'finger':
           case 'forehead':
+            armWatchdog(); // also covers a check started with the button on the box
             set({ live: { stage: m.stage, hr: m.hr, spo2: m.spo2, temp: m.temp, q: m.q, left: m.left, finger: m.finger, error: null } });
             return;
           case 'done':
+            clearWatchdog();
             finishCheck(m);
             return;
           case 'error': {
-            if (m.code === 'busy') return; // a check is already running
+            if (m.code === 'busy') return; // a check is already running; the watchdog covers a station that never starts
             const text = STATION_ERROR_TEXT[m.code] ?? null;
             if (m.code === 'unknown_cmd') {
               console.debug('Station did not understand a command:', m.msg);
               return;
             }
+            clearWatchdog();
             set({ live: { ...IDLE_LIVE, stage: 'error', error: { code: m.code, text } } });
             return;
           }
@@ -190,15 +233,22 @@ export const useStore = create<DalilState>()(
       const finishCheck = (m: StationMeasure): void => {
         const { crewId, missionDay, readings } = get();
         const source: Source = link?.kind === 'serial' ? 'measured' : 'simulated';
-        const checkId = crypto.randomUUID();
+        const checkId = newId();
         const time = nowIso();
         const values: [keyof typeof UNITS, number | null][] = [['hr', m.hr], ['spo2', m.spo2], ['temp', m.temp]];
+
+        // Nothing measured is not a result: never show (or light) green for a check that didn't happen.
+        if (values.every(([, v]) => v === null)) {
+          set({ lastCheck: null, live: { ...IDLE_LIVE, stage: 'error', error: { code: 'no_reading', text: NO_READING_TEXT } } });
+          link?.send(get().emergency ? 'LED RED' : 'LED OFF');
+          return;
+        }
 
         const newReadings: Reading[] = [];
         for (const [indicator, value] of values) {
           if (value === null) continue; // skip the nulls: they were not measured
           newReadings.push({
-            id: crypto.randomUUID(),
+            id: newId(),
             crewId,
             time,
             missionDay,
@@ -213,23 +263,30 @@ export const useStore = create<DalilState>()(
 
         const history = readings.filter((r) => r.crewId === crewId);
         const assessments: Assessment[] = [];
+        const unassessed: IndicatorId[] = [];
         for (const r of newReadings) {
           const threshold = thresholdFor(r.indicator);
-          if (!threshold) continue; // no thresholds for it yet (M2): leave it unassessed rather than guess
+          if (!threshold) {
+            unassessed.push(r.indicator); // no thresholds for it yet (M2): say so rather than guess
+            continue;
+          }
           assessments.push(assessReading({ indicator: r.indicator, value: r.value, missionDay }, history, threshold));
         }
 
         const overall = overallStatus(assessments);
-        const result: CheckResult = { checkId, time, readings: newReadings, assessments, overall };
+        const lowConfidence = m.q !== null && m.q < LOW_QUALITY;
+        const result: CheckResult = { checkId, time, readings: newReadings, assessments, overall, unassessed, lowConfidence };
         const summary = newReadings.map((r) => `${r.indicator === 'spo2' ? 'SpO2' : r.indicator === 'temp' ? 'skin' : 'HR'} ${r.value} ${r.unit}`).join(', ');
         set((s) => ({
           readings: [...s.readings, ...newReadings],
           lastCheck: result,
           live: { stage: 'done', hr: m.hr, spo2: m.spo2, temp: m.temp, q: m.q, left: null, finger: false, error: null },
-          // A check taken during an emergency is added to it as an update (and sent as a follow-up).
-          emergency: s.emergency
-            ? { ...s.emergency, updates: [...s.emergency.updates, { time, text: `Update ${clock(time)}: ${summary}` }] }
-            : s.emergency,
+          // A check taken during an emergency is added to it as an update (and sent as a follow-up),
+          // but only if it is the same person's emergency: a guest's check must not land in Crew Member 2's report.
+          emergency:
+            s.emergency && s.emergency.crewId === crewId
+              ? { ...s.emergency, updates: [...s.emergency.updates, { time, text: `Update ${clock(time)}: ${summary}` }] }
+              : s.emergency,
         }));
         // An open emergency keeps the light red.
         link?.send(get().emergency ? 'LED RED' : ledCommandFor(overall));
@@ -238,6 +295,7 @@ export const useStore = create<DalilState>()(
       const closeLink = async (): Promise<void> => {
         if (helloTimer) clearTimeout(helloTimer);
         helloTimer = null;
+        clearWatchdog();
         for (const off of unsubscribe) off();
         unsubscribe = [];
         const old = link;
@@ -263,6 +321,7 @@ export const useStore = create<DalilState>()(
         useSimulator: true,
         simScenario: 'normal',
         homeMode: false,
+        lang: 'en',
 
         connectDevice: async (kind, options) => {
           await closeLink();
@@ -272,7 +331,10 @@ export const useStore = create<DalilState>()(
           unsubscribe = [
             next.onMessage(handleMessage),
             next.onEvent((event) => {
-              if (event === 'lost') set({ connection: 'lost', live: IDLE_LIVE }); // a running check is discarded
+              if (event === 'lost') {
+                clearWatchdog();
+                set({ connection: 'lost', live: IDLE_LIVE }); // a running check is discarded
+              }
             }),
           ];
           try {
@@ -300,11 +362,15 @@ export const useStore = create<DalilState>()(
           // A simulated "Normal" check follows the selected crew member's own history.
           if (link instanceof SimulatorLink) link.setBaseline(simulatorBaseline(get().readings, get().crewId, get().missionDay));
           link.send('START');
+          armWatchdog(); // a station that never answers START must not leave "Waiting for the station…" forever
           return true;
         },
 
         stopCheck: () => {
           link?.send('STOP');
+          // If the station is stuck it won't answer with `cancelled`: don't wait for it.
+          const stage = get().live.stage;
+          if (stage === 'starting' || stage === 'finger' || stage === 'forehead') armWatchdog();
         },
 
         startCheckWithSimulator: async () => {
@@ -316,7 +382,10 @@ export const useStore = create<DalilState>()(
           return get().startCheck();
         },
 
-        resetLive: () => set({ live: IDLE_LIVE, lastCheck: null }),
+        resetLive: () => {
+          clearWatchdog();
+          set({ live: IDLE_LIVE, lastCheck: null });
+        },
 
         addReadings: (readings) => set((s) => ({ readings: [...s.readings, ...readings] })),
 
@@ -324,6 +393,10 @@ export const useStore = create<DalilState>()(
           set((s) => ({
             symptoms: [...s.symptoms, { crewId: s.crewId, time: nowIso(), missionDay: s.missionDay, symptoms }],
           })),
+
+        showStatusLight: (status) => {
+          link?.send(get().emergency ? 'LED RED' : ledCommandFor(status));
+        },
 
         // Starting a guest session always starts empty, so one visitor never sees the previous visitor's values.
         setCrew: (crewId) =>
@@ -345,6 +418,7 @@ export const useStore = create<DalilState>()(
         },
         setUseSimulator: (on) => set({ useSimulator: on }),
         setHomeMode: (on) => set({ homeMode: on }),
+        setLang: (lang) => set({ lang }),
 
         resetDemo: () => {
           set({ readings: sampleReadings(), symptoms: sampleSymptoms(), emergency: null, emergencies: [], lastCheck: null, live: IDLE_LIVE });
@@ -368,7 +442,7 @@ export const useStore = create<DalilState>()(
           }
           set({
             emergency: {
-              id: crypto.randomUUID(),
+              id: newId(),
               crewId,
               startedAt: nowIso(),
               missionDay,
@@ -418,11 +492,15 @@ export const useStore = create<DalilState>()(
       // On load, the saved readings and logs are added to a fresh copy of the sample history.
       merge: (saved, current) => {
         const p = (saved ?? {}) as Partial<DalilState>;
+        const savedReadings = p.readings ?? [];
         return {
           ...current,
           ...p,
-          readings: [...current.readings.filter((r) => r.source === 'sample'), ...(p.readings ?? [])],
+          readings: [...current.readings.filter((r) => r.source === 'sample'), ...savedReadings],
           symptoms: [...current.symptoms.filter(isSampleLog), ...(p.symptoms ?? [])],
+          // The demo opens on day 47, but real readings saved on later days (Settings → Next day) must not
+          // vanish after a reload: screens only show readings up to the current mission day.
+          missionDay: Math.max(current.missionDay, ...savedReadings.map((r) => r.missionDay)),
         };
       },
       partialize: (s) => ({
@@ -430,6 +508,7 @@ export const useStore = create<DalilState>()(
         symptoms: s.symptoms.filter((l) => l.crewId !== 'guest' && !isSampleLog(l)),
         emergency: s.emergency,
         emergencies: s.emergencies.filter((e) => e.crewId !== 'guest'),
+        lang: s.lang,
       }),
     },
   ),

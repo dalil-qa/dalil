@@ -6,12 +6,12 @@ type RedFlag = Extract<SymptomId, 'chest_pain' | 'breathing' | 'fainting' | 'sev
 
 /** The starting list from the guide; Mechanical 2 can add more phrases. */
 export const RED_FLAG_PHRASES: Record<RedFlag, string[]> = {
-  chest_pain: ['chest pain', 'chest pressure', 'chest tight', 'pain in my chest', 'heart attack'],
-  breathing: ["can't breathe", 'cannot breathe', 'short of breath', 'hard to breathe', 'struggling to breathe'],
-  fainting: ['fainted', 'passed out', 'blacked out', 'about to faint'],
-  severe_headache: ['worst headache', 'sudden severe headache'],
-  confusion: ['confused', "can't think", 'disoriented'],
-  stroke_signs: ['face drooping', 'arm weak', 'numb on one side', 'slurred', "can't speak"],
+  chest_pain: ['chest pain', 'chest pressure', 'chest tight', 'pain in my chest', 'heart attack', 'ألم في الصدر', 'ضغط في الصدر'],
+  breathing: ["can't breathe", 'cannot breathe', 'short of breath', 'hard to breathe', 'struggling to breathe', 'صعوبة في التنفس', 'ضيق في التنفس'],
+  fainting: ['fainted', 'passed out', 'blacked out', 'about to faint', 'إغماء', 'أغمي علي'],
+  severe_headache: ['worst headache', 'sudden severe headache', 'صداع شديد'],
+  confusion: ['i feel confused', 'feeling confused', 'suddenly confused', 'very confused', "can't think", 'disoriented', 'ارتباك شديد'],
+  stroke_signs: ['face drooping', 'arm weak', 'numb on one side', 'slurred speech', 'speech is slurred', "can't speak", 'تدلي الوجه', 'صعوبة الكلام'],
 };
 
 /** Typed text with curly apostrophes, odd spacing or capitals still matches. */

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
+import { plainHeadlineAr, plainSentenceAr, translate } from '../i18n.ts';
 import { plainHeadline, plainSentence } from './plain.ts';
 
 describe('plain words for Home mode', () => {
@@ -14,5 +15,11 @@ describe('plain words for Home mode', () => {
   it('the headline follows the worst status', () => {
     assert.equal(plainHeadline('ok'), 'All good today.');
     assert.equal(plainHeadline('act'), 'Please call your doctor now.');
+  });
+  it('provides Arabic Home mode translations for headlines, sentences, and UI strings', () => {
+    assert.equal(plainHeadlineAr('ok'), 'كل شيء على ما يرام اليوم.');
+    assert.equal(plainSentenceAr('hr', 'ok'), 'نبض القلب طبيعي اليوم.');
+    assert.equal(translate('ar', 'startCheck'), 'ابدأ الفحص');
+    assert.equal(translate('en', 'startCheck'), 'Start check');
   });
 });

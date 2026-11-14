@@ -188,17 +188,19 @@ export function buildMessages(req: CoachRequest): { role: 'user' | 'assistant'; 
 // ---------- answer clean-up ----------
 
 const MAX_ANSWER_CHARS = { chat: 1200, summary: 2400 } as const;
+/** Block answers that violate rule 3 by prescribing doses or common medications. */
+const UNSAFE_MEDICAL_RE = /\b(?:\d+\s*mg\b|prescribe|take\s+(?:ibuprofen|aspirin|paracetamol|acetaminophen|tylenol|antibiotics|medication))\b/i;
 
 /**
  * Checks the model's JSON and applies the safety rules again, so they hold even if the model forgets:
- * only known card ids, and escalate whenever an assessment is "act" or a used card escalates.
+ * only known card ids, no medication/dose instructions, and escalate whenever an assessment is "act" or a used card escalates.
  * Returns null for anything unusable (the caller then answers "unavailable").
  */
 export function finalizeAnswer(parsed: unknown, req: CoachRequest): CoachAnswer | null {
 	if (!isObj(parsed)) return null;
 	if (typeof parsed.answer !== 'string' || !Array.isArray(parsed.cardIds) || typeof parsed.escalate !== 'boolean') return null;
 	const answer = parsed.answer.trim();
-	if (!answer) return null;
+	if (!answer || UNSAFE_MEDICAL_RE.test(answer)) return null;
 
 	const known = new Map(req.cards.map((c) => [c.id, c]));
 	const cardIds = [...new Set(parsed.cardIds.filter((id): id is string => typeof id === 'string' && known.has(id)))];

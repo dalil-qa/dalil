@@ -1,5 +1,6 @@
 // Per-visit state that is not saved: the Coach conversation and what was "sent to Earth". Not persisted.
 import { create } from 'zustand';
+import { newId } from './id.ts';
 
 export interface ChatMessage {
   id: string;
@@ -31,7 +32,7 @@ export const useSession = create<SessionState>()((set) => ({
   sending: false,
   earthSentAt: {},
   summaries: {},
-  addMessage: (crewId, m) => set((s) => ({ chats: { ...s.chats, [crewId]: [...(s.chats[crewId] ?? []), { ...m, id: crypto.randomUUID() }] } })),
+  addMessage: (crewId, m) => set((s) => ({ chats: { ...s.chats, [crewId]: [...(s.chats[crewId] ?? []), { ...m, id: newId() }] } })),
   setSending: (sending) => set({ sending }),
   sendToEarth: (crewId) => set((s) => ({ earthSentAt: { ...s.earthSentAt, [crewId]: new Date().toISOString() } })),
   setSummary: (crewId, v) => set((s) => ({ summaries: { ...s.summaries, [crewId]: { ...v, at: new Date().toISOString() } } })),

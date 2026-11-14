@@ -72,6 +72,10 @@ describe('finalizeAnswer', () => {
 		expect(finalizeAnswer({ answer: 'x', cardIds: 'no', escalate: false }, req)).toBeNull();
 		expect(finalizeAnswer(null, req)).toBeNull();
 	});
+	it('rejects an answer that names a medication or dosage', () => {
+		expect(finalizeAnswer({ answer: 'Take 400 mg of ibuprofen and rest.', cardIds: [], escalate: false }, req)).toBeNull();
+		expect(finalizeAnswer({ answer: 'Take paracetamol for the headache.', cardIds: [], escalate: false }, req)).toBeNull();
+	});
 });
 
 describe('POST /coach guards', () => {

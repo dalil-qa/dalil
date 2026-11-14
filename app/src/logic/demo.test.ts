@@ -63,9 +63,12 @@ describe('red-flag word check (12.5)', () => {
     assert.deepEqual(detectRedFlags('I can’t breathe properly'), ['breathing']);
     assert.deepEqual(detectRedFlags('I think I passed out and my face drooping'), ['fainting', 'stroke_signs']);
     assert.deepEqual(detectRedFlags('worst  headache of my life'), ['severe_headache']);
+    assert.deepEqual(detectRedFlags('I feel confused right now'), ['confusion']);
+    assert.deepEqual(detectRedFlags('my speech is slurred'), ['stroke_signs']);
+    assert.deepEqual(detectRedFlags('لدي ألم في الصدر وصعوبة في التنفس'), ['chest_pain', 'breathing']);
   });
-  it('stays quiet for ordinary questions', () => {
-    for (const t of ['Why is my heart rate amber?', 'I feel a bit tired', 'how do I improve my sleep', '']) assert.deepEqual(detectRedFlags(t), []);
+  it('stays quiet for ordinary questions, including non-symptom uses of "confused"', () => {
+    for (const t of ['Why is my heart rate amber?', 'I feel a bit tired', 'how do I improve my sleep', 'I am confused by this chart', '']) assert.deepEqual(detectRedFlags(t), []);
   });
 });
 

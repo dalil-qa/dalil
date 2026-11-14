@@ -59,6 +59,11 @@ export function Settings() {
           <input type="checkbox" className="h-5 w-5 accent-cyan-400" checked={s.homeMode} onChange={(e) => s.setHomeMode(e.target.checked)} />
           Use Home mode
         </label>
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <span className="text-base text-slate-300">Home mode language:</span>
+          <Button variant={s.lang === 'en' ? 'primary' : 'secondary'} onClick={() => s.setLang('en')}>English</Button>
+          <Button variant={s.lang === 'ar' ? 'primary' : 'secondary'} onClick={() => s.setLang('ar')}>العربية (Arabic RTL)</Button>
+        </div>
       </Card>
 
       <Card title="Intro">
