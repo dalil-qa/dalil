@@ -1,0 +1,23 @@
+/**
+ * The Dalil Coach Worker (APP_BUILD_GUIDE.md section 11).
+ * Holds the Anthropic key so the browser never sees it.
+ *
+ * Secrets (never in this file):  npx wrangler secret put ANTHROPIC_API_KEY
+ * Local key for `npm run dev`:   worker/.dev.vars  (git-ignored; see .dev.vars.example)
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "dalil-coach",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-11-13",
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": true,
+	"observability": {
+		"enabled": true
+	},
+	"vars": {
+		// Comma-separated list of origins allowed to call /coach (CORS + origin check).
+		// After the first Cloudflare Pages deploy, add its https://<name>.pages.dev address here.
+		"ALLOWED_ORIGINS": "http://localhost:5173,http://localhost:4173"
+	}
+}
