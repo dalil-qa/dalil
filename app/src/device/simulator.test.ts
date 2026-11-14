@@ -54,9 +54,9 @@ describe('SimulatorLink', () => {
     assert.equal(done.left, null);
   });
 
-  it('watch: heart rate about 10 above normal. act: SpO2 clearly below 90', async () => {
+  it('watch: heart rate about 12 above normal. act: SpO2 clearly below 90', async () => {
     const watch = (await runCheck('watch')).at(-1) as StationMeasure;
-    assert.equal(watch.hr, 75);
+    assert.equal(watch.hr, 77);
     const act = (await runCheck('act')).at(-1) as StationMeasure;
     assert.equal(act.spo2, 88);
   });

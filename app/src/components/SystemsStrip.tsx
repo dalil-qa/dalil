@@ -37,7 +37,7 @@ export function SystemsStrip({ assessments }: { assessments: Assessment[] }) {
           >
             <Icon aria-hidden size={26} />
             <span className="font-medium">{name}</span>
-            <span className="text-xs">{info ? info.word : 'Not measured'}</span>
+            <span className="text-sm">{info ? info.word : 'Not measured'}</span>
           </motion.li>
         );
       })}

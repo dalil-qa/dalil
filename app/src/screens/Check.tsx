@@ -12,6 +12,7 @@ import { formatValue } from '../logic/format.ts';
 import { INDICATOR_LABELS } from '../logic/status.ts';
 import { useNav } from '../nav.ts';
 import { useStore } from '../store.ts';
+import { HomeResult } from './Home.tsx';
 import { QuickLog } from './QuickLog.tsx';
 
 function Step({ n, title, hint, icon }: { n: number; title: string; hint: string; icon: React.ReactNode }) {
@@ -66,9 +67,13 @@ function Ready() {
         <Button big disabled={!canStart || busy} onClick={start}>
           <Play aria-hidden size={22} /> {busy ? 'Starting…' : connected && !isSim ? 'Start check' : 'Start check (simulator)'}
         </Button>
+        {connected && !isSim && (
+          // The fallback ladder (pitch script section 4): one click to the simulator, clearly labelled.
+          <Button variant="secondary" onClick={() => connectDevice('simulator')}>Use the simulator instead</Button>
+        )}
         {isSerialSupported() ? (
           <Button variant="secondary" disabled={connection === 'connecting'} onClick={() => connectDevice('serial')}>
-            <Usb aria-hidden size={20} /> Connect station
+            <Usb aria-hidden size={20} /> {connected && !isSim ? 'Reconnect station' : 'Connect station'}
           </Button>
         ) : (
           <p className="text-base text-slate-400">{SERIAL_UNSUPPORTED_TEXT}</p>
@@ -172,6 +177,8 @@ function CheckError() {
 export function Check() {
   const stage = useStore((s) => s.live.stage);
   const resetLive = useStore((s) => s.resetLive);
+  const lastCheck = useStore((s) => s.lastCheck);
+  const home = useStore((s) => s.homeMode);
   const go = useNav((s) => s.go);
   const [logging, setLogging] = useState(false);
 
@@ -184,6 +191,8 @@ export function Check() {
   if (logging) return <QuickLog onDone={finish} />;
   if (stage === 'error') return <CheckError />;
   if (stage === 'starting' || stage === 'finger' || stage === 'forehead') return <Measuring />;
+  // Home mode: the result in plain words, and no quick log.
+  if (stage === 'done' && home && lastCheck) return <HomeResult assessments={lastCheck.assessments} overall={lastCheck.overall} onDone={finish} />;
   if (stage === 'done') return <Result onContinue={() => setLogging(true)} />;
   return <Ready />;
 }

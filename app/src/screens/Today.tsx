@@ -146,6 +146,10 @@ export function Today() {
         </div>
       )}
 
+      {items.some((i) => i.reading.source === 'sample' || i.reading.source === 'simulated') && (
+        <p className="text-sm text-slate-400">Values with the flask icon are sample or simulated data for a fictional crew member. Real checks show a radio icon.</p>
+      )}
+
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card title="Today's routine">
           <ul className="flex flex-col gap-2">

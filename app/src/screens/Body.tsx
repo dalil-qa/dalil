@@ -118,7 +118,7 @@ export function Body() {
   const emergency = useStore((s) => s.emergency);
   const emergencies = useStore((s) => s.emergencies);
   const [selected, setSelected] = useState<BodySystem['id']>('heart');
-  const [showHazards, setShowHazards] = useState(false);
+  const [showHazards, setShowHazards] = useState(true);
   const [picked, setPicked] = useState<Set<HazardId> | null>(null);
 
   const states = useMemo(

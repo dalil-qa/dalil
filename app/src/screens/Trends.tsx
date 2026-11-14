@@ -125,13 +125,13 @@ export function Trends() {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 12, right: 16, bottom: 8, left: 0 }}>
               <CartesianGrid stroke="#ffffff14" vertical={false} />
-              <XAxis dataKey="day" type="number" domain={[xMin, day]} allowDecimals={false} stroke="#94a3b8" tick={{ fontSize: 14 }} label={{ value: 'Mission day', position: 'insideBottom', offset: -2, fill: '#94a3b8', fontSize: 13 }} />
+              <XAxis dataKey="day" type="number" domain={[xMin, day]} allowDecimals={false} stroke="#94a3b8" tick={{ fontSize: 14 }} label={{ value: 'Mission day', position: 'insideBottom', offset: -2, fill: '#94a3b8', fontSize: 14 }} />
               <YAxis domain={[yMin, yMax]} allowDecimals={false} stroke="#94a3b8" tick={{ fontSize: 14 }} width={44} />
               <Tooltip content={<Tip indicator={indicator} />} />
-              {earth && <ReferenceArea x1={xMin} x2={0} fill="#94a3b8" fillOpacity={0.08} label={{ value: 'Earth', position: 'insideTopLeft', fill: '#94a3b8', fontSize: 13 }} />}
+              {earth && <ReferenceArea x1={xMin} x2={0} fill="#94a3b8" fillOpacity={0.08} label={{ value: 'Earth', position: 'insideTopLeft', fill: '#94a3b8', fontSize: 14 }} />}
               {threshold && <ReferenceArea y1={threshold.green.min ?? yMin} y2={threshold.green.max ?? yMax} fill="#34d399" fillOpacity={0.08} />}
               {base !== null && <ReferenceArea y1={base - limit} y2={base + limit} fill="#22d3ee" fillOpacity={0.18} />}
-              {pre !== null && <ReferenceLine y={pre} stroke="#fde68a" strokeDasharray="6 4" label={{ value: 'Before launch', position: 'insideBottomRight', fill: '#fde68a', fontSize: 13 }} />}
+              {pre !== null && <ReferenceLine y={pre} stroke="#fde68a" strokeDasharray="6 4" label={{ value: 'Before launch', position: 'insideBottomRight', fill: '#fde68a', fontSize: 14 }} />}
               <Line type="monotone" dataKey="value" stroke="#22d3ee" strokeWidth={2.5} dot={<Dot />} activeDot={<Dot />} isAnimationActive={false} />
               {isBp && <Line type="monotone" dataKey="dia" stroke="#a5b4fc" strokeWidth={2.5} dot={{ r: 4, fill: '#a5b4fc', stroke: '#0b1426' }} isAnimationActive={false} />}
             </LineChart>

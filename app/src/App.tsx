@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { useEffect } from 'react';
 import { EmergencyBar } from './layout/EmergencyBar.tsx';
 import { Footer } from './layout/Footer.tsx';
 import { Header } from './layout/Header.tsx';
@@ -9,10 +9,11 @@ import { Body } from './screens/Body.tsx';
 import { Check } from './screens/Check.tsx';
 import { Coach } from './screens/Coach.tsx';
 import { Earth } from './screens/Earth.tsx';
+import { HomeHeader, HomeToday } from './screens/Home.tsx';
 import { Landing } from './screens/Landing.tsx';
 import { Sources } from './screens/Sources.tsx';
-// Recharts is most of the bundle, so the chart screen loads only when it is opened.
-const Trends = lazy(() => import('./screens/Trends.tsx').then((m) => ({ default: m.Trends })));
+import { Trends } from './screens/Trends.tsx';
+import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import { Emergency } from './screens/Emergency.tsx';
 import { Settings } from './screens/Settings.tsx';
 import { Today } from './screens/Today.tsx';
@@ -28,11 +29,7 @@ function Screen() {
     case 'body':
       return <Body />;
     case 'trends':
-      return (
-        <Suspense fallback={<p className="text-base text-slate-400">Loading charts…</p>}>
-          <Trends />
-        </Suspense>
-      );
+      return <Trends />;
     case 'coach':
       return <Coach />;
     case 'earth':
@@ -50,7 +47,9 @@ function App() {
   const stage = useStore((s) => s.live.stage);
   const emergencyId = useStore((s) => s.emergency?.id ?? null);
   const emergencyOpen = emergencyId !== null;
+  const home = useStore((s) => s.homeMode);
   const guest = useStore((s) => s.crewId === 'guest');
+  const endGuestSession = useStore((s) => s.endGuestSession);
 
   // Reopen a station the user allowed before, with no popup.
   useEffect(() => {
@@ -67,18 +66,44 @@ function App() {
     if (emergencyId) showEmergency();
   }, [emergencyId, showEmergency]);
 
+  // Home mode makes everything bigger (the page's root font size).
+  useEffect(() => {
+    document.documentElement.classList.toggle('home-mode', home);
+  }, [home]);
+
   // The intro page is full-screen. The emergency page and its red bar still work from everywhere else.
   if (screen === 'landing') return <Landing />;
+
+  // Home mode: one big button and plain words. The emergency page and its red bar still work.
+  if (home) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <EmergencyBar />
+        <HomeHeader />
+        <main className="flex-1">{screen === 'check' ? <Check /> : <HomeToday />}</main>
+        {emergencyOpen && !emergencyMinimized && <Emergency />}
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
       <EmergencyBar />
       <Header />
-      {guest && <div role="status" className="bg-watch/15 px-4 py-2 text-base text-watch">Guest mode: nothing is saved.</div>}
+      {guest && (
+        <div role="status" className="flex flex-wrap items-center justify-between gap-3 bg-watch/15 px-4 py-2 text-base text-watch">
+          <span>Guest mode: nothing is saved.</span>
+          <button type="button" onClick={endGuestSession} className="rounded-lg border border-watch/50 px-3 py-1 text-sm font-medium hover:bg-watch/20 focus-visible:outline-2 focus-visible:outline-watch">
+            End guest session
+          </button>
+        </div>
+      )}
       <div className="flex flex-1 flex-col md:flex-row">
         <NavRail />
         <main className="flex-1 p-5">
-          <Screen />
+          <ErrorBoundary key={screen} onHome={() => go('today')}>
+            <Screen />
+          </ErrorBoundary>
         </main>
       </div>
       <Footer />

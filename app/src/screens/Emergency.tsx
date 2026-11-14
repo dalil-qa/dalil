@@ -1,7 +1,7 @@
 // "I feel unwell now" (APP_BUILD_GUIDE.md 10.11). Rules this page must never break:
 // no AI on this page, no medicine names or doses, steps 1 and 2 never wait for a measurement,
 // and the warning line is always visible. Everything here works with Wi-Fi off.
-import { BellRing, Check, Info, Send, ShieldAlert, Stethoscope } from 'lucide-react';
+import { BellRing, Check, Info, Phone, Send, ShieldAlert, Stethoscope } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Button } from '../components/Card.tsx';
 import { DelayAnimation } from '../components/DelayAnimation.tsx';
@@ -27,6 +27,7 @@ export function Emergency() {
   const live = useStore((s) => s.live);
   const connection = useStore((s) => s.connection);
   const useSimulator = useStore((s) => s.useSimulator);
+  const home = useStore((s) => s.homeMode);
   const { openEmergency, alertCrew, sendEmergencyReport, closeEmergency, startCheck, startCheckWithSimulator } = useStore.getState();
   const minimize = useNav((s) => s.minimizeEmergency);
   const now = useNow(15_000);
@@ -61,7 +62,7 @@ export function Emergency() {
       <div className="mx-auto flex max-w-4xl flex-col gap-5 p-5">
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-act px-5 py-3 text-space-950">
           <h1 className="inline-flex items-center gap-2 text-2xl font-bold"><ShieldAlert aria-hidden size={28} /> EMERGENCY · started {clock(emergency.startedAt)} ({minutesAgo === 0 ? 'just now' : `${minutesAgo} min ago`})</h1>
-          <span className="text-lg font-semibold">{me.label}</span>
+          {!home && <span className="text-lg font-semibold">{me.label}</span>}
         </div>
 
         <section aria-label="What is happening">
@@ -84,17 +85,31 @@ export function Emergency() {
 
         <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 1: tell a crewmate">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-xl font-semibold text-slate-50">1 · Tell a crewmate now.</h2>
-            <Button big variant="danger" onClick={alertCrew} disabled={!!emergency.crewAlertedAt}>
-              <BellRing aria-hidden size={22} /> {emergency.crewAlertedAt ? `Alerted ${clock(emergency.crewAlertedAt)}` : 'Alert crew'}
-            </Button>
+            <h2 className="text-xl font-semibold text-slate-50">{home ? '1 · Call 999 now.' : '1 · Tell a crewmate now.'}</h2>
+            {home ? (
+              <a href="tel:999" className="inline-flex min-h-14 items-center gap-2 rounded-xl bg-act px-7 text-lg font-semibold text-space-950 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><Phone aria-hidden size={22} /> Call 999</a>
+            ) : (
+              <Button big variant="danger" onClick={alertCrew} disabled={!!emergency.crewAlertedAt}>
+                <BellRing aria-hidden size={22} /> {emergency.crewAlertedAt ? `Alerted ${clock(emergency.crewAlertedAt)}` : 'Alert crew'}
+              </Button>
+            )}
           </div>
-          {emergency.crewAlertedAt && (
+          {!home && emergency.crewAlertedAt && (
             <p className="mt-2 text-base text-ok">Crew alerted: {others.map((c) => `${c.label} (${c.role})`).join(', ')} · {clock(emergency.crewAlertedAt)}</p>
           )}
         </section>
 
-        <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 2: contact the flight surgeon">
+        {home ? (
+          <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 2: notify family">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-xl font-semibold text-slate-50">2 · Notify family.</h2>
+              <Button big variant="danger" onClick={alertCrew} disabled={!!emergency.crewAlertedAt}>
+                <Send aria-hidden size={22} /> {emergency.crewAlertedAt ? `Family notified ${clock(emergency.crewAlertedAt)}` : 'Notify family'}
+              </Button>
+            </div>
+          </section>
+        ) : (
+          <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 2: contact the flight surgeon">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-semibold text-slate-50">2 · Contact the flight surgeon.</h2>
             <span className="inline-flex items-center gap-2 text-base font-semibold text-ok"><Send aria-hidden size={18} /> PRIORITY report sent {emergency.reportSentAt ? clock(emergency.reportSentAt) : ''}</span>
@@ -106,6 +121,7 @@ export function Emergency() {
           </div>
           {showReport && <pre className="mt-3 whitespace-pre-wrap rounded-xl bg-space-950 p-4 text-sm text-slate-200">{report}</pre>}
         </section>
+        )}
 
         <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 3: while you wait">
           <h2 className="mb-3 text-xl font-semibold text-slate-50">3 · While you wait:</h2>
@@ -125,7 +141,7 @@ export function Emergency() {
         </section>
 
         <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 4: procedures">
-          <h2 className="inline-flex items-center gap-2 text-xl font-semibold text-slate-50"><Stethoscope aria-hidden size={22} /> 4 · Follow your mission's medical procedures and the crew medical officer.</h2>
+          <h2 className="inline-flex items-center gap-2 text-xl font-semibold text-slate-50"><Stethoscope aria-hidden size={22} /> {home ? "4 · Follow the emergency operator's instructions." : "4 · Follow your mission's medical procedures and the crew medical officer."}</h2>
         </section>
 
         {/* Always visible: our station has no ECG and cannot detect a heart attack. */}

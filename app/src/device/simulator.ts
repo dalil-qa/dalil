@@ -7,7 +7,7 @@ export type SimScenario = 'normal' | 'watch' | 'act' | 'bad_signal' | 'no_finger
 
 export const SIM_SCENARIOS: { id: SimScenario; label: string }[] = [
   { id: 'normal', label: 'Normal' },
-  { id: 'watch', label: 'Watch (heart rate about 10 above normal)' },
+  { id: 'watch', label: 'Watch (heart rate about 12 above normal)' },
   { id: 'act', label: 'Act (SpO2 about 88 %)' },
   { id: 'bad_signal', label: 'Bad signal' },
   { id: 'no_finger', label: 'No finger' },
@@ -136,7 +136,8 @@ export class SimulatorLink implements DeviceLink {
     this.q = null;
     this.phase = { name: 'finger', step: 0 };
     this.targets = {
-      hr: this.scenario === 'watch' ? hr + 10 : hr,
+      // "Watch" is clearly above the 8 bpm band even with the +-2 jitter (10 to 14 above normal), so it is amber every time.
+      hr: this.scenario === 'watch' ? hr + 12 : hr,
       // Clearly below any amber line (about 90 %), so "Act" is red every time, not only when the jitter allows it.
       spo2: this.scenario === 'act' ? 88 : spo2,
       temp,

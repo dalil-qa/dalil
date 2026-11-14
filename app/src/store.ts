@@ -83,10 +83,13 @@ interface DalilState {
   addReadings: (readings: Reading[]) => void;
   addSymptoms: (symptoms: SymptomId[]) => void;
   setCrew: (crewId: string) => void;
+  /** Forget everything the guest did and go back to the demo crew member (the judge demo runs in guest mode). */
+  endGuestSession: () => void;
   setMission: (missionId: MissionId) => void;
   setMissionDay: (day: number) => void;
   setSimScenario: (scenario: SimScenario) => void;
   setUseSimulator: (on: boolean) => void;
+  setHomeMode: (on: boolean) => void;
   resetDemo: () => void;
   openEmergency: (trigger: EmergencyEvent['trigger'], symptoms: SymptomId[]) => void;
   alertCrew: () => void;
@@ -129,7 +132,24 @@ const safeStorage: StateStorage = {
   },
 };
 
+/** `?simspeed=10` in the address runs the simulator 10 times faster (for tests and demos). Normal speed otherwise. */
+const simSpeed = (): number => {
+  try {
+    const n = Number(new URLSearchParams(location.search).get('simspeed'));
+    return Number.isFinite(n) && n >= 1 ? Math.min(n, 50) : 1;
+  } catch {
+    return 1; // not in a browser
+  }
+};
+
 const nowIso = () => new Date().toISOString();
+
+/** The state minus anything the guest made. An open emergency is kept: it stays open until it is closed. */
+const withoutGuest = (s: Pick<DalilState, 'readings' | 'symptoms' | 'emergencies'>) => ({
+  readings: s.readings.filter((r) => r.crewId !== 'guest'),
+  symptoms: s.symptoms.filter((l) => l.crewId !== 'guest'),
+  emergencies: s.emergencies.filter((e) => e.crewId !== 'guest'),
+});
 /** Sample symptom logs use local times without a "Z"; real ones come from toISOString(), which ends in "Z". */
 const isSampleLog = (l: SymptomLog): boolean => !l.time.endsWith('Z');
 const UNITS: Record<'hr' | 'spo2' | 'temp', string> = { hr: 'bpm', spo2: '%', temp: '°C' };
@@ -247,7 +267,7 @@ export const useStore = create<DalilState>()(
         connectDevice: async (kind, options) => {
           await closeLink();
           set({ connection: 'connecting', connectError: null, station: null, stationSilent: false, live: IDLE_LIVE });
-          const next: DeviceLink = kind === 'simulator' ? new SimulatorLink({ scenario: get().simScenario }) : new SerialLink();
+          const next: DeviceLink = kind === 'simulator' ? new SimulatorLink({ scenario: get().simScenario, intervalMs: 1000 / simSpeed() }) : new SerialLink();
           link = next;
           unsubscribe = [
             next.onMessage(handleMessage),
@@ -305,7 +325,17 @@ export const useStore = create<DalilState>()(
             symptoms: [...s.symptoms, { crewId: s.crewId, time: nowIso(), missionDay: s.missionDay, symptoms }],
           })),
 
-        setCrew: (crewId) => set({ crewId, lastCheck: null, live: IDLE_LIVE }),
+        // Starting a guest session always starts empty, so one visitor never sees the previous visitor's values.
+        setCrew: (crewId) =>
+          set((s) => ({
+            crewId,
+            lastCheck: null,
+            live: IDLE_LIVE,
+            ...(crewId === 'guest' ? withoutGuest(s) : {}),
+          })),
+
+        endGuestSession: () =>
+          set((s) => ({ ...withoutGuest(s), crewId: s.crewId === 'guest' ? 'c2' : s.crewId, lastCheck: null, live: IDLE_LIVE })),
         setMission: (missionId) => set({ missionId }),
         setMissionDay: (day) => set({ missionDay: Math.trunc(day) }),
 
@@ -314,6 +344,7 @@ export const useStore = create<DalilState>()(
           set({ simScenario: scenario });
         },
         setUseSimulator: (on) => set({ useSimulator: on }),
+        setHomeMode: (on) => set({ homeMode: on }),
 
         resetDemo: () => {
           set({ readings: sampleReadings(), symptoms: sampleSymptoms(), emergency: null, emergencies: [], lastCheck: null, live: IDLE_LIVE });

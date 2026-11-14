@@ -17,3 +17,8 @@ body {
   @apply bg-space-950 text-slate-100 antialiased;
   font-variant-numeric: tabular-nums;
 }
+
+/* Home mode: everything sized in rem gets bigger (APP_BUILD_GUIDE.md 10.10). */
+html.home-mode {
+  font-size: 22px;
+}

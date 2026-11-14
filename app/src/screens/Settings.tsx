@@ -53,6 +53,14 @@ export function Settings() {
         </div>
       </Card>
 
+      <Card title="Home mode">
+        <p className="mb-3 text-base text-slate-300">Huge text, one big button, results in plain words, and "Send to family". Built for people at home, not for space.</p>
+        <label className="flex items-center gap-3 text-base text-slate-200">
+          <input type="checkbox" className="h-5 w-5 accent-cyan-400" checked={s.homeMode} onChange={(e) => s.setHomeMode(e.target.checked)} />
+          Use Home mode
+        </label>
+      </Card>
+
       <Card title="Intro">
         <Button variant="secondary" onClick={() => go('landing')}><Compass aria-hidden size={18} /> Show the intro and tour again</Button>
       </Card>
