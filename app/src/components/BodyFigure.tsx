@@ -1,4 +1,5 @@
 import type { KeyboardEvent, ReactNode } from 'react';
+import { statusWord, useT } from '../i18n.ts';
 import type { BodySystem, Status } from '../types.ts';
 
 // Our own figure (APP_BUILD_GUIDE.md 10.4): no downloaded art, so no licence questions.
@@ -26,15 +27,15 @@ const TONE: Record<Tone, { soft: string; stroke: string; text: string; word: str
 };
 
 // Where each label sits, and the point on the organ its line starts from (viewBox 420 × 452, body centred on x = 210).
-const LABEL: Record<Id, { short: string; side: 'left' | 'right'; y: number; anchor: [number, number] }> = {
-  brain: { short: 'Brain', side: 'left', y: 44, anchor: [194, 46] },
-  eyes: { short: 'Eyes', side: 'right', y: 52, anchor: [224, 68] },
-  lungs: { short: 'Lungs', side: 'left', y: 136, anchor: [183, 142] },
-  immune: { short: 'Immune', side: 'right', y: 118, anchor: [244, 142] },
-  heart: { short: 'Heart', side: 'right', y: 184, anchor: [212, 156] },
-  metabolism: { short: 'Metabolism', side: 'left', y: 216, anchor: [194, 212] },
-  skin: { short: 'Skin', side: 'right', y: 264, anchor: [247, 262] },
-  musculoskeletal: { short: 'Bones', side: 'left', y: 320, anchor: [190, 320] },
+const LABEL: Record<Id, { side: 'left' | 'right'; y: number; anchor: [number, number] }> = {
+  brain: { side: 'left', y: 44, anchor: [194, 46] },
+  eyes: { side: 'right', y: 52, anchor: [224, 68] },
+  lungs: { side: 'left', y: 136, anchor: [183, 142] },
+  immune: { side: 'right', y: 118, anchor: [244, 142] },
+  heart: { side: 'right', y: 184, anchor: [212, 156] },
+  metabolism: { side: 'left', y: 216, anchor: [194, 212] },
+  skin: { side: 'right', y: 264, anchor: [247, 262] },
+  musculoskeletal: { side: 'left', y: 320, anchor: [190, 320] },
 };
 
 const PILL_W = 128;
@@ -63,22 +64,31 @@ interface Props {
 }
 
 export function BodyFigure({ statuses, names, selected, highlighted, onSelect }: Props) {
+  const { lang, t } = useT();
+  const ar = lang === 'ar';
+  // Status words: the full one for screen readers; the short one in the small labels (Arabic "Call surgeon" is long).
+  const stateText = (s: Status | null) => (s ? statusWord(s, false, lang) : t('noRangeYet'));
+  const pillWord = (s: Status | null) => (s ? statusWord(s, ar, lang) : t('noRangeYet'));
   /** One system: its organ shapes, the line to its label, and the label. All of it is one button. */
   const system = (id: Id, organ: (tone: (typeof TONE)[Tone], isSel: boolean) => ReactNode) => {
     const status = statuses[id];
     const tone = TONE[status ?? 'none'];
     const isSel = selected === id;
     const hot = highlighted.has(id);
-    const { short, side, y, anchor } = LABEL[id];
+    const { side, y, anchor } = LABEL[id];
+    const short = t(`fig_${id}` as 'fig_heart');
     const x = pillX(side);
     const lineEnd = side === 'left' ? x + PILL_W : x;
-    const textX = x + (id === 'immune' ? 34 : 14);
+    // Arabic reads right to left: its text starts at the right edge of the label, and the shield moves to the right.
+    const inset = id === 'immune' ? 34 : 14;
+    const textX = ar ? x + PILL_W - inset : x + inset;
+    const shieldX = ar ? x + PILL_W - 20 : x + 20;
     return (
       <g
         key={id}
         role="button"
         tabIndex={0}
-        aria-label={`${names[id]}: ${status === 'ok' ? 'OK' : status === 'watch' ? 'Watch' : status === 'act' ? 'Call surgeon' : 'no range set yet'}`}
+        aria-label={`${names[id]}: ${stateText(status)}`}
         aria-pressed={isSel}
         onClick={() => onSelect(id)}
         onKeyDown={(e: KeyboardEvent) => {
@@ -110,10 +120,10 @@ export function BodyFigure({ statuses, names, selected, highlighted, onSelect }:
         />
         {id === 'immune' && (
           // A small shield: the immune system's badge.
-          <path d={`M ${x + 20} ${y - 11} l 9 3.5 v 7 c 0 6 -4 9.5 -9 12 c -5 -2.5 -9 -6 -9 -12 v -7 z`} className={`${tone.soft} ${tone.stroke} [stroke-width:1.5]`} />
+          <path d={`M ${shieldX} ${y - 11} l 9 3.5 v 7 c 0 6 -4 9.5 -9 12 c -5 -2.5 -9 -6 -9 -12 v -7 z`} className={`${tone.soft} ${tone.stroke} [stroke-width:1.5]`} />
         )}
         <text x={textX} y={y - 4} fontSize={15} fontWeight={600} className="fill-slate-100">{short}</text>
-        <text x={textX} y={y + 15} fontSize={14} fontWeight={500} className={tone.text}>{tone.glyph} {tone.word}</text>
+        <text x={textX} y={y + 15} fontSize={14} fontWeight={500} className={tone.text}>{tone.glyph} {status ? pillWord(status) : t('noRangeYet')}</text>
       </g>
     );
   };
@@ -122,7 +132,7 @@ export function BodyFigure({ statuses, names, selected, highlighted, onSelect }:
   const skin = TONE[statuses.skin ?? 'none'];
 
   return (
-    <svg viewBox="0 0 420 452" className="mx-auto h-auto w-full max-w-[440px]" role="group" aria-label="Body figure: choose a system">
+    <svg viewBox="0 0 420 452" className="mx-auto h-auto w-full max-w-[440px]" role="group" aria-label={t('bodyFigureLabel')}>
       {/* Skin and temperature: the whole body. Its status shows as a soft glow round the outline, not as a fill,
           so a green skin doesn't make the whole body look "OK". */}
       {system('skin', (_tone, isSel) => (

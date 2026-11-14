@@ -4,7 +4,8 @@ import { BeatingHeart } from '../components/Heart.tsx';
 import { Button, Card } from '../components/Card.tsx';
 import { MetricTile } from '../components/MetricTile.tsx';
 import { Ring } from '../components/Ring.tsx';
-import { STATUS_INFO, LED_WORD } from '../components/info.ts';
+import { STATUS_INFO } from '../components/info.ts';
+import { STATUS_LED, indicatorName } from '../i18n-app.ts';
 import { ReasonText, StatusBadge } from '../components/Status.tsx';
 import { SystemsStrip } from '../components/SystemsStrip.tsx';
 import { isSerialSupported } from '../device/serial.ts';
@@ -133,15 +134,16 @@ function Measuring() {
 function Result({ onContinue }: { onContinue: () => void }) {
   const lastCheck = useStore((s) => s.lastCheck);
   const station = useStore((s) => s.station);
-  const { t } = useT();
+  const { lang, t } = useT();
+  const ar = lang === 'ar';
   if (!lastCheck) return <Ready />;
   const { assessments, readings, overall, lowConfidence, unassessed } = lastCheck;
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5">
       <div className="flex flex-wrap items-center gap-4">
-        <h1 className="text-[28px] font-semibold text-slate-50">Your result</h1>
+        <h1 className="text-[28px] font-semibold text-slate-50">{t('yourResult')}</h1>
         <StatusBadge status={overall} size="lg" />
-        <span className="text-base text-slate-300">Light on the station: <strong className={STATUS_INFO[overall].text}>{LED_WORD[overall]}</strong>{station?.fw === 'sim' ? ' (simulated)' : ''}</span>
+        <span className="text-base text-slate-300">{t('ledLight')} <strong className={STATUS_INFO[overall].text}>{t(STATUS_LED[overall])}</strong>{station?.fw === 'sim' ? t('simParen') : ''}</span>
       </div>
       {lowConfidence && (
         <p role="status" className="rounded-xl border border-watch/50 bg-watch/10 px-4 py-3 text-base text-watch">
@@ -150,7 +152,7 @@ function Result({ onContinue }: { onContinue: () => void }) {
       )}
       {unassessed.length > 0 && (
         <p role="status" className="text-sm text-slate-400">
-          Not assessed yet (no threshold table entry): {unassessed.map((i) => INDICATOR_LABELS[i]).join(', ')}.
+          {t('notAssessed', { list: unassessed.map((i) => indicatorName(i, INDICATOR_LABELS[i], ar)).join(ar ? '، ' : ', ') })}
         </p>
       )}
       {readings.length === 0 ? (
@@ -162,17 +164,17 @@ function Result({ onContinue }: { onContinue: () => void }) {
             const f = formatValue(r.indicator, r.value, r.unit);
             return (
               <div key={r.id} className="flex flex-col gap-2">
-                <MetricTile size="lg" label={INDICATOR_LABELS[r.indicator]} value={f.value} unit={f.unit} status={a?.status ?? null} source={r.source} />
+                <MetricTile size="lg" label={indicatorName(r.indicator, INDICATOR_LABELS[r.indicator], ar)} value={f.value} unit={f.unit} status={a?.status ?? null} source={r.source} />
                 {a && <ReasonText>{a.reason}</ReasonText>}
               </div>
             );
           })}
         </div>
       )}
-      <Card title="What this means for your body">
+      <Card title={t('whatMeans')}>
         <SystemsStrip assessments={assessments} />
       </Card>
-      <div className="flex justify-end"><Button big onClick={onContinue}>Continue</Button></div>
+      <div className="flex justify-end"><Button big onClick={onContinue}>{t('continueBtn')}</Button></div>
     </div>
   );
 }

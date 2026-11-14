@@ -84,6 +84,8 @@ interface DalilState {
   useSimulator: boolean;
   simScenario: SimScenario;
   homeMode: boolean;
+  /** Who was selected before Home mode switched to Abu Ahmed, so leaving Home mode goes back to them. */
+  crewBeforeHome: string | null;
   /** Home mode language (the space screens stay in English). */
   lang: Lang;
   theme: Theme;
@@ -341,6 +343,7 @@ export const useStore = create<DalilState>()(
         useSimulator: true,
         simScenario: 'normal',
         homeMode: false,
+        crewBeforeHome: null,
         lang: 'en',
         theme: 'light',
 
@@ -444,7 +447,16 @@ export const useStore = create<DalilState>()(
           set({ simScenario: scenario });
         },
         setUseSimulator: (on) => set({ useSimulator: on }),
-        setHomeMode: (on) => set({ homeMode: on }),
+        // Home mode is for someone at home, so it uses the home demo person (Abu Ahmed), never an astronaut's Mars data.
+        setHomeMode: (on) => {
+          if (on === get().homeMode) return;
+          abortRunningCheck();
+          set((s) =>
+            on
+              ? { homeMode: true, crewBeforeHome: s.crewId === 'h1' ? s.crewBeforeHome : s.crewId, crewId: 'h1', lastCheck: null, live: IDLE_LIVE }
+              : { homeMode: false, crewId: s.crewBeforeHome ?? 'c2', crewBeforeHome: null, lastCheck: null, live: IDLE_LIVE },
+          );
+        },
         setLang: (lang) => set({ lang }),
         setTheme: (theme) => set({ theme }),
 

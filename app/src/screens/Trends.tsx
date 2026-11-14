@@ -8,13 +8,15 @@ import { computeBaseline, computePreflightNormal } from '../logic/baseline.ts';
 import { formatValue } from '../logic/format.ts';
 import { insightList } from '../logic/insights.ts';
 import { latestAssessments } from '../logic/overview.ts';
+import { SOURCE_KEY, indicatorName } from '../i18n-app.ts';
+import { statusWord, useT, type Key } from '../i18n.ts';
 import { INDICATOR_LABELS, assessReading, worstStatus } from '../logic/status.ts';
 import { useNav } from '../nav.ts';
 import { useStore } from '../store.ts';
 import type { Assessment, IndicatorId, Reading, Source, Status } from '../types.ts';
 
 type Range = '7' | '30' | 'all';
-const RANGES: { id: Range; label: string }[] = [{ id: '7', label: '7 days' }, { id: '30', label: '30 days' }, { id: 'all', label: 'Whole mission' }];
+const RANGES: { id: Range; key: Key }[] = [{ id: '7', key: 'range7' }, { id: '30', key: 'range30' }, { id: 'all', key: 'rangeAll' }];
 const TAB_ORDER: IndicatorId[] = ['hr', 'spo2', 'temp', 'sleep', 'mood', 'bp_sys', 'glucose', 'water', 'meals', 'exercise'];
 const STATUS_RANK: Record<Status, number> = { act: 0, watch: 1, ok: 2 };
 
@@ -69,15 +71,17 @@ function dayTicks(from: number, to: number, earth: boolean): number[] {
 }
 
 function Tip({ active, payload, indicator }: { active?: boolean; payload?: { payload: Point }[]; indicator: IndicatorId }) {
+  const { lang, t } = useT();
   if (!active || !payload?.length) return null;
   const p = payload[0].payload;
   const f = formatValue(indicator, p.value, p.unit);
-  const { label, Icon } = SOURCE_INFO[p.source];
+  const { Icon } = SOURCE_INFO[p.source];
+  const label = t(SOURCE_KEY[p.source]);
   return (
     <div className="rounded-xl border border-contrast/15 bg-space-900 p-3 text-base text-slate-100 shadow-lg">
-      <p className="font-semibold">{p.day <= 0 ? `Before launch (day ${p.day})` : `Day ${p.day}`}</p>
+      <p className="font-semibold">{p.day <= 0 ? t('tipBeforeLaunch', { d: p.day }) : t('tipDay', { d: p.day })}</p>
       <p className="tabular-nums">{f.value} {f.unit}{p.dia !== undefined ? ` / ${p.dia}` : ''}</p>
-      {p.status && <p className={STATUS_INFO[p.status].text}>{STATUS_INFO[p.status].word}</p>}
+      {p.status && <p className={STATUS_INFO[p.status].text}>{statusWord(p.status, false, lang)}</p>}
       <p className="inline-flex items-center gap-1 text-sm text-slate-400"><Icon aria-hidden size={14} /> {label}</p>
     </div>
   );
@@ -131,11 +135,11 @@ function Dot(props: { cx?: number; cy?: number; payload?: Point; lastDay?: numbe
 }
 
 /** "+9 bpm", "−1.5 h", "+2 points": the change, without judging it. */
-function change(indicator: IndicatorId, diff: number, unit: string): string {
+function change(indicator: IndicatorId, diff: number, unit: string, t: (k: Key) => string): string {
   const sign = diff > 0 ? '+' : diff < 0 ? '−' : '±';
   const abs = Math.abs(diff);
-  if (indicator === 'mood') return `${sign}${abs} ${abs === 1 ? 'point' : 'points'}`;
-  if (indicator === 'meals') return `${sign}${abs} ${abs === 1 ? 'meal' : 'meals'}`;
+  if (indicator === 'mood') return `${sign}${abs} ${abs === 1 ? t('unitPoint') : t('unitPoints')}`;
+  if (indicator === 'meals') return `${sign}${abs} ${abs === 1 ? t('unitMeal') : t('unitMeals')}`;
   const f = formatValue(indicator, abs, unit);
   return `${sign}${f.value}${f.unit ? ` ${f.unit}` : ''}`;
 }
@@ -147,6 +151,9 @@ export function Trends() {
   const selected = useNav((s) => s.trendIndicator);
   const [range, setRange] = useState<Range>('30');
   const [chosen, setChosen] = useState<IndicatorId | null>(null);
+  const { lang, t } = useT();
+  const ar = lang === 'ar';
+  const nameOf = (i: IndicatorId) => (i === 'bp_sys' ? t('bloodPressure') : indicatorName(i, INDICATOR_LABELS[i], ar));
 
   const mine = readings.filter((r) => r.crewId === crewId);
   const latest = new Map(latestAssessments(readings, crewId, day).map((i) => [i.indicator, i]));
@@ -163,12 +170,12 @@ export function Trends() {
   const indicator = chosen ?? (tabs.includes(selected) ? selected : tabs[0]);
 
   if (!indicator) {
-    return <Card title="Trends"><p className="text-base text-slate-300">No readings yet. Run a check to see your trends.</p></Card>;
+    return <Card title={t('trendsTitle')}><p className="text-base text-slate-300">{t('trendsNoReadings')}</p></Card>;
   }
 
   const from = range === '7' ? day - 6 : range === '30' ? day - 29 : Math.min(-14, ...mine.map((r) => r.missionDay));
   const data = seriesFor(mine, indicator, from, day);
-  const label = indicator === 'bp_sys' ? 'Blood pressure' : INDICATOR_LABELS[indicator];
+  const label = nameOf(indicator);
 
   const threshold = thresholdFor(indicator);
   const rule = threshold?.baseline ?? null;
@@ -183,7 +190,7 @@ export function Trends() {
 
   // Change over the last 7 days: the latest value against the one closest to 7 days earlier.
   const series7 = seriesFor(mine, indicator, day - 7, day);
-  const weekChange = now && series7.length >= 2 ? change(indicator, Math.round((series7[series7.length - 1].value - series7[0].value) * 10) / 10, unit) : null;
+  const weekChange = now && series7.length >= 2 ? change(indicator, Math.round((series7[series7.length - 1].value - series7[0].value) * 10) / 10, unit, t) : null;
 
   // Insights about this tab go above the chart; the rest below it.
   const allTips = insightList(readings, crewId, day);
@@ -213,10 +220,10 @@ export function Trends() {
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-4">
-      <h1 className="text-[28px] font-semibold text-slate-50">Trends</h1>
+      <h1 className="text-[28px] font-semibold text-slate-50">{t('trendsTitle')}</h1>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div role="tablist" aria-label="Indicator" className="flex flex-wrap gap-2">
+        <div role="tablist" aria-label={t('indicatorTab')} className="flex flex-wrap gap-2">
           {tabs.map((i) => {
             const s = tabStatus(i);
             const info = s ? STATUS_INFO[s] : null;
@@ -227,20 +234,20 @@ export function Trends() {
                 type="button"
                 role="tab"
                 aria-selected={on}
-                aria-label={`${i === 'bp_sys' ? 'Blood pressure' : INDICATOR_LABELS[i]}${info ? `: ${info.word}` : ''}`}
+                aria-label={`${nameOf(i)}${s ? `: ${statusWord(s, false, lang)}` : ''}`}
                 onClick={() => setChosen(i)}
                 className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-base ${on ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : `${info && s !== 'ok' ? info.border : 'border-contrast/20'} text-slate-200 hover:bg-contrast/10`} focus-visible:outline-2 focus-visible:outline-cyan-400`}
               >
                 {info && <info.Icon aria-hidden size={16} className={info.text} />}
-                {i === 'bp_sys' ? 'Blood pressure' : INDICATOR_LABELS[i]}
+                {nameOf(i)}
               </button>
             );
           })}
         </div>
-        <div role="group" aria-label="Range" className="flex gap-2">
+        <div role="group" aria-label={t('rangeLabel')} className="flex gap-2">
           {RANGES.map((r) => (
             <button key={r.id} type="button" aria-pressed={range === r.id} onClick={() => setRange(r.id)} className={`rounded-lg border px-3 py-1.5 text-base ${range === r.id ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-contrast/20 text-slate-300 hover:bg-contrast/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
-              {r.label}
+              {t(r.key)}
             </button>
           ))}
         </div>
@@ -250,80 +257,80 @@ export function Trends() {
       <Card>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div className={`flex flex-col gap-1 rounded-xl border p-3 ${status ? `${STATUS_INFO[status].border} ${STATUS_INFO[status].bg}` : 'border-contrast/10 bg-space-950'}`}>
-            <span className="text-sm text-slate-400">{label} now</span>
+            <span className="text-sm text-slate-400">{t('nowLabel', { name: label })}</span>
             <span className="text-[26px] font-semibold leading-tight tabular-nums text-slate-50">
               {now ? (nowDia ? `${now.value}/${nowDia.value} ${now.unit}` : shown(indicator, now.value, now.unit)) : '–'}
             </span>
             {status ? (
               <span className={`inline-flex items-center gap-1 text-sm font-semibold ${STATUS_INFO[status].text}`}>
                 {(() => { const I = STATUS_INFO[status].Icon; return <I aria-hidden size={16} />; })()}
-                {STATUS_INFO[status].word}
+                {statusWord(status, false, lang)}
               </span>
             ) : (
-              <span className="text-sm text-slate-400">No safe range set yet</span>
+              <span className="text-sm text-slate-400">{t('noRangeYet')}</span>
             )}
           </div>
-          <Stat label="Your normal" value={base !== null ? shown(indicator, base, unit) : rule ? 'Learning…' : '–'} sub={base !== null ? `± ${shown(indicator, limit, unit)} · last 7 days` : rule ? 'Needs 5 days of readings' : 'Not tracked for this one'} />
-          <Stat label="Before launch" value={pre !== null ? shown(indicator, pre, unit) : '–'} sub={pre !== null ? 'Checks on Earth' : 'No pre-flight checks'} />
-          <Stat label="Last 7 days" value={weekChange ?? '–'} sub={weekChange ? 'Change since a week ago' : 'Not enough readings'} />
+          <Stat label={t('yourNormal')} value={base !== null ? shown(indicator, base, unit) : rule ? t('learning') : '–'} sub={base !== null ? t('normalSub', { band: shown(indicator, limit, unit) }) : rule ? t('needs5') : t('notTracked')} />
+          <Stat label={t('chartBeforeLaunch')} value={pre !== null ? shown(indicator, pre, unit) : '–'} sub={pre !== null ? t('checksOnEarth') : t('noPreflight')} />
+          <Stat label={t('last7')} value={weekChange ?? '–'} sub={weekChange ? t('changeWeek') : t('notEnough')} />
         </div>
         {/* The plain reason, unless an insight below already says the same thing in more detail. */}
-        {mineTips.length === 0 && <p className="mt-3 text-base text-slate-200">
-          {assessment ? assessment.reason : threshold ? 'No reading in range of today yet.' : 'No safe range is set for this indicator yet, so it is shown without a status.'}
+        {mineTips.length === 0 && <p dir="auto" className="mt-3 text-base text-slate-200">
+          {assessment ? assessment.reason : threshold ? t('noReadingToday') : t('noRangeStatus')}
         </p>}
         {mineTips.map((t) => (
           <div key={t.text} className="mt-3 flex items-start gap-3 rounded-xl border border-gold-200/40 bg-gold-200/10 p-3 text-base text-slate-100">
             <Lightbulb aria-hidden className="mt-0.5 shrink-0 text-gold-200" size={20} />
-            <p>{t.text}</p>
+            <p dir="auto">{t.text}</p>
           </div>
         ))}
       </Card>
 
       <Card>
-        <div className="h-80 w-full" role="img" aria-label={`${label} over time. ${data.length} readings.${assessment ? ` Now: ${assessment.reason}` : ''}`}>
+        <div className="h-80 w-full" dir="ltr" role="img" aria-label={`${t('chartAria', { name: label, n: data.length })}${assessment ? ` ${assessment.reason}` : ''}`}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 24, right: 124, bottom: 8, left: 0 }}>
               <CartesianGrid stroke={GRID} vertical={false} />
-              <XAxis dataKey="day" type="number" domain={[xMin, day]} ticks={dayTicks(xMin, day, earth)} interval={0} allowDecimals={false} stroke={AXIS} tick={{ fontSize: 14, fill: AXIS }} label={{ value: 'Mission day', position: 'insideBottom', offset: -2, fill: AXIS, fontSize: 14 }} />
+              <XAxis dataKey="day" type="number" domain={[xMin, day]} ticks={dayTicks(xMin, day, earth)} interval={0} allowDecimals={false} stroke={AXIS} tick={{ fontSize: 14, fill: AXIS }} label={{ value: t('axisMissionDay'), position: 'insideBottom', offset: -2, fill: AXIS, fontSize: 14 }} />
               <YAxis domain={[yMin, yMax]} ticks={yTicks} interval={0} allowDecimals={yStep < 1} stroke={AXIS} tick={{ fontSize: 14, fill: AXIS }} width={48} />
               <Tooltip content={<Tip indicator={indicator} />} />
               {/* Safe range: a light background. */}
               {threshold && <ReferenceArea y1={threshold.green.min ?? yMin} y2={threshold.green.max ?? yMax} fill={COLOR.ok} fillOpacity={0.08} />}
               {/* Before launch: a very light area, a divider at launch, and the word "Earth". */}
-              {earth && <ReferenceArea x1={xMin} x2={0.5} fill={AXIS} fillOpacity={0.05} label={{ value: 'Earth', position: 'insideTopLeft', fill: AXIS, fontSize: 14 }} />}
-              {earth && <ReferenceLine x={0.5} stroke={AXIS} strokeDasharray="3 3" label={{ value: 'Launch', position: 'insideTopRight', fill: AXIS, fontSize: 14 }} />}
+              {earth && <ReferenceArea x1={xMin} x2={0.5} fill={AXIS} fillOpacity={0.05} label={{ value: t('chartEarth'), position: 'insideTopLeft', fill: AXIS, fontSize: 14 }} />}
+              {earth && <ReferenceLine x={0.5} stroke={AXIS} strokeDasharray="3 3" label={{ value: t('launch'), position: 'insideTopRight', fill: AXIS, fontSize: 14 }} />}
               {/* Your normal: a band with a solid centre line, labelled at the right. */}
               {base !== null && <ReferenceArea y1={base - limit} y2={base + limit} fill={COLOR.none} fillOpacity={0.12} />}
-              {base !== null && <ReferenceLine y={base} stroke={COLOR.none} strokeWidth={1.5} label={<LineTag text="Your normal" color={COLOR.none} dy={normalDy} />} />}
-              {pre !== null && <ReferenceLine y={pre} stroke={GOLD} strokeDasharray="6 4" strokeWidth={1.5} label={<LineTag text="Before launch" color={GOLD} dy={preDy} />} />}
+              {base !== null && <ReferenceLine y={base} stroke={COLOR.none} strokeWidth={1.5} label={<LineTag text={t('yourNormal')} color={COLOR.none} dy={normalDy} />} />}
+              {pre !== null && <ReferenceLine y={pre} stroke={GOLD} strokeDasharray="6 4" strokeWidth={1.5} label={<LineTag text={t('chartBeforeLaunch')} color={GOLD} dy={preDy} />} />}
               <Line type="monotone" dataKey="value" stroke={COLOR.none} strokeWidth={2.5} dot={<Dot lastDay={lastDay} indicator={indicator} />} activeDot={<Dot lastDay={lastDay} indicator={indicator} />} isAnimationActive={false} />
               {isBp && <Line type="monotone" dataKey="dia" stroke="var(--color-series-2)" strokeWidth={2.5} dot={{ r: 3.5, fill: 'var(--color-series-2)', stroke: 'var(--color-space-900)' }} isAnimationActive={false} />}
             </LineChart>
           </ResponsiveContainer>
         </div>
         <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-slate-400">
-          {threshold && <li><span aria-hidden className="mr-1.5 inline-block h-3 w-4 rounded-sm bg-ok/25 align-middle" />Safe range or target (NASA / medical sources)</li>}
-          {base !== null && <li><span aria-hidden className="mr-1.5 inline-block h-3 w-4 rounded-sm border-y-2 border-cyan-400 bg-cyan-400/15 align-middle" />Your normal: middle of your last 7 days, ± {shown(indicator, limit, unit)}</li>}
-          {pre !== null && <li><span aria-hidden className="mr-1.5 inline-block h-0.5 w-4 border-t-2 border-dashed border-gold-200 align-middle" />Before launch: your checks on Earth</li>}
-          <li>Dots: small = <span className="text-ok">OK</span>, bigger = <span className="text-watch">Watch</span> / <span className="text-act">Call surgeon</span> · ringed = latest</li>
-          {isBp && <li>Two lines: top number and bottom number</li>}
+          {threshold && <li><span aria-hidden className="mr-1.5 inline-block h-3 w-4 rounded-sm bg-ok/25 align-middle" />{t('legendSafe')}</li>}
+          {base !== null && <li><span aria-hidden className="mr-1.5 inline-block h-3 w-4 rounded-sm border-y-2 border-cyan-400 bg-cyan-400/15 align-middle" />{t('legendNormal', { n: shown(indicator, limit, unit) })}</li>}
+          {pre !== null && <li><span aria-hidden className="mr-1.5 inline-block h-0.5 w-4 border-t-2 border-dashed border-gold-200 align-middle" />{t('legendBefore')}</li>}
+          <li>{t('dotsSmall')} <span className="text-ok">{statusWord('ok', false, lang)}</span>, {t('dotsBigger')} <span className="text-watch">{statusWord('watch', false, lang)}</span> / <span className="text-act">{statusWord('act', false, lang)}</span> · {t('dotsRinged')}</li>
+          {isBp && <li>{t('legendTwoLines')}</li>}
         </ul>
       </Card>
 
       {otherTips.length > 0 && (
-        <section aria-label="Other insights" className="flex flex-col gap-2">
-          <h2 className="text-lg font-semibold text-slate-100">Other insights</h2>
+        <section aria-label={t('otherInsights')} className="flex flex-col gap-2">
+          <h2 className="text-lg font-semibold text-slate-100">{t('otherInsights')}</h2>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {otherTips.map((t) => (
               <button key={t.text} type="button" onClick={() => setChosen(t.indicators[0])} className="flex items-start gap-3 rounded-2xl border border-gold-200/30 bg-gold-200/5 p-4 text-left text-base text-slate-100 hover:bg-gold-200/10 focus-visible:outline-2 focus-visible:outline-cyan-400">
                 <Lightbulb aria-hidden className="mt-0.5 shrink-0 text-gold-200" size={20} />
-                <span>{t.text}</span>
+                <span dir="auto">{t.text}</span>
               </button>
             ))}
           </div>
         </section>
       )}
-      {allTips.length === 0 && <p className="text-base text-slate-400">No insights right now.</p>}
+      {allTips.length === 0 && <p className="text-base text-slate-400">{t('noInsights')}</p>}
     </div>
   );
 }
