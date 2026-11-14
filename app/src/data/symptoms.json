@@ -1,0 +1,194 @@
+[
+  {
+    "id": "dizziness",
+    "label": "Dizziness",
+    "group": "common",
+    "system": "brain",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "nausea",
+    "label": "Nausea",
+    "group": "common",
+    "system": "metabolism",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "headache",
+    "label": "Headache",
+    "group": "common",
+    "system": "brain",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "back_pain",
+    "label": "Back pain",
+    "group": "common",
+    "system": "musculoskeletal",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "fatigue",
+    "label": "Fatigue",
+    "group": "common",
+    "system": "immune",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "feverish",
+    "label": "Feeling feverish",
+    "group": "immune",
+    "system": "immune",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "rash",
+    "label": "Rash",
+    "group": "immune",
+    "system": "skin",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "cold_sores",
+    "label": "Cold sores",
+    "group": "immune",
+    "system": "immune",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "sore_throat",
+    "label": "Sore throat",
+    "group": "immune",
+    "system": "immune",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "vision",
+    "label": "Vision changes",
+    "group": "eyes",
+    "system": "eyes",
+    "redFlag": false,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "chest_pain",
+    "label": "Chest pain or pressure",
+    "group": "redflag",
+    "system": "heart",
+    "redFlag": true,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "breathing",
+    "label": "Trouble breathing",
+    "group": "redflag",
+    "system": "lungs",
+    "redFlag": true,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "fainting",
+    "label": "Fainting or nearly fainting",
+    "group": "redflag",
+    "system": "heart",
+    "redFlag": true,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "severe_headache",
+    "label": "Sudden severe headache",
+    "group": "redflag",
+    "system": "brain",
+    "redFlag": true,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "confusion",
+    "label": "Confusion",
+    "group": "redflag",
+    "system": "brain",
+    "redFlag": true,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  },
+  {
+    "id": "stroke_signs",
+    "label": "Face drooping, arm weakness or slurred speech",
+    "group": "redflag",
+    "system": "brain",
+    "redFlag": true,
+    "cardId": null,
+    "source": {
+      "title": "DRAFT placeholder: Mechanical 2 to confirm with a medical source",
+      "url": "https://www.nasa.gov/hrp/risks/"
+    }
+  }
+]

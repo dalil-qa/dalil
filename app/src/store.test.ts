@@ -23,8 +23,9 @@ describe('store + simulator, end to end', () => {
 
       const { lastCheck, readings, live } = useStore.getState();
       assert.equal(live.stage, 'done');
-      assert.equal(readings.length, 3);
-      assert.ok(readings.every((r) => r.source === 'simulated' && r.checkId === lastCheck?.checkId && r.crewId === 'c1'));
+      const fresh = readings.filter((r) => r.source === 'simulated'); // the sample history is already in the store
+      assert.equal(fresh.length, 3);
+      assert.ok(fresh.every((r) => r.checkId === lastCheck?.checkId && r.crewId === 'c2' && r.missionDay === 47));
       assert.equal(lastCheck?.overall, 'act'); // SpO2 about 88 % is below the amber line
       assert.equal(lastCheck?.assessments.find((a) => a.indicator === 'spo2')?.status, 'act');
     } finally {
@@ -32,6 +33,20 @@ describe('store + simulator, end to end', () => {
       await useStore.getState().disconnectDevice();
     }
     assert.equal(useStore.getState().connection, 'none');
+  });
+
+  it('starts with the demo selected and the sample history loaded', () => {
+    const s = useStore.getState();
+    assert.deepEqual([s.crewId, s.missionId, s.missionDay], ['c2', 'mars', 47]);
+    assert.ok(s.readings.some((r) => r.source === 'sample'));
+  });
+
+  it('sends the emergency report the moment it opens, and a check taken during it becomes an update', async () => {
+    const s = useStore.getState();
+    s.openEmergency('button', []);
+    assert.ok(useStore.getState().emergency?.reportSentAt);
+    assert.equal(useStore.getState().emergency?.crewAlertedAt, null); // alerting the crew is a deliberate tap
+    s.closeEmergency('mistake');
   });
 
   it('will not start a check when no station is connected', () => {

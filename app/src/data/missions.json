@@ -1,0 +1,56 @@
+[
+  {
+    "id": "iss",
+    "name": "Space Station",
+    "gravity": "Microgravity",
+    "oneWayDelaySec": 1,
+    "delayLabel": "under a second",
+    "riskHighlights": [
+      "isolation",
+      "environment"
+    ],
+    "radiationNote": "DRAFT: Mechanical 3 to write this from the CSA and NASA radiation sources (no numbers without a source).",
+    "sources": []
+  },
+  {
+    "id": "moon",
+    "name": "Moon base",
+    "gravity": "1/6 g",
+    "oneWayDelaySec": 1.3,
+    "delayLabel": "about 1.3 s",
+    "riskHighlights": [
+      "radiation",
+      "environment"
+    ],
+    "radiationNote": "DRAFT: Mechanical 3 to write this from the CSA and NASA radiation sources (no numbers without a source).",
+    "sources": []
+  },
+  {
+    "id": "rover",
+    "name": "Lunar rover",
+    "gravity": "1/6 g",
+    "oneWayDelaySec": 1.3,
+    "delayLabel": "about 1.3 s",
+    "riskHighlights": [
+      "environment",
+      "isolation",
+      "radiation"
+    ],
+    "radiationNote": "DRAFT: Mechanical 3 to write this from the CSA and NASA radiation sources (no numbers without a source).",
+    "sources": []
+  },
+  {
+    "id": "mars",
+    "name": "Mars transit",
+    "gravity": "Microgravity",
+    "oneWayDelaySec": 840,
+    "delayLabel": "3–22 min, depending on distance (14 min used as the example)",
+    "riskHighlights": [
+      "distance",
+      "radiation",
+      "isolation"
+    ],
+    "radiationNote": "DRAFT: Mechanical 3 to write this from the CSA and NASA radiation sources (no numbers without a source).",
+    "sources": []
+  }
+]

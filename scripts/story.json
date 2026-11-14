@@ -1,0 +1,41 @@
+{
+  "_note": "DRAFT story for the sample history (APP_BUILD_GUIDE 5.2/5.3). Mechanical 3 owns this file: edit the keyframes and run `node scripts/make-history.ts` from the dalil folder. Each field is a list of [day, value] keyframes with straight-line change between them. Every crew member needs a preflight row.",
+  "_c2_hr_note": "Crew Member 2's heart rate follows the step in APP_BUILD_GUIDE 12.1 (normal about 64, then 74 on days 45-47: more than 8 bpm above the 7-day normal). The 5.2 story table (gradual 64 -> 68 -> 73 -> 74) would move the 7-day normal up with it and never reach the 8 bpm band, so the amber day would not show.",
+  "water_ml": 2000,
+  "exercise_min": 40,
+  "crew": {
+    "c1": {
+      "preflight": { "hr": 58, "spo2": 98, "temp": 34.3, "bp_sys": 118, "bp_dia": 76 },
+      "fields": {
+        "hr": [[1, 58], [47, 58]], "spo2": [[1, 98], [47, 98]], "temp": [[1, 34.3], [47, 34.3]],
+        "sleep": [[1, 7.4], [47, 7.4]], "mood": [[1, 4], [47, 4]],
+        "bp_sys": [[1, 118], [47, 118]], "bp_dia": [[1, 76], [47, 76]], "meals": [[1, 3], [47, 3]]
+      },
+      "symptoms": []
+    },
+    "c2": {
+      "preflight": { "hr": 62, "spo2": 98, "temp": 34.2, "bp_sys": 116, "bp_dia": 75 },
+      "fields": {
+        "hr": [[1, 64], [44, 64], [45, 74], [46, 74], [47, 74]],
+        "spo2": [[1, 98], [42, 98], [46, 97], [47, 97]],
+        "temp": [[1, 34.3], [42, 34.3], [43, 34.4], [46, 34.5], [47, 34.5]],
+        "sleep": [[1, 7.5], [42, 7.5], [43, 6.5], [46, 5.5], [47, 5.5]],
+        "mood": [[1, 4], [42, 4], [43, 3], [46, 2], [47, 2]],
+        "bp_sys": [[1, 118], [42, 118], [43, 120], [46, 123], [47, 124]],
+        "bp_dia": [[1, 76], [42, 76], [43, 78], [46, 79], [47, 80]],
+        "meals": [[1, 3], [45, 3], [46, 2], [47, 2]],
+        "water": [[1, 2000], [45, 2000], [46, 1200], [47, 1200]]
+      },
+      "symptoms": [[46, ["fatigue"]], [47, ["fatigue"]]]
+    },
+    "c3": {
+      "preflight": { "hr": 68, "spo2": 98, "temp": 34.1, "bp_sys": 120, "bp_dia": 78 },
+      "fields": {
+        "hr": [[1, 68], [47, 68]], "spo2": [[1, 98], [47, 98]], "temp": [[1, 34.1], [47, 34.1]],
+        "sleep": [[1, 7.2], [47, 7.2]], "mood": [[1, 4], [47, 4]],
+        "bp_sys": [[1, 120], [47, 120]], "bp_dia": [[1, 78], [47, 78]], "meals": [[1, 3], [47, 3]]
+      },
+      "symptoms": []
+    }
+  }
+}

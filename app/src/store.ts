@@ -2,10 +2,12 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist, type StateStorage } from 'zustand/middleware';
 import { thresholdFor } from './data/index.ts';
+import { sampleReadings, sampleSymptoms } from './data/sample.ts';
 import { STATION_ERROR_TEXT, type DeviceLink, type StationHello, type StationMeasure } from './device/link.ts';
 import { SerialLink, isSerialSupported } from './device/serial.ts';
 import { SimulatorLink, type SimScenario } from './device/simulator.ts';
 import { assessReading, ledCommandFor, overallStatus } from './logic/status.ts';
+import { clock } from './logic/summary.ts';
 import type {
   Assessment,
   EmergencyEvent,
@@ -73,6 +75,10 @@ interface DalilState {
   disconnectDevice: () => Promise<void>;
   startCheck: () => boolean;
   stopCheck: () => void;
+  /** Connects the simulator if needed, then starts a check. False if it could not connect. */
+  startCheckWithSimulator: () => Promise<boolean>;
+  /** Back to the Ready step: forget the live numbers and the last result. */
+  resetLive: () => void;
   addReadings: (readings: Reading[]) => void;
   addSymptoms: (symptoms: SymptomId[]) => void;
   setCrew: (crewId: string) => void;
@@ -123,6 +129,8 @@ const safeStorage: StateStorage = {
 };
 
 const nowIso = () => new Date().toISOString();
+/** Sample symptom logs use local times without a "Z"; real ones come from toISOString(), which ends in "Z". */
+const isSampleLog = (l: SymptomLog): boolean => !l.time.endsWith('Z');
 const UNITS: Record<'hr' | 'spo2' | 'temp', string> = { hr: 'bpm', spo2: '%', temp: '°C' };
 
 export const useStore = create<DalilState>()(
@@ -192,10 +200,15 @@ export const useStore = create<DalilState>()(
 
         const overall = overallStatus(assessments);
         const result: CheckResult = { checkId, time, readings: newReadings, assessments, overall };
+        const summary = newReadings.map((r) => `${r.indicator === 'spo2' ? 'SpO2' : r.indicator === 'temp' ? 'skin' : 'HR'} ${r.value} ${r.unit}`).join(', ');
         set((s) => ({
           readings: [...s.readings, ...newReadings],
           lastCheck: result,
           live: { stage: 'done', hr: m.hr, spo2: m.spo2, temp: m.temp, q: m.q, left: null, finger: false, error: null },
+          // A check taken during an emergency is added to it as an update (and sent as a follow-up).
+          emergency: s.emergency
+            ? { ...s.emergency, updates: [...s.emergency.updates, { time, text: `Update ${clock(time)}: ${summary}` }] }
+            : s.emergency,
         }));
         // An open emergency keeps the light red.
         link?.send(get().emergency ? 'LED RED' : ledCommandFor(overall));
@@ -212,11 +225,12 @@ export const useStore = create<DalilState>()(
       };
 
       return {
-        crewId: 'c1',
-        missionId: 'iss',
-        missionDay: 1,
-        readings: [],
-        symptoms: [],
+        // The pitch demo: Crew Member 2, Mars transit, Day 47 (the sample history ends on day 47).
+        crewId: 'c2',
+        missionId: 'mars',
+        missionDay: 47,
+        readings: sampleReadings(),
+        symptoms: sampleSymptoms(),
         emergency: null,
         emergencies: [],
         connection: 'none',
@@ -270,6 +284,17 @@ export const useStore = create<DalilState>()(
           link?.send('STOP');
         },
 
+        startCheckWithSimulator: async () => {
+          if (get().connection !== 'connected') {
+            await get().connectDevice('simulator');
+            const end = Date.now() + 3000;
+            while (get().connection !== 'connected' && Date.now() < end) await new Promise((r) => setTimeout(r, 20));
+          }
+          return get().startCheck();
+        },
+
+        resetLive: () => set({ live: IDLE_LIVE, lastCheck: null }),
+
         addReadings: (readings) => set((s) => ({ readings: [...s.readings, ...readings] })),
 
         addSymptoms: (symptoms) =>
@@ -288,7 +313,7 @@ export const useStore = create<DalilState>()(
         setUseSimulator: (on) => set({ useSimulator: on }),
 
         resetDemo: () => {
-          set({ readings: [], symptoms: [], emergency: null, emergencies: [], lastCheck: null, live: IDLE_LIVE });
+          set({ readings: sampleReadings(), symptoms: sampleSymptoms(), emergency: null, emergencies: [], lastCheck: null, live: IDLE_LIVE });
           useStore.persist.clearStorage();
         },
 
@@ -317,7 +342,7 @@ export const useStore = create<DalilState>()(
               symptoms,
               latest: lastCheck?.assessments ?? [],
               crewAlertedAt: null,
-              reportSentAt: null,
+              reportSentAt: nowIso(), // sent automatically the moment it opens (10.11); steps 1 and 2 never wait
               updates: [],
               closedAt: null,
               closedReason: null,
@@ -330,7 +355,11 @@ export const useStore = create<DalilState>()(
           set((s) => (s.emergency && !s.emergency.crewAlertedAt ? { emergency: { ...s.emergency, crewAlertedAt: nowIso() } } : s)),
 
         sendEmergencyReport: () =>
-          set((s) => (s.emergency ? { emergency: { ...s.emergency, reportSentAt: nowIso() } } : s)),
+          set((s) => {
+            if (!s.emergency) return s;
+            const time = nowIso();
+            return { emergency: { ...s.emergency, reportSentAt: time, updates: [...s.emergency.updates, { time, text: `Report sent again ${clock(time)}` }] } };
+          }),
 
         addEmergencyUpdate: (text) =>
           set((s) => (s.emergency ? { emergency: { ...s.emergency, updates: [...s.emergency.updates, { time: nowIso(), text }] } } : s)),
@@ -351,9 +380,19 @@ export const useStore = create<DalilState>()(
       // Save only what the person made: real and typed readings, symptom logs, emergencies.
       // Sample history and simulator readings load fresh. Guest data is never saved,
       // except that an open emergency stays open until it is closed, even for a guest.
+      // On load, the saved readings and logs are added to a fresh copy of the sample history.
+      merge: (saved, current) => {
+        const p = (saved ?? {}) as Partial<DalilState>;
+        return {
+          ...current,
+          ...p,
+          readings: [...current.readings.filter((r) => r.source === 'sample'), ...(p.readings ?? [])],
+          symptoms: [...current.symptoms.filter(isSampleLog), ...(p.symptoms ?? [])],
+        };
+      },
       partialize: (s) => ({
         readings: s.readings.filter((r) => (r.source === 'measured' || r.source === 'logged') && r.crewId !== 'guest'),
-        symptoms: s.symptoms.filter((l) => l.crewId !== 'guest'),
+        symptoms: s.symptoms.filter((l) => l.crewId !== 'guest' && !isSampleLog(l)),
         emergency: s.emergency,
         emergencies: s.emergencies.filter((e) => e.crewId !== 'guest'),
       }),

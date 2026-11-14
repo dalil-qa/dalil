@@ -1,0 +1,26 @@
+[
+  {
+    "id": "c1",
+    "label": "Crew Member 1",
+    "role": "Commander",
+    "color": "#22d3ee"
+  },
+  {
+    "id": "c2",
+    "label": "Crew Member 2",
+    "role": "Flight Engineer",
+    "color": "#fde68a"
+  },
+  {
+    "id": "c3",
+    "label": "Crew Member 3",
+    "role": "Mission Specialist",
+    "color": "#34d399"
+  },
+  {
+    "id": "guest",
+    "label": "Guest",
+    "role": "Visitor",
+    "color": "#94a3b8"
+  }
+]
