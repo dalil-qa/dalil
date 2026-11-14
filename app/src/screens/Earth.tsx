@@ -7,8 +7,6 @@ import { Button, Card } from '../components/Card.tsx';
 import { DelayAnimation } from '../components/DelayAnimation.tsx';
 import { StatusBadge } from '../components/Status.tsx';
 import { crewById, missionById, symptomById } from '../data/index.ts';
-import { crewTitle, missionTitle, symptomTitle, SOURCE_KEY } from '../i18n-app.ts';
-import { useT } from '../i18n.ts';
 import { useNow } from '../hooks.ts';
 import { cardsFor, recentSymptomIds } from '../logic/cards.ts';
 import { formatDelay, formatValue } from '../logic/format.ts';
@@ -32,8 +30,6 @@ export function Earth() {
   const [writing, setWriting] = useState(false);
   const [showFull, setShowFull] = useState(false);
   const now = useNow(1000);
-  const { lang, t } = useT();
-  const ar = lang === 'ar';
   const mission = missionById(missionId);
 
   const items = useMemo(() => latestAssessments(readings, crewId, day), [readings, crewId, day]);
@@ -78,58 +74,58 @@ export function Earth() {
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-5">
-      <h1 className="text-[28px] font-semibold text-slate-50">{t('earthTitle')} <span className="text-base font-normal text-slate-400">· {t('missionDayLine', { mission: missionTitle(mission.id, mission.name, ar), day })}</span></h1>
+      <h1 className="text-[28px] font-semibold text-slate-50">Flight Surgeon <span className="text-base font-normal text-slate-400">· {mission.name}, Day {day}</span></h1>
 
-      <Card title={t('signalTitle')}>
-        <p className="text-base text-slate-300">{t('oneWayDelay')} <strong>{ar ? t(`delay_${mission.id}` as 'delay_iss') : mission.delayLabel}</strong>{mission.id === 'mars' ? ` ${t('exampleValue')}` : ''}. {t('delayUsed', { d: formatDelay(mission.oneWayDelaySec) })}</p>
+      <Card title="Signal to Earth">
+        <p className="text-base text-slate-300">One-way delay: <strong>{mission.delayLabel}</strong>{mission.id === 'mars' ? ' (an example value)' : ''}. Delay used here: {formatDelay(mission.oneWayDelaySec)}.</p>
         {sentAt ? (
           <>
             <DelayAnimation oneWaySec={mission.oneWayDelaySec} sentAt={sentAt} />
             <p className="mt-2 text-base text-slate-200" aria-live="polite">
-              {replyIn > 0 ? t('replyExpected', { d: formatDelay(replyIn) }) : t('replyNow')}
+              {replyIn > 0 ? `Reply expected in: ${formatDelay(replyIn)}` : "Earth's reply could arrive now. This demo does not simulate one."}
             </p>
           </>
         ) : (
-          <p className="mt-2 text-base text-slate-400">{t('nothingSent')}</p>
+          <p className="mt-2 text-base text-slate-400">Nothing sent yet.</p>
         )}
       </Card>
 
-      <Card title={t('reportTitle')} action={<StatusBadge status={overall} />}>
-        <p className="text-lg font-medium text-slate-100">{crewTitle(crewId, crewById(crewId).label, ar)} · {t('dayN', { n: day })}</p>
-        <ul className="mt-2 flex list-disc flex-col gap-1 ps-5 text-base text-slate-200">
-          {flagged.length === 0 && <li>{t('allOk')}</li>}
+      <Card title="Report (checked by you)" action={<StatusBadge status={overall} />}>
+        <p className="text-lg font-medium text-slate-100">{crewById(crewId).label} · Day {day}</p>
+        <ul className="mt-2 flex list-disc flex-col gap-1 pl-5 text-base text-slate-200">
+          {flagged.length === 0 && <li>Everything measured is inside the safe range.</li>}
           {flagged.map((i) => (
             <li key={i.indicator}>
-              <span dir="auto">{i.assessment!.reason}</span>{' '}
-              <span className="text-slate-400">{t('measuredLine', { time: clock(i.reading.time), q: i.reading.quality != null ? t('qualityPart', { q: i.reading.quality.toFixed(2) }) : '', src: t(SOURCE_KEY[i.reading.source]) })}</span>
+              {i.assessment!.reason}{' '}
+              <span className="text-slate-400">Measured {clock(i.reading.time)}{i.reading.quality != null ? `, quality ${i.reading.quality.toFixed(2)}` : ''}, {i.reading.source}.</span>
             </li>
           ))}
-          {symptomIds.length > 0 && <li>{t('symptomsLine', { list: symptomIds.map((id) => symptomTitle(id, symptomById(id)?.label.toLowerCase() ?? id, ar)).join(ar ? '، ' : ', ') })}</li>}
+          {symptomIds.length > 0 && <li>Symptoms (last 3 days): {symptomIds.map((id) => symptomById(id)?.label.toLowerCase() ?? id).join(', ')}</li>}
         </ul>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Button onClick={() => useSession.getState().sendToEarth(crewId)}><Send aria-hidden size={20} /> {sentAt ? t('sendAgain') : t('sendEarth')}</Button>
-          <Button variant="secondary" aria-expanded={showFull} onClick={() => setShowFull(!showFull)}><FileText aria-hidden size={20} /> {showFull ? t('hideFull') : t('showFull')}</Button>
+          <Button onClick={() => useSession.getState().sendToEarth(crewId)}><Send aria-hidden size={20} /> {sentAt ? 'Send again' : 'Send report to Earth'}</Button>
+          <Button variant="secondary" aria-expanded={showFull} onClick={() => setShowFull(!showFull)}><FileText aria-hidden size={20} /> {showFull ? 'Hide full report' : 'Show full report'}</Button>
         </div>
-        {showFull && <pre dir="ltr" className="mt-3 whitespace-pre-wrap rounded-xl bg-space-950 p-4 text-sm text-slate-200">{templateText}</pre>}
+        {showFull && <pre className="mt-3 whitespace-pre-wrap rounded-xl bg-space-950 p-4 text-sm text-slate-200">{templateText}</pre>}
       </Card>
 
-      <Card title={t('summaryTitle')} action={<Button variant="secondary" disabled={writing} onClick={writeSummary}><Sparkles aria-hidden size={18} /> {writing ? t('writing') : summary ? t('writeAgain') : t('askCoachWrite')}</Button>}>
+      <Card title="Coach's summary" action={<Button variant="secondary" disabled={writing} onClick={writeSummary}><Sparkles aria-hidden size={18} /> {writing ? 'Writing…' : summary ? 'Write again' : 'Ask the Coach to write it'}</Button>}>
         {summary ? (
           <>
-            <p className="text-sm text-slate-400">{summary.source === 'coach' ? t('summaryCoach') : t('summaryOffline')}</p>
+            <p className="text-sm text-slate-400">{summary.source === 'coach' ? 'Written by the Coach from your readings. Check it before you rely on it.' : 'Offline: the Coach could not be reached, so this was written from a template.'}</p>
             <p className="mt-2 whitespace-pre-wrap text-base text-slate-100">{summary.text}</p>
           </>
         ) : (
-          <p className="text-base text-slate-400">{t('summaryHint')}</p>
+          <p className="text-base text-slate-400">Optional. The report above is always built from your readings, with or without the Coach.</p>
         )}
       </Card>
 
       {mineEmergencies.length > 0 && (
-        <Card title={t('priorityTitle')}>
+        <Card title="Priority reports from emergencies">
           <ul className="flex flex-col gap-3">
             {mineEmergencies.map((e) => (
               <li key={e.id}>
-                <p className="text-base font-semibold text-act">{t('priorityLine', { day: e.missionDay, time: clock(e.startedAt), sent: e.reportSentAt ? t('sentAt', { time: clock(e.reportSentAt) }) : t('notSent'), open: e.closedAt ? '' : t('openSuffix') })}</p>
+                <p className="text-base font-semibold text-act">PRIORITY · Day {e.missionDay} · {clock(e.startedAt)} · {e.reportSentAt ? `sent ${clock(e.reportSentAt)}` : 'not sent'}{e.closedAt ? '' : ' · open'}</p>
                 <pre className="mt-1 whitespace-pre-wrap rounded-xl bg-space-950 p-3 text-sm text-slate-200">{buildReport(emergencyReportInput({ event: e, missionId, readings, symptomLogs: logs }))}</pre>
               </li>
             ))}
@@ -137,15 +133,15 @@ export function Earth() {
         </Card>
       )}
 
-      <Card title={t('waitTitle')}>
+      <Card title="While you wait (from the guidance cards)">
         {waitCards.length === 0 ? (
-          <p className="text-base text-slate-400">{t('noCardApplies')}</p>
+          <p className="text-base text-slate-400">No guidance card applies right now.</p>
         ) : (
           <ol className="flex flex-col gap-3">
             {waitCards.map((c) => (
               <li key={c.id}>
-                <p dir="auto" className="text-base font-semibold text-slate-100">{c.title}</p>
-                <ul dir="auto" className="list-disc ps-5 text-base text-slate-200">{c.actions.map((a) => <li key={a}>{a}</li>)}</ul>
+                <p className="text-base font-semibold text-slate-100">{c.title}</p>
+                <ul className="list-disc pl-5 text-base text-slate-200">{c.actions.map((a) => <li key={a}>{a}</li>)}</ul>
               </li>
             ))}
           </ol>

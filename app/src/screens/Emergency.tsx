@@ -8,7 +8,6 @@ import { DelayAnimation } from '../components/DelayAnimation.tsx';
 import { crew, crewById, emergencyContent, missionById, redFlagSymptoms, symptomById } from '../data/index.ts';
 import { useNow } from '../hooks.ts';
 import { HOME_STEPS_AR, RED_FLAG_LABEL_AR, useT } from '../i18n.ts';
-import { crewTitle, roleTitle } from '../i18n-app.ts';
 import { emergencyReportInput } from '../logic/reportInput.ts';
 import { buildReport, clock } from '../logic/summary.ts';
 import { useNav } from '../nav.ts';
@@ -34,7 +33,6 @@ export function Emergency() {
   const minimize = useNav((s) => s.minimizeEmergency);
   const now = useNow(15_000);
   const { lang, t } = useT();
-  const ar = lang === 'ar';
   const [ticked, setTicked] = useState<Record<string, boolean>>({});
   const [closing, setClosing] = useState(false);
   const [showReport, setShowReport] = useState(false);
@@ -67,7 +65,7 @@ export function Emergency() {
       <div className="mx-auto flex max-w-4xl flex-col gap-5 p-5">
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-act px-5 py-3 text-space-950">
           <h1 className="inline-flex items-center gap-2 text-2xl font-bold"><ShieldAlert aria-hidden size={28} /> {t('emergency')} · {t('started')} {clock(emergency.startedAt)} ({minutesAgo === 0 ? t('justNow') : t('minAgo', { n: minutesAgo })})</h1>
-          {!home && <span className="text-lg font-semibold">{crewTitle(me.id, me.label, ar)}</span>}
+          {!home && <span className="text-lg font-semibold">{me.label}</span>}
         </div>
 
         <section aria-label="What is happening">
@@ -90,17 +88,17 @@ export function Emergency() {
 
         <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 1: tell a crewmate">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-xl font-semibold text-slate-50">{home ? t('step1Home') : t('emStep1')}</h2>
+            <h2 className="text-xl font-semibold text-slate-50">{home ? t('step1Home') : '1 · Tell a crewmate now.'}</h2>
             {home ? (
               <a href="tel:999" className="inline-flex min-h-14 items-center gap-2 rounded-xl bg-act px-7 text-lg font-semibold text-space-950 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><Phone aria-hidden size={22} /> {t('call999')}</a>
             ) : (
               <Button big variant="danger" onClick={alertCrew} disabled={!!emergency.crewAlertedAt}>
-                <BellRing aria-hidden size={22} /> {emergency.crewAlertedAt ? t('emAlertedAt', { time: clock(emergency.crewAlertedAt) }) : t('emAlertCrew')}
+                <BellRing aria-hidden size={22} /> {emergency.crewAlertedAt ? `Alerted ${clock(emergency.crewAlertedAt)} (simulated)` : 'Alert crew'}
               </Button>
             )}
           </div>
           {!home && emergency.crewAlertedAt && (
-            <p className="mt-2 text-base text-ok">{t('emCrewAlerted', { names: others.map((c) => `${crewTitle(c.id, c.label, ar)} (${roleTitle(c.role, ar)})`).join(ar ? '، ' : ', '), time: clock(emergency.crewAlertedAt) })}</p>
+            <p className="mt-2 text-base text-ok">Crew alerted: {others.map((c) => `${c.label} (${c.role})`).join(', ')} · {clock(emergency.crewAlertedAt)} (simulated)</p>
           )}
         </section>
 
@@ -116,13 +114,13 @@ export function Emergency() {
         ) : (
           <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 2: contact the flight surgeon">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-xl font-semibold text-slate-50">{t('emStep2')}</h2>
-            <span className="inline-flex items-center gap-2 text-base font-semibold text-ok"><Send aria-hidden size={18} /> {t('emReportSent', { time: emergency.reportSentAt ? clock(emergency.reportSentAt) : '' })}</span>
+            <h2 className="text-xl font-semibold text-slate-50">2 · Contact the flight surgeon.</h2>
+            <span className="inline-flex items-center gap-2 text-base font-semibold text-ok"><Send aria-hidden size={18} /> PRIORITY report sent {emergency.reportSentAt ? clock(emergency.reportSentAt) : ''} (simulated)</span>
           </div>
           {emergency.reportSentAt && <DelayAnimation oneWaySec={mission.oneWayDelaySec} sentAt={emergency.reportSentAt} />}
           <div className="mt-3 flex flex-wrap gap-3">
-            <Button variant="secondary" onClick={sendEmergencyReport}>{t('emSendAgain')}</Button>
-            <Button variant="secondary" aria-expanded={showReport} onClick={() => setShowReport(!showReport)}>{showReport ? t('emHideReport') : t('emShowReport')}</Button>
+            <Button variant="secondary" onClick={sendEmergencyReport}>Send again</Button>
+            <Button variant="secondary" aria-expanded={showReport} onClick={() => setShowReport(!showReport)}>{showReport ? 'Hide report' : 'Show report'}</Button>
           </div>
           {showReport && <pre className="mt-3 whitespace-pre-wrap rounded-xl bg-space-950 p-4 text-sm text-slate-200">{report}</pre>}
         </section>
@@ -141,18 +139,12 @@ export function Emergency() {
             ))}
           </ul>
           <p className="mt-3 text-sm text-slate-400">
-            {t('source')}{' '}
-            {emergencyContent.sources.map((s, i) => (
-              <span key={s.url + s.title} dir="auto">
-                {i > 0 && '; '}
-                <a className="underline" href={s.url} target="_blank" rel="noreferrer">{s.title}</a>
-              </span>
-            ))}
+            {t('source')} {emergencyContent.sources.map((s) => <a key={s.url + s.title} className="underline" href={s.url} target="_blank" rel="noreferrer">{s.title}</a>)}
           </p>
         </section>
 
         <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 4: procedures">
-          <h2 className="inline-flex items-center gap-2 text-xl font-semibold text-slate-50"><Stethoscope aria-hidden size={22} /> {home ? t('step4Home') : t('emStep4')}</h2>
+          <h2 className="inline-flex items-center gap-2 text-xl font-semibold text-slate-50"><Stethoscope aria-hidden size={22} /> {home ? t('step4Home') : "4 · Follow your mission's medical procedures and the crew medical officer."}</h2>
         </section>
 
         {/* Always visible: our station has no ECG and cannot detect a heart attack. */}

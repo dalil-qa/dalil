@@ -1,6 +1,6 @@
 # Dalil: crew health, guided by evidence
 
-Team Dalil's entry for **NASA Space Apps 2026 (Doha)**, challenge
+**Team Baseera**'s entry for **NASA Space Apps 2026 (Doha)**, challenge
 [Create Health Monitoring Software for Astronauts on Space Missions](https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/).
 
 **Not a medical device: guidance only.** Dalil never diagnoses, and a red result always says to contact the flight surgeon.
@@ -17,7 +17,7 @@ when Earth is up to 22 minutes away.
 - **Coach:** answers questions only from written guidance cards, always with their sources. Red-flag words never reach the AI.
 - **Earth (flight surgeon):** the report, the signal delay for the chosen mission (station, Moon base, rover, Mars), and what to do while waiting.
 - **Emergency ("I feel unwell now"):** one tap from every screen. Works offline, uses no AI, and sends a PRIORITY report automatically.
-- **Home mode:** huge text, one big button, results in plain words and "Send to family", for people at home.
+- **Home mode (English & Arabic RTL):** huge text, one big button, results in plain words, a one-tap `العربية` / `English` switch, and "Send to family" / 999 alert, for older adults at home in Qatar.
 - **Simulator:** the same messages as the real station, so everything can be demoed without hardware. Simulated and sample data are always labelled.
 
 ## Live

@@ -1,5 +1,6 @@
-# Slides: Visual Blueprint (2.5-Minute Two-Presenter Pitch)
+# Slides: Visual Blueprint — Team Baseera (2.5-Minute Two-Presenter Pitch)
 
+**Team:** **Team Baseera (بصيرة)** · **Project:** **Dalil (دليل)**
 **Presenters:** **Abdullah** (Opening Hook & Qatar Impact) + **Sulaiman** (Technical MVP, Competitive Edge, Roadmap Close & **100% of Q&A**)
 **Spoken script & cues:** [PITCH_SCRIPT.md](PITCH_SCRIPT.md) · **Health sources & review log:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
 **Memory anchor (repeated 3×):** **`Personal. Proven. Immediate.`**
@@ -22,18 +23,18 @@
 - **Visual Layout:**
   - Centered **Dalil wordmark (`Dalil دليل`)** and icon ([app/public/favicon.svg](../app/public/favicon.svg)).
   - Crisp tagline underneath: ***"Evidence-Based Health Guidance, From Deep Space to Every Home"***
-  - Two pill badges at the bottom: **`Category: HealthTech`** | **`Stage: Working MVP`**
+  - Three pill badges at the bottom: **`Team Baseera (بصيرة)`** | **`Category: HealthTech`** | **`Stage: Working MVP`**
   - Footer: `NASA Space Apps Challenge Doha 2026`
 - **Stage Note:** Shown silently while Abdullah and Sulaiman take their positions. Do **not** read this slide or introduce names—Abdullah launches straight into the hook as the clicker advances to Slide 1.
 
 ---
 
-### Slide 1 — The 44-Minute Silence *(0:00 – 0:40 · Abdullah)*
+### Slide 1 — Mars-to-Earth Signal Delay *(0:00 – 0:40 · Abdullah)*
 - **Visual Layout:**
   - **Left (60%):** `[EMPATHY PHOTO]` Close-up of an isolated astronaut looking out of a spacecraft cupola toward a distant red Mars, conveying distance and isolation.
   - **Right (40%):** Huge bold typography:
-    - **`22 min`** *(each way)*
-    - **`44 min`** *(of silence)*
+    - **`14–22 min`** *(one way to Earth)*
+    - **`Up to 44 min`** *(round-trip silence)*
     - Below in clean text: *"In flight, standard NASA health tests happen only ~2× per mission."*
   - **Bottom Banner:** **`Dalil دليل — Personal. Proven. Immediate.`**
   - **Source Footer:** `Sources: NASA Mars Communication Delay · NASA Spaceflight Standard Measures`
@@ -46,23 +47,23 @@
   flowchart LR
     A["1. 30-Sec Morning Check\n(Fingertip Pulse/SpO2 + Forehead Temp\n+ Signal-Quality Gate)"] --> B["2. Personal Baseline Engine\n(Learns YOUR 7-Day Normal\n+ Flags 3-Day Drift Early)"]
     B --> C["3. NASA-Backed Guidance\n(Offline Cards + Cited Sources\n+ Red-Flag Bypass)"]
-    C --> D1["🚀 Deep Space Mode\n(Flight Surgeon Report +\n22-Min Delay Countdown)"]
-    C --> D2["🏠 Qatar Home Mode\n(Huge Text + Plain Words +\n'Send to Family' / 999 Alert)"]
+    C --> D1["🚀 Deep Space Mode\n(Flight Surgeon Report +\n14–22 Min Delay Countdown)"]
+    C --> D2["🏠 Qatar Home Mode (AR/EN)\n(Huge Text + Plain Words +\n'Send to Family' / 999 Alert)"]
   ```
 - **Visual Callout Photo:** Real photo of the **Dalil Crew Health Station** hardware box next to the laptop.
 - **Bottom Anchor:** **`Personal`** *(learns your normal)* · **`Proven`** *(every tip cites NASA or public health sources)* · **`Immediate`** *(works offline in 30 seconds)*
 
 ---
 
-### Slide 3 — Day 47 to Mars: Catching Drift Early *(1:00 – 1:30 · Sulaiman — App Screenshots on Slide)*
+### Slide 3 — Day 47 to Mars: Catching Drift Early *(1:00 – 1:25 · Sulaiman — App Screenshots on Slide)*
 - **Visual Layout (Two High-Resolution App Screenshots Side-by-Side inside Laptop Frames):**
   - **Left Screenshot — Personal Baseline Drift (`! Watch / Amber`):** Screenshot of Crew Member 2's **Trends** & **Coach** view on Day 47 to Mars. Resting heart rate steps up above their personal 7-day baseline while sleep and mood drop—each single number looks "normal" in a textbook, but Dalil flags the personal trend early and cites NASA sleep & cardiovascular guidance.
-  - **Right Screenshot — Flight Surgeon & Delay Countdown (`✕ Act / Red`):** Screenshot of the **Earth (Flight Surgeon)** screen showing the structured medical report, the live Mars one-way signal countdown, and offline first-step actions while waiting.
+  - **Right Screenshot — Flight Surgeon & Delay Countdown (`✕ Act / Red`):** Screenshot of the **Earth (Flight Surgeon)** screen showing the structured medical report, the live **14-minute** Mars one-way signal countdown, and offline first-step actions while waiting.
 - **Source Footer:** `Spaceflight guidance: NASA-STD-3001, NASA OCHMO Technical Briefs & CSA · Vital ranges: NHS, CDC, WHO & MedlinePlus`
 
 ---
 
-### Slide 4 — Competitive Analysis & Resilience *(1:30 – 1:50 · Sulaiman)*
+### Slide 4 — Competitive Analysis & Resilience *(1:25 – 1:45 · Sulaiman)*
 - **Visual Layout:** Clean comparison matrix with green checkmarks (**✔**) and red crosses (**✘**), where the **final row is Dalil's unique knockout differentiator**:
 
 | Capability | Standard Smartwatches | Telehealth Apps | Periodic Clinic / In-Flight Tests | **Dalil (Station + App)** |
@@ -71,16 +72,16 @@
 | **Daily 30-Second Check** *(no daily wrist charging)* | ✘ | ✘ | ✘ | **✔** |
 | **100% Offline Rule Engine & Emergency Triage** | ✘ | ✘ | ✘ | **✔** |
 | **Every Health Tip Cites a Verified NASA / Clinical Source** | ✘ | ✘ | ✔ | **✔** |
-| **Built-In Elderly Home Mode** *(One Button + Family Alert)* | ✘ | ✘ | ✘ | **✔** |
+| **Built-In Elderly Home Mode (Arabic RTL + English)** | ✘ | ✘ | ✘ | **✔** |
 | **🏆 Offline Personal-Baseline Triage + Signal-Delay Guidance** | **✘** | **✘** | **✘** | **✔ ONLY DALIL** |
 
 - **Bottom Callout Badge (Team Resilience):** `Built with 3-Layer Fault Tolerance: Hardware Signal Gate → Offline Card Fallback → Full Web Simulator`
 
 ---
 
-### Slide 5 — From Mars to Doha: Impact in Qatar *(1:50 – 2:20 · Abdullah)*
+### Slide 5 — From Mars to Doha: Impact in Qatar *(1:45 – 2:15 · Abdullah)*
 - **Visual Layout:**
-  - **Left (45%):** `[EMPATHY PHOTO]` A warm, dignified photo of an older Qatari parent at home comfortably resting their finger on a desk station, paired with a screenshot of Dalil's built-in **Home Mode** (`Good morning` · huge `Start check` button · plain-English summary · `Send to family`).
+  - **Left (45%):** `[EMPATHY PHOTO]` A warm, dignified photo of an older Qatari parent at home comfortably resting their finger on a desk station, paired with screenshots of Dalil's built-in **Home Mode** in **Arabic (`العربية` RTL)** and **English** (`صباح الخير / Good morning` · huge `ابدأ الفحص / Start check` button · plain-language summary · `أرسل إلى العائلة / Send to family`).
   - **Right (55%):** Three high-contrast stat blocks:
     1. **`10× Growth by 2050`** — Qatar residents aged 60+ rising from **~60,000 to ~690,000** *(WHO)*
     2. **`24.6% of Adults`** — **Nearly 1 in 4** adults in Qatar live with diabetes *(IDF, 2024)*
@@ -96,7 +97,7 @@
     2. **On-Board Local AI** *(zero Earth/cloud dependency)*
     3. **Qatar Home-Care & Clinic Pilot** *(clinician sign-off + MoPH regulatory path)*
   - **Center:** Dalil logo + **"Dalil دليل — Guide, and Evidence."** + **`Personal. Proven. Immediate.`**
-  - **Bottom:** QR Code to live app (`https://dalil.msulaiman00711.workers.dev`) & public GitHub repo (`https://github.com/dalil-qa/dalil`), plus team names (**Sulaiman, Abdullah & Team Dalil**).
+  - **Bottom:** QR Code to live app (`https://dalil.msulaiman00711.workers.dev`) & public GitHub repo (`https://github.com/dalil-qa/dalil`), plus team name (**Team Baseera بصيرة — Sulaiman & Abdullah**).
 - **Stage Note:** Sulaiman delivers Slide 6 so he already holds the microphone and the judges' eye contact when Q&A begins at `2:30`. Leave Slide 6 on screen during the entire Q&A session.
 
 ---

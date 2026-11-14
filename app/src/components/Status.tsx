@@ -1,5 +1,4 @@
-import { statusWord, useT } from '../i18n.ts';
-import { SOURCE_KEY } from '../i18n-app.ts';
+import { statusWord } from '../i18n.ts';
 import { useStore } from '../store.ts';
 import type { Source, Status } from '../types.ts';
 import { SOURCE_INFO, STATUS_INFO } from './info.ts';
@@ -19,9 +18,7 @@ export function StatusBadge({ status, size = 'md' }: { status: Status; size?: 'm
 }
 
 export function SourceIcon({ source, withLabel = false }: { source: Source; withLabel?: boolean }) {
-  const { Icon } = SOURCE_INFO[source];
-  const { t } = useT();
-  const label = t(SOURCE_KEY[source]);
+  const { label, Icon } = SOURCE_INFO[source];
   return (
     <span className="inline-flex items-center gap-1 text-sm text-slate-400" title={label}>
       <Icon aria-hidden size={14} />

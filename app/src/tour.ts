@@ -2,10 +2,10 @@
 import { create } from 'zustand';
 import { useNav, type Screen } from './nav.ts';
 
-export const TOUR_STEPS: { screen: Screen; title: 'tour1Title' | 'tour2Title' | 'tour3Title'; text: 'tour1Text' | 'tour2Text' | 'tour3Text' }[] = [
-  { screen: 'today', title: 'tour1Title', text: 'tour1Text' },
-  { screen: 'body', title: 'tour2Title', text: 'tour2Text' },
-  { screen: 'trends', title: 'tour3Title', text: 'tour3Text' },
+export const TOUR_STEPS: { screen: Screen; title: string; text: string }[] = [
+  { screen: 'today', title: '1 of 3 · Today', text: "Your crew health score and latest values. Heart rate is 'Watch' because it has stayed above this person's own normal for 3 days." },
+  { screen: 'body', title: '2 of 3 · Body', text: 'Tap a system to see what it does and answers to NASA\'s five questions. Colours follow the latest readings and symptoms.' },
+  { screen: 'trends', title: '3 of 3 · Trends', text: "The safe range, this person's own normal, and what changed before launch and since. Insights are written by rules, not AI." },
 ];
 
 interface TourState {

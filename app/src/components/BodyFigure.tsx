@@ -1,5 +1,4 @@
 import type { KeyboardEvent, ReactNode } from 'react';
-import { statusWord, useT } from '../i18n.ts';
 import type { BodySystem, Status } from '../types.ts';
 
 // Our own simple figure (APP_BUILD_GUIDE.md 10.4): no downloaded art, so no licence questions.
@@ -21,8 +20,6 @@ interface Props {
 }
 
 export function BodyFigure({ statuses, names, selected, highlighted, onSelect }: Props) {
-  const { lang, t } = useT();
-  const stateText = (s: Status | null) => (s ? statusWord(s, false, lang) : t('noRangeYet'));
   const part = (id: BodySystem['id'], children: (cls: string) => ReactNode, label?: string) => {
     const status = statuses[id];
     const tone = TONE[status ?? 'none'];
@@ -34,7 +31,7 @@ export function BodyFigure({ statuses, names, selected, highlighted, onSelect }:
         key={id}
         role="button"
         tabIndex={0}
-        aria-label={`${label ?? names[id]}: ${stateText(status)}`}
+        aria-label={`${label ?? names[id]}: ${status === 'ok' ? 'OK' : status === 'watch' ? 'Watch' : status === 'act' ? 'Call surgeon' : 'no range set yet'}`}
         aria-pressed={isSel}
         onClick={() => onSelect(id)}
         onKeyDown={(e: KeyboardEvent) => {
@@ -54,12 +51,12 @@ export function BodyFigure({ statuses, names, selected, highlighted, onSelect }:
   const skinSel = selected === 'skin';
 
   return (
-    <svg viewBox="0 0 240 420" className="mx-auto h-auto w-full max-w-xs" role="group" aria-label={t('bodyFigureLabel')}>
+    <svg viewBox="0 0 240 420" className="mx-auto h-auto w-full max-w-xs" role="group" aria-label="Body figure: choose a system">
       {/* Body silhouette. The outline is the skin: it is coloured by the skin and temperature status. */}
       <g
         role="button"
         tabIndex={0}
-        aria-label={`${names.skin}: ${stateText(statuses.skin)}`}
+        aria-label={`${names.skin}: ${statuses.skin === 'ok' ? 'OK' : statuses.skin === 'watch' ? 'Watch' : statuses.skin === 'act' ? 'Call surgeon' : 'no range set yet'}`}
         aria-pressed={skinSel}
         onClick={() => onSelect('skin')}
         onKeyDown={(e: KeyboardEvent) => {

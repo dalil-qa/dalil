@@ -2,8 +2,6 @@ import { motion, useReducedMotion } from 'motion/react';
 import { Bone, Brain, Eye, Heart, ShieldPlus, Thermometer, Utensils, Wind, type LucideIcon } from 'lucide-react';
 import type { Assessment, BodySystem, IndicatorId, Status } from '../types.ts';
 import { STATUS_INFO } from './info.ts';
-import { useT } from '../i18n.ts';
-import { statusWord } from '../i18n.ts';
 import { worstStatus } from '../logic/status.ts';
 
 const SYSTEMS: { id: BodySystem['id']; name: string; Icon: LucideIcon; indicators: IndicatorId[] }[] = [
@@ -23,10 +21,9 @@ const SYSTEMS: { id: BodySystem['id']; name: string; Icon: LucideIcon; indicator
  */
 export function SystemsStrip({ assessments }: { assessments: Assessment[] }) {
   const reduce = useReducedMotion();
-  const { lang, t } = useT();
   return (
-    <ul className="grid grid-cols-4 gap-3 sm:grid-cols-8" aria-label={t('bodySystemsLabel')}>
-      {SYSTEMS.map(({ id, Icon, indicators }, i) => {
+    <ul className="grid grid-cols-4 gap-3 sm:grid-cols-8" aria-label="Body systems">
+      {SYSTEMS.map(({ id, name, Icon, indicators }, i) => {
         const statuses = assessments.filter((a) => indicators.includes(a.indicator)).map((a) => a.status);
         const status: Status | null = statuses.length ? worstStatus(statuses) : null;
         const info = status ? STATUS_INFO[status] : null;
@@ -39,8 +36,8 @@ export function SystemsStrip({ assessments }: { assessments: Assessment[] }) {
             className={`flex flex-col items-center gap-1 rounded-xl border p-3 text-sm ${info ? `${info.border} ${info.bg} ${info.text}` : 'border-white/10 text-slate-500'}`}
           >
             <Icon aria-hidden size={26} />
-            <span className="font-medium">{t(`sysShort_${id}` as 'sysShort_heart')}</span>
-            <span className="text-sm">{status ? statusWord(status, false, lang) : t('notMeasured')}</span>
+            <span className="font-medium">{name}</span>
+            <span className="text-sm">{info ? info.word : 'Not measured'}</span>
           </motion.li>
         );
       })}

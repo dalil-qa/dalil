@@ -1,11 +1,11 @@
-Act as an expert startup pitch coach and hackathon mentor. Write a complete, high-impact 2.5-minute (150-second) pitch script AND a slide-by-slide visual guide for our project **"Dalil"** competing at **NASA Space Apps Challenge Doha 2026** (Category: **HealthTech**, Current Stage: **MVP**).
+Act as an expert startup pitch coach and hackathon mentor. Write a complete, high-impact 2.5-minute (150-second) pitch script AND a slide-by-slide visual guide for **Team Baseera (بصيرة)** and our project **"Dalil" (دليل)** competing at **NASA Space Apps Challenge Doha 2026** (Category: **HealthTech**, Current Stage: **MVP**).
 
 ### 1. Project Context (Keep it simple, non-technical):
-- **What is Dalil?** "Dalil" means *guide* and *evidence* in Arabic. It is a 30-second morning health check station (a small biometric sensor box measuring heart rate, blood oxygen, and skin temperature) connected to a simple web app.
-- **How it works (Simple):** Instead of relying on generic medical averages, Dalil learns each user's *personal baseline*, flags subtle anomalies early, provides NASA-backed health guidance offline, and simulates real communication delays (like the 22-minute Mars delay) to give immediate first-step actions while waiting for a doctor.
-- **Dual Impact (Space + Qatar):** Built to keep astronauts safe on deep-space missions, and directly adaptable as a simple home health check for elderly people in Qatar.
+- **Team & Project Name:** **Team Baseera** (*insight / foresight* in Arabic); project **Dalil** (*guide* and *evidence* in Arabic). It is a 30-second morning health check station (a small biometric sensor box measuring heart rate, blood oxygen, and skin temperature) connected to a simple web app.
+- **How it works (Simple):** Instead of relying on generic medical averages, Dalil learns each user's *personal baseline*, flags subtle anomalies early, provides NASA-backed health guidance offline, and simulates real communication delays (like the 14-to-22-minute Mars one-way delay) to give immediate first-step actions while waiting for a doctor.
+- **Dual Impact (Space + Qatar):** Built to keep astronauts safe on deep-space missions, and directly adaptable as a simple home health check (with built-in **Arabic RTL & English Home Mode**) for elderly people in Qatar.
 - **Research & Statistics to Include:**
-  - Up to **22 minutes** one-way communication delay between Mars and Earth (44 minutes round-trip).
+  - **14 to 22 minutes** one-way communication delay between Mars and Earth (up to **44 minutes** round-trip; 14 minutes one-way / 28 minutes round-trip used in the live Mars transit demo).
   - According to the **WHO**, Qatar’s population aged 60+ will grow more than **tenfold** (from ~60,000 to nearly 690,000 by 2050).
   - According to the **International Diabetes Federation (IDF)**, **24.6%** (nearly 1 in 4) of adults in Qatar have diabetes, and **32.9%** of Qatari nationals have high blood pressure (STEPwise Survey).
 

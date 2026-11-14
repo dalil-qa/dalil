@@ -1,6 +1,5 @@
 import type { Source, Status } from '../types.ts';
 import { STATUS_INFO } from './info.ts';
-import { useT } from '../i18n.ts';
 import { Sparkline } from './Sparkline.tsx';
 import { SourceIcon, StatusBadge } from './Status.tsx';
 
@@ -15,14 +14,13 @@ export function MetricTile({ label, value, unit, status, source, spark, size = '
   size?: 'md' | 'lg';
   onClick?: () => void;
 }) {
-  const { t } = useT();
   const lg = size === 'lg';
   const border = status ? STATUS_INFO[status].border : 'border-white/10';
   const Tag = onClick ? 'button' : 'div';
   return (
     <Tag
       {...(onClick ? { type: 'button' as const, onClick } : {})}
-      className={`flex flex-col gap-2 rounded-2xl border bg-space-900 p-4 text-start ${border} ${onClick ? 'hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-cyan-400' : ''}`}
+      className={`flex flex-col gap-2 rounded-2xl border bg-space-900 p-4 text-left ${border} ${onClick ? 'hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-cyan-400' : ''}`}
     >
       <div className="flex items-center justify-between gap-2">
         <span className="text-base font-medium text-slate-300">{label}</span>
@@ -33,7 +31,7 @@ export function MetricTile({ label, value, unit, status, source, spark, size = '
         {unit && <span className={`text-slate-400 ${lg ? 'text-xl' : 'text-base'}`}>{unit}</span>}
       </div>
       <div className="flex items-center justify-between gap-2">
-        {status ? <StatusBadge status={status} /> : <span className="text-sm text-slate-500">{t('noRangeYet')}</span>}
+        {status ? <StatusBadge status={status} /> : <span className="text-sm text-slate-500">No range set yet</span>}
       </div>
       {spark && <Sparkline values={spark} className={status ? STATUS_INFO[status].stroke : 'stroke-cyan-400'} />}
     </Tag>
