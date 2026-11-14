@@ -1,145 +1,146 @@
-# Pitch script: what to say, who does what, and when the judge tries it
+# Pitch Script: 2.5-Minute Two-Presenter Blueprint (Abdullah & Sulaiman)
 
-**The slides:** [SLIDES.md](SLIDES.md) · **Health sources & review log:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
-**Length:** about **3 minutes** (with 90-second, 2-minute and 5-minute adaptations in section 5).
-
-**Shape:** the problem in one sentence → our answer, shown live (the judge demo comes at 0:40) → the data → impact on Earth → what's next.
-
-**Judging criteria covered:** Impact, Creativity, Validity, Relevance and Presentation.
+**Duration:** Strictly **2 minutes 30 seconds (150 seconds)** · **~340 spoken words** (calm, confident pace at ~135 wpm, leaving a 30-second buffer if the pitch slot is 3:00).
+**Slides:** [SLIDES.md](SLIDES.md) · **Original prompt:** [PROMPT_FOR_PRESENTATION.md](PROMPT_FOR_PRESENTATION.md) · **Health sources:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
+**3-Word Memory Anchor (repeated 3×):** **`Personal. Proven. Immediate.`**
 
 ---
 
-## 1. Roles
+## 1. Presenter Division & Stage Roles
 
-| Role | Who | Job |
+| Presenter | Role & Strengths | Sections Owned |
 |---|---|---|
-| **Speaker** | Sulaiman | Delivers the script and routes judge questions to the right teammate |
-| **Demo driver** | App lead | At the laptop: switches between slides and app, runs the demo flow, flips to the simulator if needed |
-| **Station host** | Hardware lead | Carries the station to the judge, wipes it, guides them through the 30-second check, answers hardware questions |
-| **Timekeeper & team** | Team | Keeps time from the side and supports Q&A |
+| **Abdullah** | **Human Story, Hook & Qatari Impact** *(warm, authoritative storytelling; connects deep space to Qatar's ageing population)* | **Part 1 (0:00–0:40):** Slide 1 Hook & Problem<br>**Part 3 (1:50–2:30):** Slide 5 Qatar Impact (Home Mode) & Slide 6 Close<br>**Q&A:** Qatar adoption, elderly care, clinic pilot & social impact questions |
+| **Sulaiman** | **Technical MVP, NASA Evidence & Q&A Lead** *(crisp systems explanation, live app/station demo, safety guardrails, technical & medical-source Q&A)* | **Part 2 (0:40–1:50):** Slide 2 Mind Map, Slide 3 Live MVP / Day 47 Mars Demo, Slide 4 Competitive Knockout & Team Resilience<br>**Q&A Lead:** Routes all judge questions; answers architecture, hardware, AI safety & NASA source questions |
+| **Demo / Station Support** | Laptop & Hardware Station | Advances slides, switches to the live app/simulator on cue, holds the hardware station visible during Slide 2/3 |
 
 ---
 
-## 2. The script (about 3:00)
+## 2. The 2.5-Minute Word-for-Word Script (~340 Words)
 
-| Time | Slide | Who | Say (out loud) | Do |
-|---|---|---|---|---|
-| 0:00 | 2 Hook | Speaker | "Imagine you're on the way to Mars, and your heart starts doing something strange. You message the doctor on Earth. Your message takes **22 minutes** to arrive, and the answer takes 22 more. *(pause)* Out there, astronauts have to catch problems themselves, early." | Look at the judges, not the screen. Pause after "22 more" |
-| 0:15 | 3 Problem | Speaker | "NASA names five hazards of spaceflight: radiation, isolation, distance, gravity and a hostile environment. NASA tracks every astronaut against their own baseline, but in flight most of those standard tests happen only about twice a mission. Nobody checks every morning." | |
-| 0:30 | 4 Solution | Speaker | "This is **Dalil**, دليل. In Arabic it means both *guide* and *evidence*. It's a 30-second morning check: a station on the desk, and an app that learns your normal and explains every result with a source. Let's try it." | Station host picks up the station |
-| 0:40 | 5 Live | Speaker, then station host | Speaker to the judges: "Could one of you try it? It takes 30 seconds, and nothing is saved." | **The judge demo** (section 3). Demo driver switches to the app in **Guest** mode |
-| 0:45–1:20 | App | Speaker, while the station measures | "While it measures: the station checks the signal every second. If your finger moves, it throws the reading away instead of guessing. Then the app compares you with published clinical ranges and with your own baseline." When the result shows: "**[Judge's name], heart rate [74], oxygen [98], green.** Right in your range." | The body figure lights up. Read the numbers out loud. Thank the judge |
-| 1:20 | App: Crew Member 2 | Speaker; driver clicks | "Now a real mission. **Day 47 to Mars.** Crew Member 2's resting heart rate has stepped up above their normal for several days in a row, while sleep and mood dropped. Each number alone sits inside the textbook range, but against their own baseline it's a change, so Dalil turns amber. The Coach explains why and cites NASA. And if a reading turns red, it opens the **Flight Surgeon** screen: a factual report for the doctor, and a live countdown to when Earth can answer." | Driver: Trends chart, then amber status, then Coach, then simulated red / Flight Surgeon ("Earth") screen |
-| 1:50 | 9 Data | Speaker | "Every spaceflight risk and piece of guidance comes from **NASA's crew health standard, NASA-STD-3001**, NASA's Technical Briefs and Canadian Space Agency research, and our vital-sign ranges come from public health sources like the **NHS, CDC, WHO and MedlinePlus**. Real astronaut vitals aren't public, so our 47-day mission history is **sample data built inside those ranges**, and every live number comes from our own station." | The slide shows the sources. Say "sample data" clearly |
-| 2:05 | 10 Impact | Speaker | "On Mars, the doctor is 22 minutes away. Here in Qatar, an older person living alone faces the same gap. And Qatar is ageing fast: people over 60 will grow more than tenfold by 2050. One in four adults has diabetes; one in three Qataris has high blood pressure. Dalil includes a built-in **Home mode**—huge text, one big button, plain-English results and a 'Send to family' alert. Next step: a clinic pilot." | Driver can briefly flash **Home mode** in the app or show Slide 10 (sources in section 6) |
-| 2:30 | 11 What's next | Speaker | "With another month: Bluetooth health devices so nothing is typed, the AI model running on board with no Earth link, and a pilot with a clinic here in Qatar." | |
-| 2:45 | 12 Close | Speaker | "Dalil means *guide*, and *evidence*. That's what it gives every astronaut, and everyone whose doctor is far away. Thank you." | Smile, stop talking, leave slide 12 up |
-
-**If running the Pulse Sensor backup (no MAX30102):** say "heart rate [74] and skin temperature [34.2], green", never an oxygen number, and add "oxygen is typed in for now; an SpO2 sensor is our next part".
+> **Before 0:00:** **Slide 0 (Silent Title Slide)** is on screen (`Dalil دليل — Evidence-Based Health Guidance, From Deep Space to Every Home | Category: HealthTech | Stage: Working MVP`). Abdullah stands center-left; Sulaiman stands center-right next to the station and demo screen. Do **not** start with names.
 
 ---
 
-## 3. The judge demo: step by step
+### PART 1: The Hook & Problem *(0:00 – 0:40 · Presenter: Abdullah)*
 
-**When:** at **0:40**, straight after the Solution slide.
+**[0:00 · Advance to Slide 1: The 44-Minute Silence — `[EMPATHY PHOTO: Isolated astronaut looking toward Mars]`]**
 
-**Before the pitch:**
-- Run one full check 15 minutes before going on stage to confirm everything works.
-- Leave the app in **Guest** mode (nothing saved).
-- Use a **1–2 m USB data cable**, so the station can reach the judges' table.
-- Keep alcohol wipes and a tissue in the station host's pocket.
+**[TONE/GESTURE: Abdullah — Step forward, calm, low, serious voice. Look directly at the judges, not the screen. Hold up two fingers on "22 minutes".]**
 
-**Step by step (station host):**
-1. Walk to the judge who looks most interested. **Ask:** "May I? It's a fingertip and a forehead reading, and nothing is saved."
-2. **Wipe** the finger slot and the forehead guide in front of them.
-3. "Press START." *(the LED turns blue)*
-4. "Rest your fingertip in the slot. **Don't press,** just let the lid rest on it, and keep still." *(about 20 s)*
-5. "Now hold your forehead at the window." *(about 5 s)*
-6. Step back so the judge sees the screen. The speaker reads the result.
-7. Wipe the station again and thank them.
+**Abdullah:**
+> "Imagine you are halfway to Mars, and your heart starts racing. You message your doctor on Earth. That message takes **22 minutes** to arrive—and the answer takes **22 minutes** to come back. Forty-four minutes of silence."
 
-**Tips:**
-- Cold hands give weak signals. If the room is cold, ask the judge to rub their fingertips together first.
-- If no judge wants to try, the station host does the check on themselves, without fuss.
-- **Never let a failure take more than 15 seconds.** Use the fallback ladder below.
+**[PAUSE - 3 SECONDS]** *(Let the silence sit in the room. Scan the judges' eyes.)*
+
+**[TONE/GESTURE: Abdullah — Shift to an energetic, purposeful pace. Open palm toward the hardware station on the table.]**
+
+**Abdullah:**
+> "NASA tracks astronauts against their own health baseline, yet in flight, most standard tests happen only twice a mission. Nobody checks every morning.
+>
+> Meet **Dalil**—Arabic for both *guide* and *evidence*. Dalil is a 30-second morning health check that is **Personal. Proven. Immediate.** Sulaiman?"
 
 ---
 
-## 4. Fallback ladder
+### PART 2: How It Works, Live MVP & Competitive Edge *(0:40 – 1:50 · Presenter: Sulaiman)*
 
-| What happens | Say | Do |
+**[0:40 · Advance to Slide 2: Mind Map — How Dalil Works in 30 Seconds]**
+
+**[TONE/GESTURE: Sulaiman — Crisp, confident engineering cadence. Pick up the physical Dalil station in one hand on "station", then gesture across the 4-step Mind Map on the slide.]**
+
+**Sulaiman:**
+> "Thank you, Abdullah. Every morning, you rest your finger and forehead on the Dalil station for 30 seconds. If your finger moves, our signal check rejects the noisy reading instead of guessing.
+>
+> Instead of relying only on generic averages, Dalil learns **your** 7-day personal baseline and pairs it with verified guidance from **NASA's crew health standard** and public health authorities."
+
+**[1:00 · Advance to Slide 3 / Switch to Live App: Day 47 to Mars]**
+
+**[TONE/GESTURE: Sulaiman — Point to the rising trend line on screen, then to the Flight Surgeon countdown.]**
+
+**Sulaiman:**
+> "Look at **Day 47 to Mars** in our working MVP. Crew Member 2's resting heart rate has crept up for several days while sleep dropped. One reading alone looks normal—but against their personal baseline, Dalil catches the drift early in **amber**, and our Coach explains why, citing the exact NASA source.
+>
+> If a reading turns **red**—or you tap *'I feel unwell now'*—Dalil skips AI completely, works 100% offline, builds a doctor's report, and starts a live Mars signal countdown with immediate first steps."
+
+**[1:30 · Advance to Slide 4: Competitive Analysis Table]**
+
+**[TONE/GESTURE: Sulaiman — Sweep hand down the rightmost column of green checkmarks, tapping the air on the bottom row.]**
+
+**Sulaiman:**
+> "Smartwatches move on the wrist and need daily charging. Telehealth apps fail the moment the link drops. **Look at the bottom row:** only Dalil combines **offline personal-baseline triage with signal-delay guidance**.
+>
+> And we built for resilience: if a sensor or connection ever drops, Dalil's signal gate, offline guidance cards, and built-in hardware simulator keep the system running. Abdullah?"
+
+---
+
+### PART 3: Impact in Qatar & Close *(1:50 – 2:30 · Presenter: Abdullah)*
+
+**[1:50 · Advance to Slide 5: From Mars to Doha — `[EMPATHY PHOTO: Older Qatari parent using Dalil at home + Home Mode screenshot]`]**
+
+**[TONE/GESTURE: Abdullah — Warm, passionate, resonant voice. Gesture toward the Home Mode screen and the three big Qatar statistics.]**
+
+**Abdullah:**
+> "On Mars, the doctor is 22 minutes away. Here in Qatar, an older parent living alone faces that exact same gap.
+>
+> According to the **WHO**, Qatar's population over 60 will grow more than **tenfold** by 2050—from **60,000 to nearly 690,000**."
+
+**[PAUSE - 3 SECONDS]** *(Let the tenfold number land.)*
+
+**[TONE/GESTURE: Abdullah — Count on fingers for the two health stats, then point to the live Home Mode interface on Slide 5.]**
+
+**Abdullah:**
+> "Nearly **one in four** adults in Qatar has diabetes, and **one in three** Qatari nationals has high blood pressure. So we built **Home Mode** directly into Dalil today: huge text, one button, plain-English results, and a one-tap alert to family or 999."
+
+**[2:20 · Advance to Slide 6: Roadmap & Close]**
+
+**[TONE/GESTURE: Abdullah — Step half a pace forward, slow down for the final three anchor words, and smile.]**
+
+**Abdullah:**
+> "Next is Bluetooth cuff integration, on-board AI, and a clinic pilot right here in Doha.
+>
+> **Dalil**: *guide*, and *evidence*. **Personal. Proven. Immediate.** Thank you—we're ready for your questions."
+
+---
+
+## 3. Optional 30-Second Live Judge Check *(If Pitch Slot is 3:00 Instead of 2:30)*
+
+If Doha gives **3 minutes** (180 seconds) on stage, use the extra 30 seconds at **`0:50`** (right after Slide 2) for a **live fingertip/forehead check** in Guest Mode:
+- **Station host** wipes the sensor in front of the judge and says: *"30 seconds, Guest mode—nothing is saved."*
+- While it measures (20 s), **Sulaiman** delivers the Slide 2 Mind Map explanation so there is zero dead air.
+- When the green result appears, Sulaiman reads `[Judge's name], heart rate [74], oxygen [98], green` out loud and transitions immediately into **Day 47 to Mars** (`1:20`).
+
+---
+
+## 4. Fallback Ladder *(Never Lose More Than 10 Seconds)*
+
+| What happens | What Sulaiman says | Action |
 |---|---|---|
-| The station shows "Try again" | "That's the quality check refusing a bad signal, which is exactly what it's for. Once more." | Retry **once** |
-| It fails again | "Let me show you on mine." | The station host does the check on themselves |
-| The station isn't connecting | "Let me show a recorded check." **Say that it's simulated.** | Driver flips the **simulator switch** |
-| The app or laptop dies | "Here's what it looks like." | Slide 7 (screenshots), or the **backup video** on the phone |
-
-**Never pretend simulated data is live.** Simulated and sample readings are always labelled in the app.
+| Station shows "Try again" | *"That's our signal-quality gate rejecting finger motion instead of guessing—exactly as designed."* | Retry once, or switch to simulator |
+| USB cable disconnects | *"Let me show this on our built-in hardware simulator, which uses the exact same JSON stream."* | Flip the Simulator switch in the app |
+| Browser or laptop hiccup | *"Here is Crew Member 2's Day 47 trajectory on Slide 3."* | Stay on Slide 3 (screenshots already embedded) |
 
 ---
 
-## 5. Shorter and longer versions
+## 5. Q&A Playbook: Who Answers What (Under 20 Seconds Each)
 
-| Pitch length | Change |
+**Rule:** **Sulaiman** catches the mic first, answers technical/clinical-source questions directly, and passes Qatar impact / deployment questions to **Abdullah**. Never open with *"That's a great question"*—lead with the answer in the first sentence.
+
+### Questions for Abdullah (Qatar Impact, Users & Rollout)
+
+| Judge Question | Abdullah's Answer |
 |---|---|
-| **90 s** | Hook 10 s · Problem one sentence · Live 40 s · Day 47 15 s · Data one sentence · Close 5 s. Drop Impact and What's next |
-| **2 min** | Base script without What's next, and Impact cut to "tenfold" plus the diabetes figure and Home mode (15 s) |
-| **3 min** | **The base script above** |
-| **5 min** | Add slide 6 "How it works" (30 s), slide 8 "Built to be trusted" (20 s), live Home mode walkthrough (20 s), and hardware/safety backup details (20 s) |
+| **Who would use this in Qatar, and how would you reach them?** | "In space, crew medical operations issue it in the mission kit. Here in Qatar, we target home-care services and primary health clinics following up older adults with hypertension or diabetes—starting with a small clinic pilot to validate daily adherence." |
+| **Why wouldn't an older person just use an Apple Watch?** | "Three reasons: watches require small-screen navigation, daily charging, and steady wrist contact. Dalil sits on the bedside table with one big button, huge text in Home Mode, and a one-tap 'Send to family' button." |
+| **Where did your Qatar statistics come from?** | "Every number is sourced: the tenfold growth of residents aged 60+ (from ~60,000 to ~690,000 by 2050) is from the WHO's Healthy Ageing report on Qatar; the 24.6% adult diabetes rate is from the 2024 International Diabetes Federation Atlas; and the 32.9% hypertension figure is from the Qatar STEPwise national survey of Qatari adults aged 18–64." |
+| **Is this approved as a medical device in Qatar?** | "No—today Dalil is a guidance prototype, not a diagnostic medical device, and it states that on every screen. Clinical deployment in Qatar would require clinician sign-off and Ministry of Public Health approval, which is step three on our roadmap." |
 
----
+### Questions for Sulaiman (Technical, NASA Sources, AI & Hardware)
 
-## 6. Qatar impact numbers and sources
-
-Used in Slide 10 and at `2:05` in the script:
-
-| What we say | Exact figure | Source |
-|---|---|---|
-| "people over 60 will grow more than tenfold" | Aged 60+: just over 60,000 in 2016 to nearly 690,000 by 2050 | [WHO, *Qatar: Building the Future of Healthy Ageing with WHO-GAPS*](https://cdn.who.int/media/docs/default-source/mca-documents/ageing/gaps/qatar_case-study_-building-the-future-of-healthy-ageing-with-who-gaps.pdf) |
-| "one in four adults has diabetes" | 24.6% of adults, 409,300 people (2024 estimate) | [International Diabetes Federation, Qatar](https://idf.org/our-network/regions-and-members/middle-east-and-north-africa/members/qatar/) (IDF Diabetes Atlas) |
-| "one in three Qataris has high blood pressure" | 32.9% of Qatari nationals aged 18–64 (2012 Qatar STEPwise Survey) | [Al-Thani et al., *PLoS ONE* 2021](https://pubmed.ncbi.nlm.nih.gov/34699571/) (Ministry of Public Health authors) |
-
-**Precision notes if a judge asks:**
-- The blood pressure figure is from the **2012 Qatar STEPwise Survey** and covers **Qatari nationals aged 18–64**, not all residents.
-- Some local diabetes estimates are lower than the IDF's, so cite it as *"about one in four adults, according to the International Diabetes Federation"*.
-- In 2024, the Ministry of Public Health, Hamad Medical Corporation and the Planning and Statistics Authority launched the **National Ageing Survey Qatar** (same WHO source), making healthy ageing at home a national priority.
-- **What changes in Dalil's built-in Home mode:** huge text, one big `Start check` button, plain-English sentences for each reading, a `Send to family` button instead of the flight surgeon, and an immediate `Call 999` banner if any reading is in the `act` (red) range.
-
----
-
-## 7. Likely questions (answer in under 20 seconds)
-
-Lead with the answer, then one reason. If you haven't tested something yet, say *"We haven't tested that yet; we'd do it by…"*.
-
-| Question | Answer | Who |
-|---|---|---|
-| How accurate is it? | "These are hobby-grade sensors, so Dalil is a guide, not a diagnostic device. That's why the station rejects weak or moving signals and compares readings against your own baseline trend rather than relying on a single number." *(If user tests were logged, add the heart-rate comparison vs. a pharmacy oximeter.)* | Station host |
-| Is this a medical device? | "No. It's guidance only, and the app says so on every screen. Using it clinically on Earth would require Ministry of Public Health approval, which is in our next steps." | Speaker |
-| Why not just a smartwatch? | "With optical sensors, a stationary fingertip gives much steadier readings than a moving wrist. And one shared cabin or home station needs no daily charging. Bluetooth cuffs and watches are on our connect-next list." | Speaker |
-| Where does your data come from, and how reliable is it? | "Spaceflight risks, countermeasures and guidance come from NASA-STD-3001, NASA's OCHMO Technical Briefs and the Canadian Space Agency—all verified against the source PDFs. Because NASA-STD-3001 doesn't set numeric normal ranges for resting vitals, our vital-sign ranges come from public health sources—MedlinePlus, the NHS, CDC and WHO—all documented in `docs/CONTENT_REVIEW.md`. Real astronaut vitals aren't public, so the 47-day history is sample data built inside those ranges and clearly labelled." | Speaker |
-| What doesn't work yet? | "Honestly: the sensors are hobby-grade and there's no ECG, so it can't detect a heart attack, and the app says so. The 47-day mission history is sample data. Sending the report to Earth or to family is simulated. And while every card cites NASA or public health sources, a clinician hasn't signed off on the thresholds yet—we documented every open clinical decision in `docs/CONTENT_REVIEW.md`." | Speaker |
-| Who would use this, and how would they find it? | "In space, a crew health team would issue it with the mission kit. On Earth, clinics and home-care services in Qatar would provide it to older patients living at home, starting with a small clinic pilot." | Speaker |
-| What would it take to make it real? | "Medical-grade sensors, validation against clinical devices on a larger cohort, a clinician signing off on the review table in `docs/CONTENT_REVIEW.md`, Ministry of Public Health approval, and a clinic pilot." | Speaker |
-| What if there's no internet? | "The station, the threshold and baseline rules, the trends, and the emergency screen all work completely offline. Only the AI Coach uses the internet, and if it's offline it automatically falls back to our written guidance cards. On a real deep-space mission, the model would run locally on board." | Speaker |
-| How do you stop the AI giving bad advice? | "The Coach can only answer from the written guidance cards the app sends it, and our code strips any card ID not in that list. It never diagnoses or suggests medicines, red-flag words never reach the AI, and any red reading forces escalation to the flight surgeon." | Speaker |
-| What about privacy? | "Data stays in the browser on the laptop: there are no user accounts, no cloud database, and the Coach Worker never logs readings or questions. The judge demo runs in Guest mode, so nothing about you is saved." | Driver |
-| How much does it cost? | "About QAR 290 in parts, including spares." | Station host |
-| Who would pay for it in Qatar? | "Home-care services and clinics that follow up older patients, as well as families. We'd start with a pilot to validate the model." | Speaker |
-| Why is the temperature around 33–35 °C? | "That's forehead skin temperature, which sits lower than core body temperature (our normal range is 31.0 to 35.6 °C from published thermometry data). We also track change from your own personal baseline." | Station host |
-| What did AI do in your project? | "In the live app, Cloudflare Workers AI (Llama 3.3 70B Instruct) powers the Coach, strictly grounded in our written cards. During the hackathon, Claude Code helped draft code and text, which we verified with automated unit tests, browser E2E checks, and a quote-verification script across 91 NASA source claims." | Speaker |
-| What if it's serious, like chest pain? | "Red-flag symptoms skip every rule and never touch AI. One tap on 'I feel unwell now'—or selecting a red-flag chip in the quick log—opens the offline Emergency page, alerts the crew, queues a PRIORITY report to the flight surgeon, and reminds you that normal sensor readings never rule out a heart problem." | Speaker |
-| How is this different from what NASA already does? | "NASA's standard in-flight measures happen mostly twice a mission or rely on samples returned to Earth. Dalil adds a 30-second daily self-check on board with personal-baseline tracking and immediate, cited guidance when Earth is 22 minutes away." | Speaker |
-
----
-
-## 8. Demo table checklist
-
-- [ ] Laptop fully charged, with the charger plugged in
-- [ ] Chrome or Edge open, the app full screen in **Guest** mode, the station connected over USB
-- [ ] One real test check completed before going up
-- [ ] Everyone knows where the **Simulator** switch is in Settings / Check
-- [ ] Slides open, plus a PDF copy on the desktop and on a phone
-- [ ] HDMI adapter and phone hotspot ready
-- [ ] 1–2 m USB data cable, alcohol wipes, tissues
-- [ ] Backup video of a real check on the desktop and on a phone
-- [ ] Phone timer ready for the timekeeper
+| Judge Question | Sulaiman's Answer |
+|---|---|
+| **Where do your health ranges and NASA data come from?** | "Our spaceflight risks, countermeasures, and guidance cards come from NASA-STD-3001, 14 NASA OCHMO Technical Briefs, and the Canadian Space Agency—verified across 91 exact PDF quotes by our automated script. Because NASA-STD-3001 doesn't set numeric resting vital ranges, our vital-sign thresholds come from MedlinePlus, the NHS, CDC, and WHO, all logged in `docs/CONTENT_REVIEW.md`. Real astronaut vitals are private, so our 47-day history is labelled sample data." |
+| **How do you prevent the AI Coach from hallucinating medical advice?** | "Three hard guardrails: first, the Coach (`Llama 3.3 70B` on Cloudflare Workers AI) only receives our written guidance cards and must cite their IDs. Second, our post-processor strips any unknown card ID and forces flight-surgeon escalation on any red reading. Third, red-flag symptoms like chest pain bypass AI completely and open our offline Emergency screen." |
+| **What happens if the internet or Earth link goes down?** | "Everything critical runs locally in the browser and on the ESP32 over USB serial: the signal check, the threshold and 7-day baseline rules, the Trends charts, and the Emergency screen all work 100% offline. If the Coach Worker is unreachable, the app automatically falls back to displaying the matching written cards." |
+| **How accurate is the hardware station, and how much did it cost?** | "The station costs about QAR 290 in parts—an ESP32, a MAX30102 pulse oximeter, an MLX90614 infrared thermometer, and an OLED display. Because these are hobby-grade sensors, we don't rely on a single raw reading: the firmware checks signal quality every second, rejects motion artifacts, and tracks multi-day change against your personal baseline." |
+| **Why is forehead temperature around 33–35 °C instead of 37 °C?** | "37 °C is core body temperature. Forehead skin temperature sits lower—published infrared thermometry studies put normal forehead skin temperature between 31.0 and 35.6 °C, while 38.0 °C or above triggers an immediate fever escalation, alongside tracking a 1 °C rise above your personal 7-day baseline." |
+| **What doesn't work yet?** | "Three things we state openly in `docs/CONTENT_REVIEW.md`: first, the sensors are hobby-grade with no ECG, so they cannot rule out a heart attack—and our Emergency screen warns the crew of that. Second, sending the report to Earth or family is simulated. Third, while every card cites NASA or public health sources, our threshold table awaits formal clinician sign-off." |
