@@ -74,6 +74,11 @@ export class SimulatorLink implements DeviceLink {
     this.scenario = scenario;
   }
 
+  /** Build the next check around this crew member's normal values. */
+  setBaseline(baseline: { hr: number; spo2: number; temp: number }): void {
+    this.baseline = baseline;
+  }
+
   onMessage(callback: (message: StationMessage) => void): () => void {
     return this.messages.on(callback);
   }

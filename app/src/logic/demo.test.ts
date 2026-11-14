@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { sampleReadings, sampleSymptoms, SAMPLE_LAST_DAY } from '../data/sample.ts';
 import { detectRedFlags } from './emergency.ts';
-import { latestAssessments, lastDays } from './overview.ts';
+import { latestAssessments, lastDays, simulatorBaseline } from './overview.ts';
 import { emergencyReportInput } from './reportInput.ts';
 import { badges, crewScore, streak } from './score.ts';
 import { buildReport } from './summary.ts';
@@ -88,6 +88,18 @@ describe('the emergency report template', () => {
     assert.equal(lines.at(-1), 'Sent by Dalil. Guidance tool only, not a diagnosis.');
   });
 
+  it('shows values the way people read them: 2/5 mood, 1.2 L water', () => {
+    const event = {
+      id: 'e2', crewId: 'c2', startedAt: '2026-02-16T06:42:00', missionDay: 47, trigger: 'button' as const,
+      symptoms: [], latest: [], crewAlertedAt: null, reportSentAt: null, updates: [], closedAt: null, closedReason: null,
+    };
+    const report = buildReport(emergencyReportInput({ event, missionId: 'mars', readings, symptomLogs: [] }));
+    assert.match(report, /mood 2\/5 /);
+    assert.match(report, /water 1\.2 L /);
+    assert.match(report, /meals 2\/3 /);
+    assert.doesNotMatch(report, /1-5|ml/);
+  });
+
   it('says "none recorded" instead of inventing values when there are no readings', () => {
     const report = buildReport({
       priority: true, crewLabel: 'Guest', missionName: 'Space Station', missionDay: 3, startedAt: '2026-01-03T10:00:00',
@@ -95,5 +107,14 @@ describe('the emergency report template', () => {
     });
     assert.match(report, /Latest readings: none recorded/);
     assert.match(report, /Crew alerted: not yet/);
+  });
+});
+
+describe('the simulator follows each crew member', () => {
+  it('uses their own 7-day normal, and sensible defaults when there is no history', () => {
+    assert.deepEqual(simulatorBaseline(readings, 'c1', 47), { hr: 58, spo2: 98, temp: 34.3 });
+    assert.equal(simulatorBaseline(readings, 'c3', 47).hr, 68);
+    assert.equal(simulatorBaseline(readings, 'c2', 47).hr, 65); // the 7-day normal before the rise
+    assert.deepEqual(simulatorBaseline([], 'guest', 47), { hr: 65, spo2: 98, temp: 34.5 });
   });
 });

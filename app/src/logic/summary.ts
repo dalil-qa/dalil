@@ -4,8 +4,7 @@ import type { Source, Status } from '../types.ts';
 
 export interface ReportReading {
   label: string; // 'HR'
-  value: number;
-  unit: string;
+  shown: string; // the value as people read it, e.g. '74 bpm', '2/5', '2.2 L'
   time: string; // ISO
   source: Source;
   quality?: number | null;
@@ -34,13 +33,11 @@ export function clock(iso: string): string {
 
 const STATUS_WORD: Record<Status, string> = { ok: 'OK', watch: 'Watch', act: 'Call surgeon' };
 
-const num = (v: number) => (Number.isInteger(v) ? String(v) : String(Math.round(v * 10) / 10));
-
 function readingText(r: ReportReading): string {
   const parts = [clock(r.time), r.source];
   if (r.quality !== undefined && r.quality !== null) parts.push(`quality ${r.quality.toFixed(2)}`);
   const status = r.status && r.status !== 'ok' ? ` [${STATUS_WORD[r.status]}]` : '';
-  return `${r.label} ${num(r.value)} ${r.unit}${status} (${parts.join(', ')})`;
+  return `${r.label} ${r.shown}${status} (${parts.join(', ')})`;
 }
 
 export function buildReport(i: ReportInput): string {

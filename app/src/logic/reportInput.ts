@@ -1,6 +1,7 @@
 // Gathers what the report template needs from the app's data (APP_BUILD_GUIDE.md 12.5).
 import { crewById, missionById, symptomById } from '../data/index.ts';
 import type { EmergencyEvent, Reading, SymptomLog } from '../types.ts';
+import { formatValue } from './format.ts';
 import { INDICATOR_SHORT, latestAssessments } from './overview.ts';
 import type { ReportInput } from './summary.ts';
 
@@ -32,8 +33,7 @@ export function emergencyReportInput(args: {
     redFlags: event.symptoms.map((id) => symptomById(id)?.label.toLowerCase() ?? id),
     latest: items.map((i) => ({
       label: INDICATOR_SHORT[i.indicator],
-      value: i.reading.value,
-      unit: i.reading.unit,
+      shown: Object.values(formatValue(i.indicator, i.reading.value, i.reading.unit)).join(' ').trim(),
       time: i.reading.time,
       source: i.reading.source,
       quality: i.reading.quality,

@@ -12,9 +12,11 @@ interface NavState {
   showEmergency: () => void;
 }
 
+const SCREENS = ['today', 'check', 'body', 'trends', 'coach', 'earth', 'sources', 'settings'] as const;
+
 const fromHash = (): Screen => {
   const h = typeof location !== 'undefined' ? location.hash.replace('#', '') : '';
-  return (['today', 'check', 'body', 'trends', 'coach', 'earth', 'sources', 'settings'] as const).find((s) => s === h) ?? 'today';
+  return SCREENS.find((s) => s === h) ?? 'today';
 };
 
 export const useNav = create<NavState>()((set) => ({
@@ -27,3 +29,8 @@ export const useNav = create<NavState>()((set) => ({
   minimizeEmergency: () => set({ emergencyMinimized: true }),
   showEmergency: () => set({ emergencyMinimized: false }),
 }));
+
+// The browser's back button and typed links like #check work too.
+if (typeof window !== 'undefined') {
+  window.addEventListener('hashchange', () => useNav.setState({ screen: fromHash() }));
+}

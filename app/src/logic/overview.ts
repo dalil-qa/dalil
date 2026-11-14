@@ -1,6 +1,7 @@
 // "What is the latest, and how is it?" for one crew member. Used by Today, the report and the Body screen.
 import { thresholdFor } from '../data/index.ts';
 import type { Assessment, IndicatorId, Reading } from '../types.ts';
+import { computeBaseline } from './baseline.ts';
 import { assessReading } from './status.ts';
 
 /** Short names for reports and tiles. */
@@ -58,4 +59,11 @@ export function lastDays(readings: Reading[], crewId: string, indicator: Indicat
     out.push(values.length ? values[values.length - 1] : null);
   }
   return out;
+}
+
+/** The numbers a simulated "Normal" check should be built around: this crew member's own 7-day normal. */
+export function simulatorBaseline(readings: Reading[], crewId: string, today: number): { hr: number; spo2: number; temp: number } {
+  const mine = readings.filter((r) => r.crewId === crewId);
+  const of = (i: IndicatorId, fallback: number) => computeBaseline(mine, i, today).value ?? fallback;
+  return { hr: Math.round(of('hr', 65)), spo2: Math.round(of('spo2', 98)), temp: Math.round(of('temp', 34.5) * 10) / 10 };
 }

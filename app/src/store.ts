@@ -7,6 +7,7 @@ import { STATION_ERROR_TEXT, type DeviceLink, type StationHello, type StationMea
 import { SerialLink, isSerialSupported } from './device/serial.ts';
 import { SimulatorLink, type SimScenario } from './device/simulator.ts';
 import { assessReading, ledCommandFor, overallStatus } from './logic/status.ts';
+import { simulatorBaseline } from './logic/overview.ts';
 import { clock } from './logic/summary.ts';
 import type {
   Assessment,
@@ -276,6 +277,8 @@ export const useStore = create<DalilState>()(
         startCheck: () => {
           if (!link || get().connection !== 'connected') return false;
           set({ live: { ...IDLE_LIVE, stage: 'starting' }, lastCheck: null });
+          // A simulated "Normal" check follows the selected crew member's own history.
+          if (link instanceof SimulatorLink) link.setBaseline(simulatorBaseline(get().readings, get().crewId, get().missionDay));
           link.send('START');
           return true;
         },
@@ -302,7 +305,7 @@ export const useStore = create<DalilState>()(
             symptoms: [...s.symptoms, { crewId: s.crewId, time: nowIso(), missionDay: s.missionDay, symptoms }],
           })),
 
-        setCrew: (crewId) => set({ crewId, lastCheck: null }),
+        setCrew: (crewId) => set({ crewId, lastCheck: null, live: IDLE_LIVE }),
         setMission: (missionId) => set({ missionId }),
         setMissionDay: (day) => set({ missionDay: Math.trunc(day) }),
 
