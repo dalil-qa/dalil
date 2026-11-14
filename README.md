@@ -40,7 +40,9 @@ npm run dev          # http://127.0.0.1:5173
 app/        the web app (React, Vite, TypeScript, Tailwind CSS v4, Zustand, Recharts, Lucide, Motion)
 worker/     the Coach: a Cloudflare Worker on Workers AI (no API key to keep)
 firmware/   the station's Arduino program (ESP32), added by the electronics team
-scripts/    the sample-history generator and the browser checks
+scripts/    the sample-history generator, PDF quote verifier and browser checks
+docs/       health content review log and verified NASA source quotes
+pitch/      the 3-minute pitch script, Q&A guide and slide deck structure
 ```
 The station talks to the app over USB serial (Web Serial), one JSON line per message, to a fixed contract.
 The app works offline; only the Coach uses the internet, and it falls back to the written cards.
