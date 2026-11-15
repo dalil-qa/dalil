@@ -1,7 +1,7 @@
-# Pitch script: Team Baseera (بصيرة), Dalil (دليل)
+# Pitch script: Baseera (بصيرة), by Team Baseera
 
-**Team:** **Team Baseera (بصيرة)**: Arabic for *insight*, seeing clearly. · **Project:** **Dalil (دليل)**: Arabic for both *guide* and *evidence*.
-The two names belong together: Baseera is how we see the problem; Dalil is what we give people.
+**Team and project:** **Baseera (بصيرة)**: Arabic for *insight*, seeing clearly.
+One name for both: Baseera is how we see the problem, and what we give people: a clear view of their own health.
 
 **Length:** about **2:52** in total: a 6-second silent drama, ~350 spoken words at a calm 135 words a minute, two 3-second pauses and the handoffs. That leaves **8 seconds spare** inside the **3:00** slot.
 **Memory anchor:** **`Personal. Sourced. Immediate.`** Said in full at the start and at the end, and each word once in the middle.
@@ -28,7 +28,7 @@ The two names belong together: Baseera is how we see the problem; Dalil is what 
 ## 2. Stage setup
 
 - **Projector:** slides only (Slide 0 to Slide 6), with screenshots of the app. No `Alt+Tab`.
-- **Judges' desk:** a laptop running the live app (`F11`, sleep off) plugged into the **Dalil Crew Health Station** by USB. Before 0:00 it shows Crew Member 2's **Today** screen (Mars transit, Day 47).
+- **Judges' desk:** a laptop running the live app (`F11`, sleep off) plugged into the **Baseera Crew Health Station** by USB. Before 0:00 it shows Crew Member 2's **Today** screen (Mars transit, Day 47).
 - **If the venue won't let you put anything on the judges' table:** keep the laptop and station at the front of the stage, and in Q&A the Station Host carries the station (long USB cable) to a judge. Change Sulaiman's "on your desk" line to "here in front of you".
 - **If the Wi-Fi is down:** open the local build (`npm run build && npm run preview` in `app/`), started and loaded **before** the pitch. The app has no offline cache, so it must have loaded once.
 
@@ -40,8 +40,8 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 
 **Why dizziness, not a heart attack:**
 - Feeling faint on standing is a real spaceflight risk that NASA documents (orthostatic intolerance, OCHMO Technical Brief TB-019, in our sources).
-- Dalil can't detect a heart attack, and our Emergency screen says so. A staged heart attack invites the question "would Dalil have caught that?", and the answer is no.
-- Dalil's real job is catching the **small changes in the days before**, and that's exactly where the story goes next.
+- Baseera can't detect a heart attack, and our Emergency screen says so. A staged heart attack invites the question "would Baseera have caught that?", and the answer is no.
+- Baseera's real job is catching the **small changes in the days before**, and that's exactly where the story goes next.
 
 **Before the pitch (must do):**
 - [ ] **Tell the organisers / MC and the venue first-aid staff** that the opening includes a staged dizzy spell, so nobody calls for help. Get their OK. If they say no, use the hook without the drama (section 8).
@@ -82,15 +82,15 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 **Abdullah:**
 > "Small changes can show up days before. But in flight, NASA's standard health tests happen only **about twice a mission**. Nobody checks every morning.
 >
-> Meet **Dalil**, دليل: Arabic for *guide* and *evidence*. A 30-second morning check that is **Personal. Sourced. Immediate.**"
+> Meet **Baseera**, بصيرة: Arabic for *insight*, seeing clearly. A 30-second morning check that is **Personal. Sourced. Immediate.**"
 
 *(Abdullah hands the mic to Sulaiman and steps back.)*
 
-**If Sulaiman is the actor:** he does the drama, gets up on "Now rewind", walks to the station, and is in place centre-right by "Meet Dalil". Abdullah hands him the mic after "Immediate." Sulaiman takes one slow breath before he speaks, so Part 2 starts calm.
+**If Sulaiman is the actor:** he does the drama, gets up on "Now rewind", walks to the station, and is in place centre-right by "Meet Baseera". Abdullah hands him the mic after "Immediate." Sulaiman takes one slow breath before he speaks, so Part 2 starts calm.
 
 ---
 
-### Part 2: How it works, Day 47, why only Dalil *(0:50–1:55 · Sulaiman · ~150 words)*
+### Part 2: How it works, Day 47, why only Baseera *(0:50–1:55 · Sulaiman · ~150 words)*
 
 **[0:50 · Slide 2: Mind map]**
 **[TONE: crisp and confident. Point at the station on the desk, then follow the mind map left to right.]**
@@ -98,21 +98,21 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 **Sulaiman:**
 > "For 30 seconds, you rest your finger and forehead on our station, the one on your desk now. If your finger moves, it throws the reading away instead of guessing.
 >
-> **Personal:** Dalil learns your own normal over seven days, and checks each reading against it and against NASA and public health ranges."
+> **Personal:** Baseera learns your own normal over seven days, and checks each reading against it and against NASA and public health ranges."
 
 **[1:12 · Slide 3: Day 47 to Mars, two screenshots]**
 **[GESTURE: point back to where the Crew Member sat, then at the left screenshot (amber), then the right one (red, countdown).]**
 
 **Sulaiman:**
-> "Here are our crew member's days before, in **sample mission data**. Day 47 to Mars: their heart rate **jumped ten beats and stayed up for three days**, while sleep and mood fell. Each number still looks normal. Against their own normal it's a change, so Dalil turns **amber**, and the Coach explains why, citing NASA.
+> "Here are our crew member's days before, in **sample mission data**. Day 47 to Mars: their heart rate **jumped ten beats and stayed up for three days**, while sleep and mood fell. Each number still looks normal. Against their own normal it's a change, so Baseera turns **amber**, and the Coach explains why, citing NASA.
 >
-> If a reading turns **red**, fixed rules decide, never the AI. Dalil writes the report for the flight surgeon and counts down to Earth's reply, with first steps for now. **Immediate**, and offline."
+> If a reading turns **red**, fixed rules decide, never the AI. Baseera writes the report for the flight surgeon and counts down to Earth's reply, with first steps for now. **Immediate**, and offline."
 
 **[1:45 · Slide 4: Comparison table]**
-**[GESTURE: sweep down the Dalil column, stop on the bottom row.]**
+**[GESTURE: sweep down the Baseera column, stop on the bottom row.]**
 
 **Sulaiman:**
-> "Smartwatches learn your normal too. Only Dalil keeps working, **sourced** and offline, when the doctor is minutes away."
+> "Smartwatches learn your normal too. Only Baseera keeps working, **sourced** and offline, when the doctor is minutes away."
 
 ---
 
@@ -129,7 +129,7 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 **[GESTURE: count on fingers for the two health numbers, then point at the Home Mode screenshot.]**
 
 **Abdullah:**
-> "Nearly **one in four** adults here has diabetes. **One in three** Qatari nationals has high blood pressure. So Dalil already has **Home Mode**, in Arabic and English: big text, one button, plain words, one tap to alert family."
+> "Nearly **one in four** adults here has diabetes. **One in three** Qatari nationals has high blood pressure. So Baseera already has **Home Mode**, in Arabic and English: big text, one button, plain words, one tap to alert family."
 
 *(Abdullah turns to Sulaiman and hands over the mic.)*
 
@@ -143,7 +143,7 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 **Sulaiman:**
 > "Next: Bluetooth blood-pressure cuffs, the AI running on board, and a clinic pilot here in Doha.
 >
-> We are **Team Baseera**, بصيرة: *insight*. This is **Dalil**: *guide*, and *evidence*. **Personal. Sourced. Immediate.** Thank you. Try the station while I take your questions."
+> We are **Team Baseera**, and this is **Baseera**, بصيرة: *insight*, seeing your health clearly. **Personal. Sourced. Immediate.** Thank you. Try the station while I take your questions."
 
 **[2:52 · Stop. Leave Slide 6 up for all of Q&A.]**
 
@@ -151,7 +151,7 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 
 ## 5. Team resilience (one line for the Q&A or the slide footer)
 
-> "Every part has a fallback we built and tested: a weak signal asks you to measure again, no internet falls back to written cards, and an unplugged station switches to a clearly labelled simulator, so we can show Dalil working whatever happens on the day."
+> "Every part has a fallback we built and tested: a weak signal asks you to measure again, no internet falls back to written cards, and an unplugged station switches to a clearly labelled simulator, so we can show Baseera working whatever happens on the day."
 
 ---
 
@@ -197,4 +197,4 @@ Abdullah opens without it, same timings with 10 seconds more to breathe:
 - [ ] The actor gets up exactly on "Now rewind", every run.
 - [ ] Both presenters say "**up to** 22 minutes", "**about** twice a mission" and "**sample** mission data" exactly.
 - [ ] Practise one run with the USB unplugged halfway through.
-- [ ] Sulaiman drills the Q&A in [PRESENTER_MASTER_GUIDE.md, Part 6](PRESENTER_MASTER_GUIDE.md#part-6-complete-qa-playbook-for-sulaiman-under-20-seconds-each), especially **"Would Dalil have caught that fall?"**
+- [ ] Sulaiman drills the Q&A in [PRESENTER_MASTER_GUIDE.md, Part 6](PRESENTER_MASTER_GUIDE.md#part-6-complete-qa-playbook-for-sulaiman-under-20-seconds-each), especially **"Would Baseera have caught that fall?"**
