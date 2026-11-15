@@ -1,4 +1,4 @@
-/** The Dalil mark: a cyan planet, an orbit ring and a gold guide star (simplified from the brand logo). */
+/** The Baseera mark (the team's logo): a cyan planet, an orbit ring and a gold guide star (simplified from the brand logo). */
 export function Logo({ size = 28 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>

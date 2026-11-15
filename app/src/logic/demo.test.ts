@@ -117,14 +117,14 @@ describe('the emergency report template', () => {
     };
     const report = buildReport(emergencyReportInput({ event, missionId: 'mars', readings, symptomLogs: sampleSymptoms() }));
     const lines = report.split('\n');
-    assert.equal(lines[0], 'PRIORITY · Dalil emergency report');
+    assert.equal(lines[0], 'PRIORITY · Baseera emergency report');
     assert.equal(lines[1], 'Crew Member 2 · Mars transit · Day 47 · started 06:42');
     assert.equal(lines[2], 'Red flags: chest pain or pressure');
     assert.match(report, /Latest readings: HR 74 bpm \[Watch\] \(06:40, sample, quality 0\.90\)/);
     assert.match(report, /Recent trend: .*above your normal/);
     assert.match(report, /Other symptoms \(last 3 days\): fatigue/);
     assert.match(report, /Crew alerted: 06:42/);
-    assert.equal(lines.at(-1), 'Sent by Dalil. Guidance tool only, not a diagnosis.');
+    assert.equal(lines.at(-1), 'Sent by Baseera. Guidance tool only, not a diagnosis.');
   });
 
   it('shows values the way people read them: 2/5 mood, 1.2 L water', () => {

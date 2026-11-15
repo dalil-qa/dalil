@@ -113,7 +113,7 @@ check('Red-flag message opens the Emergency page, not the AI', em.includes('EMER
 await shot('p3-4c-coach-emergency');
 await click("I'm safe now"); await sleep(200); await click('Opened by mistake'); await sleep(500);
 await click('Back to app').catch?.(() => {});
-check('Chat explains why the Coach was skipped', (await text()).includes("This sounds urgent, so Dalil is skipping the Coach."));
+check('Chat explains why the Coach was skipped', (await text()).includes("This sounds urgent, so Baseera is skipping the Coach."));
 
 // ---- 5. Earth
 await hash('earth'); await sleep(600);

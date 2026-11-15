@@ -16,7 +16,7 @@ export function Landing() {
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center gap-8 p-8 text-center">
       <Logo size={72} />
       <div>
-        <h1 className="text-5xl font-semibold text-slate-50">Dalil <span aria-hidden className="text-gold-200">دليل</span></h1>
+        <h1 className="text-5xl font-semibold text-slate-50">Baseera <span aria-hidden className="text-gold-200">بصيرة</span></h1>
         <p className="mt-2 text-xl text-cyan-400">{t('tagline')}</p>
       </div>
       <p className="text-xl text-slate-300">

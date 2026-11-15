@@ -42,7 +42,7 @@ function readingText(r: ReportReading): string {
 
 export function buildReport(i: ReportInput): string {
   const lines = [
-    `${i.priority ? 'PRIORITY · ' : ''}Dalil ${i.priority ? 'emergency report' : 'report'}`,
+    `${i.priority ? 'PRIORITY · ' : ''}Baseera ${i.priority ? 'emergency report' : 'report'}`,
     `${i.crewLabel} · ${i.missionName} · Day ${i.missionDay} · ${i.priority ? 'started' : 'prepared'} ${clock(i.startedAt)}`,
   ];
   if (i.redFlags.length) lines.push(`Red flags: ${i.redFlags.join(', ')}`);
@@ -50,6 +50,6 @@ export function buildReport(i: ReportInput): string {
   lines.push(`Recent trend: ${i.trend.length ? i.trend.join('; ') : 'nothing outside the normal range'}`);
   lines.push(`Other symptoms (last 3 days): ${i.otherSymptoms.length ? i.otherSymptoms.join(', ') : 'none'}`);
   if (i.priority) lines.push(`Crew alerted: ${i.crewAlertedAt ? clock(i.crewAlertedAt) : 'not yet'}`);
-  lines.push('Sent by Dalil. Guidance tool only, not a diagnosis.');
+  lines.push('Sent by Baseera. Guidance tool only, not a diagnosis.');
   return lines.join('\n');
 }
