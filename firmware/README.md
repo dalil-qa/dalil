@@ -36,6 +36,18 @@ python3 -m venv .venv && .venv/bin/pip install pyserial
 ```
 It runs the build guide's §9.6 tests that need no finger: hello, idle timing, the 7 keys, START / STOP / busy / no_finger / unknown_cmd, LED commands, and no `nan` or `-999`. Then do one real check by hand (finger, then forehead) and in the app.
 
+## Two algorithms (1.3)
+- **Maxim** (the default, used at the event): the sample algorithm from SparkFun's library, on 4-sample averages (25 a second).
+- **Dalil** (new): sample by sample at 100 a second.
+  1. Remove the slow level, then smooth to the heartbeat band.
+  2. Find each beat with an adaptive threshold.
+  3. Measure every beat on its own: heart rate from the time between beats, SpO2 from the red/infrared "ratio of ratios" after removing drift and noise, with the same calibration curve as Maxim's.
+  4. Reject bad beats one by one: implausible values, a weak pulse, or a beat too short or long for the recent rhythm.
+- **Both run during every check.** `USE_DALIL_ALGORITHM` picks which one is reported. With `SHADOW_DEBUG` on, a `# maxim … | dalil …` line once a second shows both side by side (the app ignores `#` lines).
+- **Optional:** `AUTO_BRIGHTNESS` adjusts the LED while the finger settles, keeping the infrared level strong but not saturated.
+- **Test the algorithm without a board:** `python3 scripts/station/algo_test.py` feeds it synthetic pulses with known answers. Today: heart rate within 1 bpm, SpO2 within 2 points, with noise and drift.
+- **Not tuned on real people yet.** Compare both against a reference oximeter before switching the default.
+
 ## Things we learned (Mac)
 - **Opening the port can restart the board.** That's normal (guide §9.1); the app waits for `hello`.
 - **Don't read the port in short timed pieces.** After a partial read, the Mac's CP210x driver can replay stale data at an impossible rate. Read continuously, the way Chrome does (the test script does too).
