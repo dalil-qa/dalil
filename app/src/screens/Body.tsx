@@ -118,7 +118,8 @@ export function Body() {
   const emergency = useStore((s) => s.emergency);
   const emergencies = useStore((s) => s.emergencies);
   const [selected, setSelected] = useState<BodySystem['id']>('heart');
-  const [showHazards, setShowHazards] = useState(true);
+  // Off at first, so the figure reads cleanly; the mission's own risks are pre-marked once they're shown.
+  const [showHazards, setShowHazards] = useState(false);
   const [picked, setPicked] = useState<Set<HazardId> | null>(null);
 
   const states = useMemo(
@@ -140,7 +141,7 @@ export function Body() {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-4">
       <h1 className="text-[28px] font-semibold text-slate-50">Body</h1>
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[320px_1fr]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[420px_1fr]">
         <div className="flex flex-col gap-4">
           <BodyFigure
             statuses={Object.fromEntries(states.map((s) => [s.system.id, s.status])) as Record<BodySystem['id'], never>}
@@ -159,7 +160,7 @@ export function Body() {
                   {h.label}{missionById(missionId).riskHighlights.includes(h.id) ? ' ★' : ''}
                 </button>
               ))}
-              <p className="basis-full text-sm text-slate-400">Dashed outlines show the systems these hazards affect. ★ marks this mission's main risks.</p>
+              <p className="basis-full text-sm text-slate-400">A dashed ring marks the label of every system these hazards affect. ★ marks this mission's main risks.</p>
             </div>
           )}
         </div>
