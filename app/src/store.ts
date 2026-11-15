@@ -463,6 +463,17 @@ export const useStore = create<DalilState>()(
             });
             return;
           }
+          // Someone else's emergency is still open (e.g. a guest's, then the crew switch changed): never lose it.
+          // It moves to the history with a note, so its report still shows on the Earth screen.
+          if (emergency) {
+            const time = nowIso();
+            const archived: EmergencyEvent = {
+              ...emergency,
+              closedAt: time,
+              updates: [...emergency.updates, { time, text: `Moved to history ${clock(time)}: a new emergency was opened for another person` }],
+            };
+            set((s) => ({ emergencies: [...s.emergencies, archived] }));
+          }
           set({
             emergency: {
               id: newId(),
