@@ -5,10 +5,38 @@ import { MAX_BODY_BYTES, SYSTEM_PROMPT, buildMessages, finalizeAnswer, parseRequ
 /** Sends the chat to the model and returns the model's `response` field (a JSON string or an object). */
 export type ModelRunner = (messages: { role: 'system' | 'user' | 'assistant'; content: string }[]) => Promise<unknown>;
 
+/** Cloudflare's rate-limiting binding (wrangler.jsonc "ratelimits"): `limit()` says whether this request is allowed. */
+export interface Limiter {
+	limit(options: { key: string }): Promise<{ success: boolean }>;
+}
+
+/** What the handler needs from the Worker's environment. The limiters are optional so tests can leave them out. */
+export interface CoachEnv {
+	ALLOWED_ORIGINS: string;
+	/** Per internet address (generous: a whole venue can share one Wi-Fi address). */
+	IP_LIMITER?: Limiter;
+	/** Everyone together: the ceiling that protects the free Workers AI daily allowance. */
+	ALL_LIMITER?: Limiter;
+}
+
+/**
+ * True when either limit is used up. Fails OPEN: if the limiter itself errors, the Coach keeps answering,
+ * because a broken limiter must not take the Coach down during a demo.
+ */
+async function overLimit(request: Request, env: CoachEnv): Promise<boolean> {
+	try {
+		const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+		const results = await Promise.all([env.IP_LIMITER?.limit({ key: `ip:${ip}` }), env.ALL_LIMITER?.limit({ key: 'all' })]);
+		return results.some((r) => r !== undefined && !r.success);
+	} catch {
+		return false;
+	}
+}
+
 /** The app waits 15 s, so give up a little earlier and let it show the written cards. */
 export const MODEL_TIMEOUT_MS = 12_000;
 
-function allowedOrigins(env: { ALLOWED_ORIGINS: string }): string[] {
+function allowedOrigins(env: CoachEnv): string[] {
 	return env.ALLOWED_ORIGINS.split(',')
 		.map((o) => o.trim())
 		.filter(Boolean);
@@ -57,7 +85,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 	});
 }
 
-export async function handleCoach(request: Request, env: { ALLOWED_ORIGINS: string }, runModel: ModelRunner): Promise<Response> {
+export async function handleCoach(request: Request, env: CoachEnv, runModel: ModelRunner): Promise<Response> {
 	const url = new URL(request.url);
 	if (url.pathname !== '/coach') return new Response('Not found', { status: 404 });
 
@@ -67,6 +95,9 @@ export async function handleCoach(request: Request, env: { ALLOWED_ORIGINS: stri
 
 	if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: corsHeaders(origin) });
 	if (request.method !== 'POST') return unavailable(405, origin);
+
+	// Too many questions: the same "unavailable" reply as any other problem, so the app shows the written cards.
+	if (await overLimit(request, env)) return unavailable(429, origin);
 
 	// Reject big bodies before and after reading them (Content-Length can be missing or wrong).
 	const declared = Number(request.headers.get('Content-Length') ?? 0);
