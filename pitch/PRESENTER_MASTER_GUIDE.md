@@ -2,22 +2,24 @@
 
 Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challenge Doha 2026**—in one document.
 
+**The spoken script and stage cues live only in [PITCH_SCRIPT.md](PITCH_SCRIPT.md)** and the slides in [SLIDES.md](SLIDES.md), so there is one copy to keep up to date. This guide is the background, the hardware, the maths, the screens and the full Q&A.
+
 ---
 
 ## PART 1: Identity, Core Story & Stage Roles
 
 ### 1.1 Names & Meaning
-- **Team Name:** **Team Baseera (بصيرة)** — Arabic for *"insight / foresight / clear vision"*.
+- **Team Name:** **Team Baseera (بصيرة)** — Arabic for *"insight / foresight / clear vision"*. Baseera is how we see the problem; Dalil is what we give people.
 - **Project Name:** **Dalil (دليل)** — Arabic for both *"guide"* and *"evidence"*.
   - **Guide:** Tells an astronaut (or an older adult at home in Qatar) what their numbers mean and what to do next.
   - **Evidence:** Every vital range, spaceflight risk, and health action cites a verified NASA document or public-health authority (NHS, CDC, WHO, MedlinePlus).
 - **Challenge:** *Create Health Monitoring Software for Astronauts on Space Missions* (Category: **HealthTech** · Stage: **Working MVP**).
-- **3-Word Memory Anchor (repeated 3× in the pitch):** **`Personal. Proven. Immediate.`**
+- **3-Word Memory Anchor (repeated 3× in the pitch):** **`Personal. Sourced. Immediate.`** *("Sourced", not "Proven": the thresholds still await clinician sign-off, so "proven" invites "proven by whom?". Every tip is sourced today.)*
 
 ### 1.2 Why Dalil Exists (The Problem in Space & in Qatar)
 1. **The Communication Delay in Deep Space:**
    - On the Space Station (ISS), Earth is **1 second** away. On the Moon, it is **1.3 seconds** away.
-   - On a **Mars mission**, radio signals take **up to 22 minutes one way** (**up to 44 minutes** for a reply to come back; the app's Mars transit demo uses **14 minutes one-way / 28 minutes round-trip** as a mid-transit example).
+   - On a **Mars mission**, radio signals take from about **3 minutes** (planets closest) to **up to 22 minutes one way** (planets farthest), so **up to 44 minutes** for a reply to come back. The app's Mars transit demo uses **14 minutes one way / 28 minutes round trip** as an example. **On stage, always say "up to 22 minutes"**, never "14 to 22".
    - If an astronaut's heart starts racing or oxygen drops, they cannot have a live phone call with a flight surgeon on Earth—they must catch problems early and act on board while waiting for Earth's reply.
 2. **Infrequent In-Flight Testing:**
    - NASA's *Spaceflight Standard Measures* program tracks astronauts against their pre-flight baseline, but in flight most standard medical tests happen **only about twice per mission** (or rely on samples returned to Earth). Nobody checks every morning.
@@ -25,101 +27,37 @@ Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challen
    - An older parent living at home in Doha with diabetes or high blood pressure faces the exact same gap: their doctor is not in the room every morning, smartwatches have tiny screens and need daily charging, and subtle changes go unnoticed until they become an emergency.
 
 ### 1.3 Presenter Division (Why Sulaiman Speaks Last)
+- **The Crew Member (actor, no lines):** the Station Host, or a rehearsed volunteer, or Sulaiman only if nobody else is there. Gets dizzy and sits down safely at `0:00`, gets up on Abdullah's "Now rewind". It's a dizzy spell (orthostatic intolerance, NASA TB-019), **never a heart attack**: Dalil can't detect heart attacks, and the drama must not suggest it can.
 - **Abdullah (Human Story, Hook & Qatari Impact — No Q&A):**
-  - **Part 1 (`0:00–0:40`, Slide 1):** Mars signal-delay hook, the twice-a-mission testing gap, and introducing Dalil.
-  - **Part 3 (`1:45–2:15`, Slide 5):** Connecting Mars to Doha, the 3 official Qatar statistics (WHO, IDF, STEPwise), and Dalil's built-in **Arabic & English Home Mode**.
+  - **Part 1 (`0:00–0:50`, Slide 1):** a silent staged dizzy spell by the Crew Member (actor), the Mars signal-delay hook, "Now rewind" (the actor gets up), the about-twice-a-mission testing gap, and introducing Dalil.
+  - **Part 3 (`1:55–2:32`, Slide 5):** Connecting Mars to Doha, the 3 official Qatar statistics (WHO, IDF, STEPwise), and Dalil's built-in **Arabic & English Home Mode**.
   - **During Q&A:** Stands beside Sulaiman; Sulaiman answers 100% of questions.
 - **Sulaiman (Technical MVP, NASA Evidence, Close & 100% of Q&A):**
-  - **Part 2 (`0:40–1:45`, Slides 2–4):** How the 30-second station + personal-baseline engine works (`Slide 2`), the Day 47 Mars Amber & Red walkthrough (`Slide 3`), and the Competitive Knockout Table + 3-layer resilience (`Slide 4`).
-  - **Part 4 (`2:15–2:30`, Slide 6):** Engineering roadmap, final close, and inviting judges to press `START` on the station on their desk while he takes questions.
-  - **During Q&A:** Because Sulaiman speaks last (`2:15–2:30`), he already holds the microphone and the judges' eye contact when Q&A starts—he answers **all** questions (technical, NASA sources, AI safety, hardware, and Qatar rollout).
+  - **Part 2 (`0:50–1:55`, Slides 2–4):** How the 30-second station + personal baseline work (`Slide 2`), the Day 47 Mars amber and red walkthrough on **sample mission data** (`Slide 3`), and the comparison table (`Slide 4`).
+  - **Part 4 (`2:32–2:52`, Slide 6):** Roadmap, final close, and inviting judges to press `START` on the station on their desk while he takes questions.
+  - **During Q&A:** Because Sulaiman speaks last (`2:32–2:52`), he already holds the microphone and the judges' eye contact when Q&A starts—he answers **all** questions (technical, NASA sources, AI safety, hardware, and Qatar rollout).
 
 ### 1.4 The Two-Screen Stage Setup
 - **Main Stage Screen (Projector):** Shows **only the slides (`Slide 0` to `Slide 6`)** with high-resolution screenshots of the app. **Zero `Alt+Tab` switching** on the projector—no HDMI lag or resolution glitches.
 - **Judges' Desk (Right in Front of Judges):** A dedicated laptop running the live Dalil web app (`F11` full-screen, sleep disabled) connected via USB to the physical **Dalil Crew Health Station**.
   - **Before `0:00`:** Leave the desk laptop open on Crew Member 2's **Today** screen (`Mars transit · Day 47`).
-  - **At `2:30` (Start of Q&A):** As Sulaiman invites the judges to try it, the Station Host wipes the finger slot, switches the desk laptop to **Guest → Check**, and lets a judge press `START` to run a live 30-second check on themselves while Sulaiman answers Q&A.
+  - **At `2:52` (Start of Q&A):** As Sulaiman invites the judges to try it, the Station Host wipes the finger slot, switches the desk laptop to **Guest → Check**, and lets a judge press `START` to run a live 30-second check on themselves while Sulaiman answers Q&A.
 
 ---
 
-## PART 2: The Exact 2.5-Minute Spoken Script (~335 Words)
+## PART 2: The Spoken Script
 
-> **Before `0:00`:** **Slide 0 (Silent Title Slide)** is on screen:
-> `Dalil دليل — Evidence-Based Health Guidance, From Deep Space to Every Home | Team Baseera (بصيرة) | Category: HealthTech | Stage: Working MVP`
+**See [PITCH_SCRIPT.md](PITCH_SCRIPT.md).** It is the only copy of the words, timings, pauses and gestures (about 2:52 inside the 3:00 slot, including the opening drama and its safety rules). Kept in one place so the two files can't drift apart.
 
-### Section 1: The Hook & Problem *(0:00 – 0:40 · Abdullah)*
-**[0:00 · Advance to Slide 1: Mars-to-Earth Signal Delay]**
-*(Abdullah steps forward, calm and serious, looking directly at the judges.)*
-
-**Abdullah:**
-> "Imagine you are on a mission to Mars, and your heart starts racing. You message your doctor on Earth. Depending on distance, that message takes **14 to 22 minutes** just to arrive—and up to **44 minutes** for a reply to come back."
-
-**[PAUSE — 3 SECONDS]**
-
-*(Shift to an energetic, purposeful pace; gesture toward the Dalil station on the judges' table.)*
-
-**Abdullah:**
-> "Out there, astronauts have to catch health problems early, on their own. NASA tracks every astronaut against their own baseline, yet in flight, most standard health tests happen only twice a mission. Nobody checks every morning.
->
-> Meet **Dalil**—**دليل**—Arabic for both *guide* and *evidence*. Dalil is a 30-second morning health check that is **Personal. Proven. Immediate.** Sulaiman?"
-
----
-
-### Section 2: How It Works, Day 47 Demo & Competitive Edge *(0:40 – 1:45 · Sulaiman)*
-**[0:40 · Advance to Slide 2: Mind Map — How Dalil Works in 30 Seconds]**
-*(Sulaiman gestures first to the laptop and physical station on the judges' desk, then to the Mind Map on the screen.)*
-
-**Sulaiman:**
-> "Thank you, Abdullah. We placed our working Dalil station and live app right on your desk. Every morning, you rest your finger and forehead on that station for 30 seconds. If your finger moves, our signal check rejects the bad reading instead of guessing.
->
-> Instead of relying only on generic textbook averages, Dalil learns **your** 7-day personal baseline and pairs it with verified guidance from **NASA's crew health standard** and public health authorities."
-
-**[1:00 · Advance to Slide 3: Day 47 to Mars — App Screenshots]**
-*(Point to the left screenshot showing Amber Watch, then the right screenshot showing Red Flight Surgeon countdown.)*
-
-**Sulaiman:**
-> "Here is **Day 47 to Mars** from the app in front of you. Crew Member 2's resting heart rate has crept up for three days in a row while sleep and mood dropped. One reading alone looks normal—but against their personal baseline, Dalil catches the drift early in **amber**, and our Coach explains why, citing the exact NASA source.
->
-> And if a reading turns **red**—or you tap *'I feel unwell now'*—Dalil skips AI completely, works 100% offline, builds a doctor's report, and starts the live **14-minute** Mars signal countdown with immediate first steps."
-
-**[1:25 · Advance to Slide 4: Competitive Analysis Table]**
-*(Sweep hand down the rightmost column of green checkmarks to the bottom row.)*
-
-**Sulaiman:**
-> "Smartwatches move on the wrist and need daily charging. Telehealth apps fail the moment the link drops. **Look at the bottom row:** only Dalil combines **offline personal-baseline triage with signal-delay guidance**—backed by our hardware signal gate, offline cards, and built-in simulator. Abdullah?"
-
----
-
-### Section 3: Impact in Qatar *(1:45 – 2:15 · Abdullah)*
-**[1:45 · Advance to Slide 5: From Mars to Doha — Qatar Impact & Home Mode]**
-*(Abdullah speaks with a warm, resonant voice, gesturing to the Qatar statistics and the Home Mode screenshots.)*
-
-**Abdullah:**
-> "In deep space, the doctor is minutes away. Here in Qatar, an older parent living at home faces that exact same gap.
->
-> According to the **WHO**, Qatar's population over 60 will grow more than **tenfold** by 2050—from **60,000 to nearly 690,000**."
-
-**[PAUSE — 3 SECONDS]**
-
-**Abdullah:**
-> "Nearly **one in four** adults in Qatar has diabetes, and **one in three** Qatari nationals has high blood pressure. So we built **Home Mode** directly into Dalil today—in both **Arabic and English**: huge text, one big button, plain-language results, and a one-tap alert to family or 999. Sulaiman?"
-
----
-
-### Section 4: Roadmap, Close & Transition to Q&A *(2:15 – 2:30 · Sulaiman)*
-**[2:15 · Advance to Slide 6: Roadmap & Close]**
-*(Sulaiman steps center-stage holding the mic so the judges are already looking at him when Q&A starts.)*
-
-**Sulaiman:**
-> "Next on our engineering roadmap is Bluetooth cuff integration, on-board local AI, and a clinic pilot right here in Doha.
->
-> We are **Team Baseera**, and this is **Dalil**: *guide*, and *evidence*. **Personal. Proven. Immediate.** Thank you—feel free to press START on the station in front of you while I take your questions."
+**The lines both presenters must say exactly:** "**up to** 22 minutes" · "**about** twice a mission" · "this is **sample** mission data" · "fixed rules decide red, **never the AI**" · "**Personal. Sourced. Immediate.**" · and the actor gets up on "**Now rewind**"
 
 ---
 
 ## PART 3: The Physical Hardware ("Dalil Crew Health Station")
 
-### 3.1 Inside the Box (~QAR 290 Total Including Spares)
+### 3.1 Inside the Box (~QAR 290 planned, including spares: **confirm against the receipts before quoting it**)
+
+**Tested on the real board (15 Nov 2026, firmware 1.2):** all three sensors found on 10 restarts in a row, and the automated station contract tests pass (`scripts/station/contract_test.py`). See [firmware/README.md](../firmware/README.md).
 1. **ESP32 DevKit microcontroller** (`firmware/dalil_station/dalil_station.ino`) — runs the measurement state machine and communicates with Chrome/Edge over **USB Web Serial** at `115200` baud using newline-delimited JSON.
 2. **MAX30102 pulse oximeter sensor** — sits inside a dark finger slot; uses red and infrared LEDs to measure **resting heart rate (`bpm`)** and **blood oxygen (`SpO2 %`)** from the fingertip. *(If running the Pulse Sensor backup, it measures heart rate only, and the app automatically opens a manual `SpO2` field in Quick Log.)*
 3. **MLX90614 contactless infrared thermometer** — sits behind a window with a 5 cm forehead guide; measures **forehead skin temperature (`°C`)**.
@@ -129,7 +67,7 @@ Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challen
 ### 3.2 How the 30-Second Check & Signal Gate Work
 - **Step 1 — Fingertip (20 seconds):**
   - User rests their fingertip gently in the slot (pressing hard squeezes capillaries and weakens the optical pulse).
-  - First 5 seconds: sensor settles (`hr` and `spo2` stay `null`). Next 15 seconds: computes live `hr`, `spo2`, and a **Signal Quality score (`q` from `0.0` to `1.0`)** based on beat-to-beat consistency.
+  - The first 2.5 seconds after the finger lands are ignored while the signal settles (firmware 1.2; they don't count toward the 20 s). Then the station computes live `hr`, `spo2`, and a **Signal Quality score (`q` from `0.0` to `1.0`)** based on beat-to-beat consistency, dropping outliers before averaging. The box's screen coaches "! Keep still" or "! Rest finger lightly" when the signal is poor.
   - **Hardware Signal Gate:** If no finger is detected for 15s (`no_finger`) or the signal is too noisy (`bad_signal`), the station sends an error instead of guessing. If `q < 0.5`, the app flags the check as **low-confidence**, warns the user to re-measure, and **excludes that reading from the 7-day baseline**.
 - **Step 2 — Forehead (5 seconds):**
   - User holds their forehead ~5 cm from the window for 5 seconds while the IR sensor averages forehead skin temperature.
@@ -171,9 +109,10 @@ All status decisions are made by **100% deterministic TypeScript rules** (`statu
 3. **Pre-Flight Drift (`Watch`):**
    - Compares your current 7-day normal against your **Pre-Flight Normal** (median of readings on or before `Day 0`, needing ≥3 readings). If resting heart rate has shifted by more than **`12 bpm`** since before launch, it flags **Amber (`Watch`)**.
 4. **Why Crew Member 2 on Day 47 Is Amber (The Demo Story):**
-   - Crew Member 2's 7-day normal heart rate (Days 40–44) is **`65 bpm`**.
-   - On Days 45, 46, and 47, their heart rate is **`74 bpm`** (`+9 bpm` above `65 bpm` for 3 days in a row), while sleep dropped to `5.5 h`, mood to `2/5`, water to `1.2 L`, and meals to `2/3` (with `fatigue` logged).
-   - `74 bpm` is well inside the textbook `60–100 bpm` green range—so a normal device says nothing. Dalil catches the `+9 bpm` personal shift over 3 days and turns **Amber (`Watch`)**.
+   - **This is sample data** (real astronaut vitals are private). Say so on stage.
+   - Days 38–44: Crew Member 2's heart rate sits at **`63–65 bpm`**. On Day 45 it **jumps to `74 bpm` and stays there** on Days 46 and 47. It's a step, not a slow creep, so say "jumped ten beats and stayed up", never "crept up".
+   - Their 7-day normal is `64 bpm` on Days 45–46 and `65 bpm` on Day 47 (the window then includes two of the 74s), so each day is `+9` to `+10 bpm` above normal, beyond the `8 bpm` band for 3 days in a row. Meanwhile sleep fell to `5.5 h`, mood to `2/5`, water to `1.2 L` and meals to `2/3`, with `fatigue` logged on Days 46–47.
+   - `74 bpm` is well inside the textbook `60–100 bpm` green range, so a normal device says nothing. Dalil catches the personal shift over 3 days and turns **Amber (`Watch`)**.
 
 ---
 
@@ -222,19 +161,22 @@ All status decisions are made by **100% deterministic TypeScript rules** (`statu
 2. **"Why is forehead temperature 31.0 to 35.6 °C instead of 37 °C?"**
    > "37 °C is internal core body temperature. Forehead skin temperature sits lower—published infrared thermometry studies (Ng et al., 2005) put normal forehead skin temperature between **31.0 and 35.6 °C**, while **38.0 °C or above** triggers an immediate fever escalation, alongside tracking a **1 °C** sustained rise above your personal 7-day baseline."
 3. **"Why did the app say 14 minutes on screen when you said up to 22 minutes / 44 minutes in the hook?"**
-   > "Mars-to-Earth distance changes as both planets orbit the Sun: NASA's maximum one-way delay at farthest distance is **22 minutes** (44 minutes round-trip). On Day 47 of our Mars transit demo, the spacecraft is closer to Earth, so the app uses **14 minutes one-way** (28 minutes round-trip) as a realistic mid-transit example."
+   > "The delay depends on where the planets are: about **3 minutes** one way when Mars is closest, up to **22 minutes** when it's farthest. That's why we said 'up to'. The app's Mars transit example uses **14 minutes** one way, 28 for a reply."
 
 ### B. AI Safety, Offline Operation & Privacy
 4. **"How do you prevent the AI Coach from hallucinating dangerous medical advice?"**
    > "Four hard guardrails in code: first, red-flag words in English or Arabic (*chest pain, can't breathe, ألم في الصدر*) bypass AI completely and open our offline Emergency screen. Second, `Llama 3.3 70B` on Cloudflare Workers AI only receives our 23 verified guidance cards. Third, our post-processor strips any unknown card ID, blocks medication or dosage strings, and forces flight-surgeon escalation on any red reading. Fourth, if Wi-Fi drops, it falls back to our local written cards."
 5. **"What happens if there is no internet connection?"**
-   > "Everything critical runs 100% offline in the browser and on the ESP32 over USB serial: the signal-quality check, the threshold and 7-day baseline math, the Body and Trends screens, and the Emergency screen all work with Wi-Fi off. Only the Coach chat calls our Cloudflare Worker, and when offline it automatically displays the matching local guidance cards."
+   > "Once the app has loaded, everything critical runs offline in the browser and on the station: the signal check, the threshold and 7-day baseline rules, the Body and Trends screens, and the Emergency screen. Only the Coach calls our Cloudflare Worker, and offline it shows the matching written cards instead. On a real mission, the AI would run on board."
+   *(Honest limit, if pushed: there's no offline cache yet, so the page must load once with a connection. For the pitch we keep a local build running as a backup.)*
 6. **"How do you handle patient privacy?"**
    > "All readings stay locally in the browser on the device—there are no user accounts and no cloud database, and our stateless Coach Worker never logs readings or questions. Plus, Guest mode wipes everything the moment the session ends."
 
 ### C. Hardware, Accuracy & Limitations
 7. **"How accurate is the hardware station, and how much did it cost?"**
-   > "The station costs about **QAR 290** in parts—an ESP32, a MAX30102 pulse oximeter, an MLX90614 infrared thermometer, and an OLED screen. Because these are hobby-grade sensors, we never diagnose from a single raw number: the firmware checks beat-to-beat signal quality every second, rejects finger motion, excludes weak signals (`q < 0.5`) from baselines, and tracks 3-day trends against your personal normal."
+   > **If you compared it with a shop-bought oximeter before the pitch, lead with that:** "On [N] people, our heart rate was within [X] bpm and oxygen within [Y]% of a pharmacy oximeter." *(Strongest answer you can give. Delete this line if you didn't measure; never guess the numbers.)*
+   >
+   > "It's built from hobby-grade parts, about **QAR [receipt total]**: an ESP32, a MAX30102 pulse oximeter, an MLX90614 infrared thermometer and a small screen, and it's tested on our real board. Because the sensors are hobby-grade, we never act on one raw number: the station checks signal quality every second, throws away readings when your finger moves, keeps weak readings out of your normal, and looks for a change that lasts three days."
 8. **"What doesn't work yet / what are your limitations?"**
    > "Four things we state openly in `docs/CONTENT_REVIEW.md`: first, the sensors are hobby-grade with no ECG, so they cannot rule out a heart attack—and our Emergency screen warns the user of that every time. Second, the 47-day history is labelled sample data. Third, sending reports to Earth or family is simulated locally. Fourth, our combined threshold table awaits formal clinician and Ministry of Public Health sign-off before a clinical pilot."
 
@@ -245,3 +187,19 @@ All status decisions are made by **100% deterministic TypeScript rules** (`statu
     > "Three reasons: smartwatches have tiny menus, need daily charging, and suffer from wrist-motion noise. Dalil sits plugged in on the bedside table with a steady fingertip slot, and its built-in **Arabic and English Home Mode** gives older parents huge text, one giant Start button, plain-language sentences, and a one-tap alert to family or 999."
 11. **"Who would use or pay for this in Qatar?"**
     > "In space, crew medical operations issue it in the mission kit. Here in Qatar, we target home-care services and primary health clinics following up older adults managing hypertension and diabetes—starting with a clinic pilot after clinician and Ministry of Public Health sign-off."
+
+### E. Questions judges ask about the claims themselves
+12. **"Smartwatches already learn your baseline. What's new?"**
+    > "Right, and our table says so. What's new is everything after the number: every tip cites its NASA or public health source, the guidance and emergency steps work with no doctor and no internet, and it's built for the delay, with a report for the flight surgeon and first steps while you wait."
+13. **"Is this a medical device? Is it approved in Qatar?"**
+    > "No. Today it's a guidance prototype, not a diagnostic device, and the app says so on screen. Using it clinically in Qatar would need clinician sign-off and Ministry of Public Health approval, which is step three on our roadmap."
+14. **"You say 'Sourced'. Has a doctor checked it?"**
+    > "Not yet, and we say that openly. Every range and tip cites NASA or a public health body, and 91 NASA quotes are re-checked against the PDFs by a script. The ten decisions a clinician must make are listed in `docs/CONTENT_REVIEW.md`, ready for sign-off."
+15. **"What did AI do in your project?"**
+    > "It helped draft the code and text, and it powers the Coach. The team tested and checked everything, and it's disclosed on our Sources page and in the README. The AI never decides a status colour."
+16. **"Was the Day 47 data real?"**
+    > "No, it's sample mission data, and the slides say so. Real astronaut vitals are private. What's real is the station: the check you just did used live sensor readings."
+17. **"Would Dalil have caught that fall?"** *(expect this one: it's the opening drama)*
+    > "Not the fall itself: Dalil doesn't detect falls or heart attacks, and it says so. What it catches is the slower change in the days before, like the heart rate that jumped and stayed up for Crew Member 2. And if someone feels unwell, one button opens the emergency steps, offline."
+18. **"Why a dizzy spell?"**
+    > "Feeling faint on standing is a real spaceflight risk. NASA documents it as orthostatic intolerance, in a Technical Brief we use as a source."

@@ -1,112 +1,111 @@
-# Slides: Visual Blueprint — Team Baseera (2.5-Minute Two-Presenter Pitch)
+# Slides: Team Baseera (بصيرة), Dalil (دليل)
 
-**Team:** **Team Baseera (بصيرة)** · **Project:** **Dalil (دليل)**
-**Presenters:** **Abdullah** (Opening Hook & Qatar Impact) + **Sulaiman** (Technical MVP, Competitive Edge, Roadmap Close & **100% of Q&A**)
-**Spoken script & cues:** [PITCH_SCRIPT.md](PITCH_SCRIPT.md) · **Health sources & review log:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
-**Memory anchor (repeated 3×):** **`Personal. Proven. Immediate.`**
-
----
-
-## 1. Visual & Formatting Rules (Projector-First Design)
-
-- **High-Contrast Light Mode (NO Dark Mode slides):** Use a clean, bright off-white background (`#F8FAFC`), deep space-navy text (`#0B1426`), teal accents (`#0E7490`), and high-contrast status pills (`✓ OK` green, `! Watch` amber, `✕ Act` red). Bright slides stay razor-sharp under venue projector lights, while dark-mode app screenshots pop inside laptop/tablet frames.
-- **NO Embedded Videos & NO Alt-Tab Switching on the Projector:** The main stage screen stays 100% on these slides (with high-resolution screenshots of the app), while a **second laptop connected to the physical Dalil station sits directly on the judges' table** so judges can see and try the live MVP up close without risking projector/HDMI hiccups.
-- **One Idea Per Slide:** Large typography, minimal text, and **high-empathy human photography** (crediting any external photo; no under-18 photos).
-- **Every Fact Has a Source Line:** Small footer text on every slide with numbers (`Source: NASA HRP · WHO · IDF · Qatar STEPwise`).
-- **Export a PDF Copy:** Save a PDF on the demo laptop desktop and on both presenters' phones.
+**Team:** **Team Baseera (بصيرة)**: Arabic for *insight*, seeing clearly. · **Project:** **Dalil (دليل)**: Arabic for *guide* and *evidence*.
+**Presenters:** **Abdullah** (hook, Qatar) and **Sulaiman** (how it works, close, all Q&A).
+**Spoken script:** [PITCH_SCRIPT.md](PITCH_SCRIPT.md) (about 2:52 inside a 3:00 slot, opening with a short staged dizzy spell) · **Sources:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
+**Memory anchor:** **`Personal. Sourced. Immediate.`**
 
 ---
 
-## 2. Slide-by-Slide Blueprint (Slide 0 to Slide 6)
+## 1. Rules for every slide
 
-### Slide 0 — Silent Title Slide *(On screen before speaking)*
-- **Visual Layout:**
-  - Centered **Dalil wordmark (`Dalil دليل`)** and icon ([app/public/favicon.svg](../app/public/favicon.svg)).
-  - Crisp tagline underneath: ***"Evidence-Based Health Guidance, From Deep Space to Every Home"***
-  - Three pill badges at the bottom: **`Team Baseera (بصيرة)`** | **`Category: HealthTech`** | **`Stage: Working MVP`**
-  - Footer: `NASA Space Apps Challenge Doha 2026`
-- **Stage Note:** Shown silently while Abdullah and Sulaiman take their positions. Do **not** read this slide or introduce names—Abdullah launches straight into the hook as the clicker advances to Slide 1.
-
----
-
-### Slide 1 — Mars-to-Earth Signal Delay *(0:00 – 0:40 · Abdullah)*
-- **Visual Layout:**
-  - **Left (60%):** `[EMPATHY PHOTO]` Close-up of an isolated astronaut looking out of a spacecraft cupola toward a distant red Mars, conveying distance and isolation.
-  - **Right (40%):** Huge bold typography:
-    - **`14–22 min`** *(one way to Earth)*
-    - **`Up to 44 min`** *(round-trip silence)*
-    - Below in clean text: *"In flight, standard NASA health tests happen only ~2× per mission."*
-  - **Bottom Banner:** **`Dalil دليل — Personal. Proven. Immediate.`**
-  - **Source Footer:** `Sources: NASA Mars Communication Delay · NASA Spaceflight Standard Measures`
+- **Light background, high contrast:** off-white `#F8FAFC`, navy text `#0B1426`, teal accent `#0E7490`, status pills `✓ OK` green, `! Watch` amber, `✕ Act` red. App screenshots (dark theme) go inside laptop frames.
+- **No videos, no `Alt+Tab`:** the projector shows only these slides; the live app is on the judges' desk laptop.
+- **One idea per slide,** big type, few words, empathy photos instead of text. Credit every outside photo; no photos of children.
+- **A source line on every slide with a number.**
+- **Label sample data as sample** on every screenshot that shows the 47-day mission history.
+- **Export a PDF** to the demo laptop desktop and both presenters' phones.
 
 ---
 
-### Slide 2 — Mind Map: How Dalil Works in 30 Seconds *(0:40 – 1:00 · Sulaiman)*
-- **Visual Layout:** A clean, bright **Visual Mind Map** connecting Dalil's 4-stage loop from left to right around the central **Dalil Hub**:
-  ```mermaid
-  flowchart LR
-    A["1. 30-Sec Morning Check\n(Fingertip Pulse/SpO2 + Forehead Temp\n+ Signal-Quality Gate)"] --> B["2. Personal Baseline Engine\n(Learns YOUR 7-Day Normal\n+ Flags 3-Day Drift Early)"]
-    B --> C["3. NASA-Backed Guidance\n(Offline Cards + Cited Sources\n+ Red-Flag Bypass)"]
-    C --> D1["🚀 Deep Space Mode\n(Flight Surgeon Report +\n14–22 Min Delay Countdown)"]
-    C --> D2["🏠 Qatar Home Mode (AR/EN)\n(Huge Text + Plain Words +\n'Send to Family' / 999 Alert)"]
-  ```
-- **Visual Callout Photo:** Real photo of the **Dalil Crew Health Station** hardware box next to the laptop.
-- **Bottom Anchor:** **`Personal`** *(learns your normal)* · **`Proven`** *(every tip cites NASA or public health sources)* · **`Immediate`** *(works offline in 30 seconds)*
+## 2. Slides 0 to 6
+
+### Slide 0: Silent title *(on screen before anyone speaks)*
+- Centre: Dalil icon ([app/public/favicon.svg](../app/public/favicon.svg)) and wordmark **`Dalil دليل`**.
+- Tagline: ***"Evidence-based health guidance, from deep space to every home"***
+- Three pills: **`Team Baseera · بصيرة · insight`** | **`Category: HealthTech`** | **`Stage: Working MVP`**
+- Footer: `NASA Space Apps Challenge Doha 2026`
+- **Stage note:** nobody reads this slide or says names. When the slide changes to Slide 1, the Crew Member's silent dizzy spell starts (see [PITCH_SCRIPT.md, section 3](PITCH_SCRIPT.md#3-the-opening-drama-safety-rules-first)).
 
 ---
 
-### Slide 3 — Day 47 to Mars: Catching Drift Early *(1:00 – 1:25 · Sulaiman — App Screenshots on Slide)*
-- **Visual Layout (Two High-Resolution App Screenshots Side-by-Side inside Laptop Frames):**
-  - **Left Screenshot — Personal Baseline Drift (`! Watch / Amber`):** Screenshot of Crew Member 2's **Trends** & **Coach** view on Day 47 to Mars. Resting heart rate steps up above their personal 7-day baseline while sleep and mood drop—each single number looks "normal" in a textbook, but Dalil flags the personal trend early and cites NASA sleep & cardiovascular guidance.
-  - **Right Screenshot — Flight Surgeon & Delay Countdown (`✕ Act / Red`):** Screenshot of the **Earth (Flight Surgeon)** screen showing the structured medical report, the live **14-minute** Mars one-way signal countdown, and offline first-step actions while waiting.
-- **Source Footer:** `Spaceflight guidance: NASA-STD-3001, NASA OCHMO Technical Briefs & CSA · Vital ranges: NHS, CDC, WHO & MedlinePlus`
+### Slide 1: The signal delay *(0:00–0:50 · drama, then Abdullah)*
+- **Left 60%:** `[EMPATHY PHOTO]` an astronaut alone at a window, Mars small and far away.
+- **Right 40%, huge type:**
+  - **`Up to 22 min`** *one way to Earth*
+  - **`Up to 44 min`** *before a reply arrives*
+  - Smaller: *"In flight, NASA's standard health tests: about 2× per mission."*
+- **Keep this slide calm and readable from the stage floor:** it stays up during the drama, so the judges' eyes go between the actor and the numbers.
+- **Bottom banner:** **`Dalil دليل · Personal. Sourced. Immediate.`**
+- **Source:** `NASA (Mars communication delay) · NASA Spaceflight Standard Measures (NTRS 20200001281)`
 
 ---
 
-### Slide 4 — Competitive Analysis & Resilience *(1:25 – 1:45 · Sulaiman)*
-- **Visual Layout:** Clean comparison matrix with green checkmarks (**✔**) and red crosses (**✘**), where the **final row is Dalil's unique knockout differentiator**:
+### Slide 2: How Dalil works in 30 seconds *(0:50–1:12 · Sulaiman)*
+Mind map, left to right:
+```mermaid
+flowchart LR
+  A["1. 30-second check\nfingertip pulse + oxygen\nforehead temperature\nbad signal = thrown away"] --> B["2. Your own normal\nlearns your 7-day baseline\nflags a 3-day change"]
+  B --> C["3. Sourced guidance\nevery tip cites NASA or\npublic health · works offline\nred flags skip the AI"]
+  C --> D1["Deep space\nreport for the flight surgeon\n+ countdown to Earth's reply"]
+  C --> D2["Qatar Home Mode (Arabic/English)\nbig text · one button\nplain words · alert family"]
+```
+- **Photo:** the real **Dalil Crew Health Station** beside the laptop, with a small tag: `Tested on the real board, 15 Nov 2026`.
+- **Bottom:** **`Personal`** *learns your normal* · **`Sourced`** *every tip cites NASA or public health* · **`Immediate`** *answers in 30 seconds, offline*
 
-| Capability | Standard Smartwatches | Telehealth Apps | Periodic Clinic / In-Flight Tests | **Dalil (Station + App)** |
+---
+
+### Slide 3: Day 47 to Mars *(1:12–1:45 · Sulaiman)*
+Two screenshots side by side in laptop frames. **Tag both corners: `Sample mission data`.**
+- **Title idea:** *"The days before"*, which links back to the opening drama.
+- **Left, amber (`! Watch`):** Crew Member 2's **Trends** chart and **Coach** answer. Caption: *"Heart rate 64 → 74 bpm, for 3 days. Still inside 60–100. Against their own normal: a change."*
+- **Right, red (`✕ Act`):** the **Earth (Flight Surgeon)** screen: the report, the countdown (14 min one way in this Mars transit example) and the "While you wait" steps. Caption: *"Red is decided by fixed rules, never the AI."*
+- **Source:** `Spaceflight guidance: NASA-STD-3001, NASA OCHMO Technical Briefs, CSA · Vital-sign ranges: MedlinePlus, NHS, CDC, WHO`
+
+---
+
+### Slide 4: Why only Dalil *(1:45–1:55 · Sulaiman)*
+
+| | Smartwatches & rings | Telehealth apps | Clinic visits / in-flight tests | **Dalil** |
 |---|:---:|:---:|:---:|:---:|
-| **Steady Fingertip + Forehead Signal Check** *(rejects motion noise)* | ✘ | ✘ | ✔ | **✔** |
-| **Daily 30-Second Check** *(no daily wrist charging)* | ✘ | ✘ | ✘ | **✔** |
-| **100% Offline Rule Engine & Emergency Triage** | ✘ | ✘ | ✘ | **✔** |
-| **Every Health Tip Cites a Verified NASA / Clinical Source** | ✘ | ✘ | ✔ | **✔** |
-| **Built-In Elderly Home Mode (Arabic RTL + English)** | ✘ | ✘ | ✘ | **✔** |
-| **🏆 Offline Personal-Baseline Triage + Signal-Delay Guidance** | **✘** | **✘** | **✘** | **✔ ONLY DALIL** |
+| Learns your personal normal | ✔ | ✘ | ✘ | **✔** |
+| A check every day, results on the spot | ✔ | ✘ | ✘ | **✔** |
+| Every health tip cites a NASA or public health source | ✘ | ✘ | ✘ | **✔** |
+| Guidance and emergency steps with no doctor or internet | ✘ | ✘ | ✘ | **✔** |
+| Simple Home Mode for older people, Arabic and English | ✘ | ✘ | ✘ | **✔** |
+| **Built for the delay: doctor's report + countdown to the reply + first steps while waiting** | **✘** | **✘** | **✘** | **✔ Only Dalil** |
 
-- **Bottom Callout Badge (Team Resilience):** `Built with 3-Layer Fault Tolerance: Hardware Signal Gate → Offline Card Fallback → Full Web Simulator`
-
----
-
-### Slide 5 — From Mars to Doha: Impact in Qatar *(1:45 – 2:15 · Abdullah)*
-- **Visual Layout:**
-  - **Left (45%):** `[EMPATHY PHOTO]` A warm, dignified photo of an older Qatari parent at home comfortably resting their finger on a desk station, paired with screenshots of Dalil's built-in **Home Mode** in **Arabic (`العربية` RTL)** and **English** (`صباح الخير / Good morning` · huge `ابدأ الفحص / Start check` button · plain-language summary · `أرسل إلى العائلة / Send to family`).
-  - **Right (55%):** Three high-contrast stat blocks:
-    1. **`10× Growth by 2050`** — Qatar residents aged 60+ rising from **~60,000 to ~690,000** *(WHO)*
-    2. **`24.6% of Adults`** — **Nearly 1 in 4** adults in Qatar live with diabetes *(IDF, 2024)*
-    3. **`32.9% of Qataris`** — **Nearly 1 in 3** Qatari nationals have high blood pressure *(Qatar STEPwise Survey)*
-- **Source Footer:** `Sources: WHO Healthy Ageing in Qatar (WHO-GAPS) · IDF Diabetes Atlas · Al-Thani et al., PLoS ONE (Qatar STEPwise)`
+- **Why the watch gets two ticks:** judges know Fitbit, Oura and Apple Watch learn your baseline. Admitting that makes the rows below believable.
+- **Footer (team resilience):** `Every part has a fallback: weak signal → measure again · no internet → written cards · station unplugged → labelled simulator`
 
 ---
 
-### Slide 6 — Roadmap & Close *(2:15 – 2:30 · Sulaiman Closes & Leads 100% of Q&A)*
-- **Visual Layout:**
-  - **Top — 3 Next Steps:**
-    1. **Bluetooth Cuff & Glucometer Link** *(zero manual typing)*
-    2. **On-Board Local AI** *(zero Earth/cloud dependency)*
-    3. **Qatar Home-Care & Clinic Pilot** *(clinician sign-off + MoPH regulatory path)*
-  - **Center:** Dalil logo + **"Dalil دليل — Guide, and Evidence."** + **`Personal. Proven. Immediate.`**
-  - **Bottom:** QR Code to live app (`https://dalil.msulaiman00711.workers.dev`) & public GitHub repo (`https://github.com/dalil-qa/dalil`), plus team name (**Team Baseera بصيرة — Sulaiman & Abdullah**).
-- **Stage Note:** Sulaiman delivers Slide 6 so he already holds the microphone and the judges' eye contact when Q&A begins at `2:30`. Leave Slide 6 on screen during the entire Q&A session.
+### Slide 5: From Mars to Doha *(1:55–2:32 · Abdullah)*
+- **Left 45%:** `[EMPATHY PHOTO]` an older Qatari parent at home, finger resting on the station, with Home Mode screenshots in Arabic and English (`صباح الخير / Good morning` · big `ابدأ الفحص / Start check` button · plain-language result · `أرسل إلى العائلة / Send to family`). Small tag: `Family alert simulated in the prototype`.
+- **Right 55%, three stat blocks:**
+  1. **`10× by 2050`**: Qatar residents aged 60+, **~60,000 → ~690,000** *(WHO)*
+  2. **`24.6%`**: nearly **1 in 4** adults in Qatar have diabetes *(IDF Diabetes Atlas, 2024)*
+  3. **`32.9%`**: nearly **1 in 3** Qatari nationals have high blood pressure *(Qatar STEPwise survey)*
+- **Source:** `WHO, Healthy Ageing in Qatar · IDF Diabetes Atlas · Al-Thani et al., PLoS ONE (Qatar STEPwise)`
 
 ---
 
-## 3. Backup Appendix Slides *(After Slide 6 — Only if a Judge Asks)*
+### Slide 6: What's next and close *(2:32–2:52 · Sulaiman, then all Q&A)*
+- **Top, 3 next steps:**
+  1. **Bluetooth blood-pressure cuff and glucose meter** *(no typing)*
+  2. **AI running on board** *(no Earth or cloud link needed)*
+  3. **Clinic and home-care pilot in Qatar** *(clinician sign-off + Ministry of Public Health approval)*
+- **Centre:** Dalil logo · **"Dalil دليل: guide, and evidence."** · **`Personal. Sourced. Immediate.`**
+- **Bottom:** QR codes to the live app (`https://dalil.msulaiman00711.workers.dev`) and the GitHub repo (`https://github.com/dalil-qa/dalil`, **check it's public before 17:30**), and **Team Baseera · بصيرة · insight · Sulaiman & Abdullah**.
+- **Stage note:** leave this slide up for all of Q&A.
+
+---
+
+## 3. Backup slides *(after Slide 6, only if a judge asks)*
 
 | Slide | Content |
 |---|---|
-| **Backup A: System Architecture** | ESP32 Station (USB Web Serial, 115200 baud JSON) → React/TypeScript App → Deterministic Baseline & Threshold Engine → Cloudflare Workers AI (`Llama 3.3 70B Instruct`, strictly card-grounded) → Offline Written Cards Fallback |
-| **Backup B: Hardware & BOM** | ESP32 DevKit, MAX30102 pulse oximeter, MLX90614 forehead IR thermometer, 0.91" OLED, tactile button, RGB status LED, active buzzer (~QAR 290 total with spares) |
-| **Backup C: Clinical Safety & Boundaries** | *"Not a medical device: guidance only."* Red-flag symptoms (chest pain, shortness of breath, fainting, stroke signs) bypass AI completely and open the offline Emergency screen. Open clinical threshold decisions logged in [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md) |
-| **Backup D: Automated Verification** | Unit tests for baseline/status logic, Web Serial parser & Coach guardrails; Playwright browser E2E checks; `91/91` NASA PDF quotes verified page-by-page via `scripts/content/verify_quotes.py` |
+| **A: How it's built** | ESP32 station (USB, one JSON line per message) → React/TypeScript app → fixed baseline and threshold rules → Cloudflare Workers AI (`Llama 3.3 70B Instruct`, answers only from our 23 cards) → written-card fallback when offline |
+| **B: Hardware** | ESP32 DevKit, MAX30102 pulse oximeter, MLX90614 infrared thermometer, 0.91" OLED, START button, RGB LED, buzzer. Firmware 1.2, tested on the real board on 15 Nov. About QAR 290 in parts (**confirm against the receipts**) |
+| **C: Safety limits** | *"Not a medical device: guidance only."* Red-flag symptoms (chest pain, breathing trouble, fainting, stroke signs) skip the AI and open the offline Emergency screen. Open clinical decisions: [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md) |
+| **D: How we checked it** | 79 unit tests, browser test suites, Coach Worker tests, station contract tests on the real board; 91 of 91 NASA quotes re-checked against the PDFs by `scripts/content/` |

@@ -1,160 +1,200 @@
-# Pitch Script: 2.5-Minute Two-Presenter Blueprint — Team Baseera (Abdullah & Sulaiman)
+# Pitch script: Team Baseera (بصيرة), Dalil (دليل)
 
-**Team:** **Team Baseera (بصيرة)** · **Project:** **Dalil (دليل)**
-**Duration:** Strictly **2 minutes 30 seconds (150 seconds)** · **~335 spoken words** (calm, confident pace at ~135 wpm, leaving a 30-second buffer inside the 3:00 maximum pitch slot).
-**Slides:** [SLIDES.md](SLIDES.md) · **Original prompt:** [PROMPT_FOR_PRESENTATION.md](PROMPT_FOR_PRESENTATION.md) · **Health sources:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
-**3-Word Memory Anchor (repeated 3×):** **`Personal. Proven. Immediate.`**
+**Team:** **Team Baseera (بصيرة)**: Arabic for *insight*, seeing clearly. · **Project:** **Dalil (دليل)**: Arabic for both *guide* and *evidence*.
+The two names belong together: Baseera is how we see the problem; Dalil is what we give people.
+
+**Length:** about **2:52** in total: a 6-second silent drama, ~350 spoken words at a calm 135 words a minute, two 3-second pauses and the handoffs. That leaves **8 seconds spare** inside the **3:00** slot.
+**Memory anchor:** **`Personal. Sourced. Immediate.`** Said in full at the start and at the end, and each word once in the middle.
+**Slides:** [SLIDES.md](SLIDES.md) · **Everything else (background, hardware, the maths, every screen, the full Q&A):** [PRESENTER_MASTER_GUIDE.md](PRESENTER_MASTER_GUIDE.md) · **Health sources:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
+
+> **Why "Sourced", not "Proven":** our thresholds still need a clinician's sign-off ([CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)), so "proven" invites the question "proven by whom?". "Sourced" is true today: every tip cites NASA or a public health body, and it matches *dalil* = evidence.
 
 ---
 
-## 1. Presenter Division & Stage Roles (Sulaiman Owns 100% of Q&A)
+## 1. Who does what
 
-Because **Sulaiman handles all Q&A alone**, **Sulaiman must speak last (`2:15–2:30` on Slide 6)**. That way, when the pitch finishes at `2:30`, the microphone is already in Sulaiman's hand and the judges' eye contact is already locked on him—no awkward mic handoff when questions start.
-
-| Presenter | Role & Strengths | Sections Owned |
+| Person | Speaks | Other jobs |
 |---|---|---|
-| **Abdullah** | **Human Story, Hook & Qatari Impact** *(warm, authoritative storytelling; connects deep space to Qatar's ageing population; **no Q&A**)* | **Part 1 (0:00–0:40):** Slide 1 Hook & Problem<br>**Part 3 (1:45–2:15):** Slide 5 Qatar Impact (WHO/IDF/STEPwise stats + built-in Arabic & English Home Mode)<br>**During Q&A:** Stands beside Sulaiman; Sulaiman answers all questions |
-| **Sulaiman** | **Technical MVP, NASA Evidence, Close & Sole Q&A Speaker** *(crisp systems explanation, Day 47 screenshots, competitive knockout, technical roadmap close, and **100% of Q&A**)* | **Part 2 (0:40–1:45):** Slide 2 Mind Map (`0:40–1:00`), Slide 3 Day 47 Mars Screenshots (`1:00–1:25`), Slide 4 Competitive Knockout & Resilience (`1:25–1:45`)<br>**Part 4 (2:15–2:30):** Slide 6 Technical Roadmap & Final Close<br>**Q&A (100%):** Answers **all** judge questions (technical, NASA sources, AI safety, hardware, AND Qatar impact/rollout) |
-| **Demo / Station Host** | Judges' Table Laptop & Station | Places the live laptop + USB-connected station on the judges' table before `0:00`; advances the projector slides; guides a judge to press `START` during Q&A |
+| **Abdullah** | Part 1 (drama + hook, 0:00–0:50) and Part 3 (Qatar, 1:55–2:32) | Stands beside Sulaiman in Q&A; answers nothing unless Sulaiman passes a question |
+| **Sulaiman** | Part 2 (how it works, 0:50–1:55) and Part 4 (close, 2:32–2:52) | Answers **all** Q&A. Speaks last so the mic and the judges' eyes are already on him |
+| **The Crew Member (actor): Station Host, or a volunteer** | Nothing | Plays the dizzy crew member in the opening (section 3). Then goes to the station |
+| **Station Host: [NAME, assign before 15:00]** | Nothing | Sets up the judges' desk laptop + station, advances slides, runs the hands-on check in Q&A, runs the fallback ladder |
+
+**Who plays the Crew Member, in this order:** (1) the Station Host, (2) a volunteer you have rehearsed with at least twice, (3) Sulaiman, only if nobody else is there (see "If Sulaiman is the actor" in section 3).
+**If only two of you are there:** Abdullah is the Station Host during Q&A. Someone outside the team advances slides, or use a clicker.
 
 ---
 
-## 2. The Two-Screen Stage Setup (Why It Works & How to Run It)
+## 2. Stage setup
 
-- **Main Stage Screen (Projector):** Shows **only the slides** (`Slide 0` to `Slide 6`) with crisp screenshots of the app. **Zero `Alt+Tab` switching** on the projector—eliminating HDMI lag, resolution glitches, and lost seconds.
-- **Judges' Desk (Right in Front of Judges):** A dedicated laptop running the live Dalil web app (`F11` full-screen, sleep disabled) connected via USB to the physical **Dalil Crew Health Station**.
-- **How to Keep Judges Focused on Your Words:**
-  1. **Before `0:00`:** Leave the judges' laptop open on Crew Member 2's **Today** screen so it isn't flashing or distracting while Abdullah delivers the `0:00–0:40` hook.
-  2. **At `0:40`:** Sulaiman explicitly points to the laptop on their desk (*"We placed our working Dalil station and live app right on your desk..."*).
-  3. **At `2:30` (Start of Q&A):** As **Sulaiman** closes, he invites a judge to press **START** on the station right in front of them while Q&A begins—giving them a live 30-second hands-on check **without spending a single second of your 2:30 pitch clock**.
+- **Projector:** slides only (Slide 0 to Slide 6), with screenshots of the app. No `Alt+Tab`.
+- **Judges' desk:** a laptop running the live app (`F11`, sleep off) plugged into the **Dalil Crew Health Station** by USB. Before 0:00 it shows Crew Member 2's **Today** screen (Mars transit, Day 47).
+- **If the venue won't let you put anything on the judges' table:** keep the laptop and station at the front of the stage, and in Q&A the Station Host carries the station (long USB cable) to a judge. Change Sulaiman's "on your desk" line to "here in front of you".
+- **If the Wi-Fi is down:** open the local build (`npm run build && npm run preview` in `app/`), started and loaded **before** the pitch. The app has no offline cache, so it must have loaded once.
 
 ---
 
-## 3. The 2.5-Minute Word-for-Word Script (~335 Words)
+## 3. The opening drama: safety rules first
 
-> **Before 0:00:** **Slide 0 (Silent Title Slide)** is on screen (`Dalil دليل — Evidence-Based Health Guidance, From Deep Space to Every Home | Team Baseera | Category: HealthTech | Stage: Working MVP`). Abdullah stands center-left; Sulaiman stands center-right next to the station and demo screen. Do **not** start with names.
+The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody says "heart attack".
+
+**Why dizziness, not a heart attack:**
+- Feeling faint on standing is a real spaceflight risk that NASA documents (orthostatic intolerance, OCHMO Technical Brief TB-019, in our sources).
+- Dalil can't detect a heart attack, and our Emergency screen says so. A staged heart attack invites the question "would Dalil have caught that?", and the answer is no.
+- Dalil's real job is catching the **small changes in the days before**, and that's exactly where the story goes next.
+
+**Before the pitch (must do):**
+- [ ] **Tell the organisers / MC and the venue first-aid staff** that the opening includes a staged dizzy spell, so nobody calls for help. Get their OK. If they say no, use the hook without the drama (section 8).
+- [ ] Walk the stage: no cables or steps where the actor sits down.
+- [ ] The actor holds **no microphone**, and wears clothes they can kneel in.
+- [ ] Rehearse it at least **twice** at full speed, including getting up on cue.
+
+**How to sit down safely (the actor):** slow down, hand to forehead, one step to steady yourself, then **bend your knees, one knee down, then sit to the side**, one hand on the floor. Never fall backwards or straight down, and keep your head up. It should take about 3 seconds and look controlled.
+
+**If someone rushes to help:** the actor gives a clear thumbs-up and smiles, and Abdullah says calmly, "It's okay, this is part of our pitch." The actor gets up and carries on from "Now rewind."
 
 ---
 
-### PART 1: The Hook & Problem *(0:00 – 0:40 · Presenter: Abdullah)*
+## 4. The script
 
-**[0:00 · Advance to Slide 1: Mars-to-Earth Signal Delay — `[EMPATHY PHOTO: Isolated astronaut looking toward Mars]`]**
+> **Before 0:00:** Slide 0 (silent title) is up. Abdullah stands centre-left, Sulaiman centre-right. The Crew Member waits at the side of the stage. **Don't start with names.**
 
-**[TONE/GESTURE: Abdullah — Step forward, calm, low, serious voice. Look directly at the judges, not the screen.]**
+### Part 1: The drama and the hook *(0:00–0:50 · Abdullah · ~80 words)*
+
+**[0:00 · Slide 1: Mars signal delay · EMPATHY PHOTO: astronaut alone, looking toward Mars]**
+
+**[DRAMA, 0:00–0:06, silent:]** The Crew Member walks slowly across the front of the stage, as if starting a normal day. Mid-stage they stop, press a hand to their forehead, sway, steady themselves, and **sit down slowly** as described above. They **stay down and stay still.** Abdullah lets one second of silence pass, then steps forward.
+
+**[TONE: calm, low, serious. Look at the judges, not at the actor.]**
 
 **Abdullah:**
-> "Imagine you are on a mission to Mars, and your heart starts racing. You message your doctor on Earth. Depending on distance, that message takes **14 to 22 minutes** just to arrive—and up to **44 minutes** for a reply to come back."
+> "This could happen to anyone. On Earth, someone calls 999. On the way to Mars, a message to your doctor takes **up to 22 minutes** to arrive. The answer takes 22 more."
 
-**[PAUSE - 3 SECONDS]** *(Let the silence sit in the room. Scan the judges' eyes.)*
-
-**[TONE/GESTURE: Abdullah — Shift to an energetic, purposeful pace. Open palm toward the hardware station on the judges' table.]**
+**[PAUSE - 3 SECONDS]** *(The Crew Member stays still on the floor. Abdullah scans the judges.)*
 
 **Abdullah:**
-> "Out there, astronauts have to catch health problems early, on their own. NASA tracks every astronaut against their own baseline, yet in flight, most standard health tests happen only twice a mission. Nobody checks every morning.
->
-> Meet **Dalil**—**دليل**—Arabic for both *guide* and *evidence*. Dalil is a 30-second morning health check that is **Personal. Proven. Immediate.** Sulaiman?"
+> "Now rewind."
 
----
+**[CUE: GET UP.]** On **"Now rewind"**, the Crew Member gets up calmly (about 2 seconds; Abdullah waits until they're on their feet), nods to the judges, then walks to the station and rests their finger on it **while Abdullah carries on**, and goes to their post at the side.
 
-### PART 2: How It Works, Working MVP & Competitive Edge *(0:40 – 1:45 · Presenter: Sulaiman)*
-
-**[0:40 · Advance to Slide 2: Mind Map — How Dalil Works in 30 Seconds]**
-
-**[TONE/GESTURE: Sulaiman — Crisp, confident engineering cadence. Gesture first toward the live laptop and physical Dalil station on the judges' table, then across the 4-step Mind Map on Slide 2.]**
-
-**Sulaiman:**
-> "Thank you, Abdullah. We placed our working Dalil station and live app right on your desk. Every morning, you rest your finger and forehead on that station for 30 seconds. If your finger moves, our signal check rejects the bad reading instead of guessing.
->
-> Instead of relying only on generic textbook averages, Dalil learns **your** 7-day personal baseline and pairs it with verified guidance from **NASA's crew health standard** and public health authorities."
-
-**[1:00 · Advance to Slide 3: Day 47 to Mars — App Screenshots]**
-
-**[TONE/GESTURE: Sulaiman — Point to the left screenshot (Trends + Coach in amber), then to the right screenshot (Flight Surgeon countdown in red).]**
-
-**Sulaiman:**
-> "Here is **Day 47 to Mars** from the app in front of you. Crew Member 2's resting heart rate has crept up for three days in a row while sleep and mood dropped. One reading alone looks normal—but against their personal baseline, Dalil catches the drift early in **amber**, and our Coach explains why, citing the exact NASA source.
->
-> And if a reading turns **red**—or you tap *'I feel unwell now'*—Dalil skips AI completely, works 100% offline, builds a doctor's report, and starts the live **14-minute** Mars signal countdown with immediate first steps."
-
-**[1:25 · Advance to Slide 4: Competitive Analysis Table]**
-
-**[TONE/GESTURE: Sulaiman — Sweep hand down the rightmost column of green checkmarks, tapping the air on the bottom row.]**
-
-**Sulaiman:**
-> "Smartwatches move on the wrist and need daily charging. Telehealth apps fail the moment the link drops. **Look at the bottom row:** only Dalil combines **offline personal-baseline triage with signal-delay guidance**—backed by our hardware signal gate, offline cards, and built-in simulator. Abdullah?"
-
----
-
-### PART 3: Impact in Qatar *(1:45 – 2:15 · Presenter: Abdullah)*
-
-**[1:45 · Advance to Slide 5: From Mars to Doha — `[EMPATHY PHOTO: Older Qatari parent using Dalil at home + Home Mode screenshot]`]**
-
-**[TONE/GESTURE: Abdullah — Warm, passionate, resonant voice. Gesture toward the Home Mode screenshot and the three big Qatar statistics.]**
+**[TONE: pick up the pace. Open palm toward the station.]**
 
 **Abdullah:**
-> "In deep space, the doctor is minutes away. Here in Qatar, an older parent living at home faces that exact same gap.
+> "Small changes can show up days before. But in flight, NASA's standard health tests happen only **about twice a mission**. Nobody checks every morning.
 >
-> According to the **WHO**, Qatar's population over 60 will grow more than **tenfold** by 2050—from **60,000 to nearly 690,000**."
+> Meet **Dalil**, دليل: Arabic for *guide* and *evidence*. A 30-second morning check that is **Personal. Sourced. Immediate.**"
 
-**[PAUSE - 3 SECONDS]** *(Let the tenfold number land.)*
+*(Abdullah hands the mic to Sulaiman and steps back.)*
 
-**[TONE/GESTURE: Abdullah — Count on fingers for the two health stats, then point to the Home Mode screenshot on Slide 5 and pass the mic back to Sulaiman.]**
-
-**Abdullah:**
-> "Nearly **one in four** adults in Qatar has diabetes, and **one in three** Qatari nationals has high blood pressure. So we built **Home Mode** directly into Dalil today—in both **Arabic and English**: huge text, one big button, plain-language results, and a one-tap alert to family or 999. Sulaiman?"
+**If Sulaiman is the actor:** he does the drama, gets up on "Now rewind", walks to the station, and is in place centre-right by "Meet Dalil". Abdullah hands him the mic after "Immediate." Sulaiman takes one slow breath before he speaks, so Part 2 starts calm.
 
 ---
 
-### PART 4: Roadmap, Close & Transition to Q&A *(2:15 – 2:30 · Presenter: Sulaiman)*
+### Part 2: How it works, Day 47, why only Dalil *(0:50–1:55 · Sulaiman · ~150 words)*
 
-**[2:15 · Advance to Slide 6: Roadmap & Close]**
-
-**[TONE/GESTURE: Sulaiman — Step center-stage holding the mic so judges' eyes lock on Sulaiman for Q&A. Slow down for the final three anchor words.]**
+**[0:50 · Slide 2: Mind map]**
+**[TONE: crisp and confident. Point at the station on the desk, then follow the mind map left to right.]**
 
 **Sulaiman:**
-> "Next on our engineering roadmap is Bluetooth cuff integration, on-board local AI, and a clinic pilot right here in Doha.
+> "For 30 seconds, you rest your finger and forehead on our station, the one on your desk now. If your finger moves, it throws the reading away instead of guessing.
 >
-> We are **Team Baseera**, and this is **Dalil**: *guide*, and *evidence*. **Personal. Proven. Immediate.** Thank you—feel free to press START on the station in front of you while I take your questions."
+> **Personal:** Dalil learns your own normal over seven days, and checks each reading against it and against NASA and public health ranges."
+
+**[1:12 · Slide 3: Day 47 to Mars, two screenshots]**
+**[GESTURE: point back to where the Crew Member sat, then at the left screenshot (amber), then the right one (red, countdown).]**
+
+**Sulaiman:**
+> "Here are our crew member's days before, in **sample mission data**. Day 47 to Mars: their heart rate **jumped ten beats and stayed up for three days**, while sleep and mood fell. Each number still looks normal. Against their own normal it's a change, so Dalil turns **amber**, and the Coach explains why, citing NASA.
+>
+> If a reading turns **red**, fixed rules decide, never the AI. Dalil writes the report for the flight surgeon and counts down to Earth's reply, with first steps for now. **Immediate**, and offline."
+
+**[1:45 · Slide 4: Comparison table]**
+**[GESTURE: sweep down the Dalil column, stop on the bottom row.]**
+
+**Sulaiman:**
+> "Smartwatches learn your normal too. Only Dalil keeps working, **sourced** and offline, when the doctor is minutes away."
 
 ---
 
-## 4. Running the Judges' Desk Station During Q&A
+### Part 3: Impact in Qatar *(1:55–2:32 · Abdullah · ~75 words)*
 
-Because the live laptop + hardware station are already on the judges' table, you get a **free live hardware demo during Q&A** without using a single second of your 2:30 speaking clock:
-- Right as Sulaiman says *"feel free to press START on the station in front of you while I take your questions"*, the **Station Host** steps beside the judges' table, wipes the finger slot with an alcohol wipe, and switches the laptop to **Guest → Check**.
-- While **Sulaiman** answers the judges' questions, one judge rests their fingertip (20 s) and forehead (5 s) on the station and sees their own live heart rate, SpO2, and skin temperature light up the Body figure on the desk laptop.
+**[1:55 · Slide 5: From Mars to Doha · EMPATHY PHOTO: older Qatari parent at home with the station + Home Mode screenshots]**
+**[TONE: warm. Point to the stats as you say them.]**
+
+**Abdullah:**
+> "And it's not only astronauts. Here in Qatar, an older parent living at home faces the same gap. The **WHO** expects Qatar's people over 60 to grow **more than tenfold** by 2050: from about **60,000 to nearly 690,000**."
+
+**[PAUSE - 3 SECONDS]** *(Let "tenfold" land.)*
+
+**[GESTURE: count on fingers for the two health numbers, then point at the Home Mode screenshot.]**
+
+**Abdullah:**
+> "Nearly **one in four** adults here has diabetes. **One in three** Qatari nationals has high blood pressure. So Dalil already has **Home Mode**, in Arabic and English: big text, one button, plain words, one tap to alert family."
+
+*(Abdullah turns to Sulaiman and hands over the mic.)*
 
 ---
 
-## 5. Fallback Ladder for the Judges' Desk Laptop
+### Part 4: Roadmap and close *(2:32–2:52 · Sulaiman · ~45 words)*
 
-| What happens on the desk laptop | What Sulaiman / Station Host says | Action |
+**[2:32 · Slide 6: Roadmap and close]**
+**[TONE: step to centre, slow down. One beat between each anchor word.]**
+
+**Sulaiman:**
+> "Next: Bluetooth blood-pressure cuffs, the AI running on board, and a clinic pilot here in Doha.
+>
+> We are **Team Baseera**, بصيرة: *insight*. This is **Dalil**: *guide*, and *evidence*. **Personal. Sourced. Immediate.** Thank you. Try the station while I take your questions."
+
+**[2:52 · Stop. Leave Slide 6 up for all of Q&A.]**
+
+---
+
+## 5. Team resilience (one line for the Q&A or the slide footer)
+
+> "Every part has a fallback we built and tested: a weak signal asks you to measure again, no internet falls back to written cards, and an unplugged station switches to a clearly labelled simulator, so we can show Dalil working whatever happens on the day."
+
+---
+
+## 6. The hands-on check during Q&A
+
+As Sulaiman says "Try the station", the Station Host:
+1. Wipes the finger slot and forehead guide in front of the judge.
+2. Switches the desk laptop to **Guest → Check** (nothing saved).
+3. Guides: "Rest your fingertip lightly, don't press, keep still" (about 20 s), then "forehead at the window" (about 5 s).
+4. Steps back so the judge sees their own heart rate, oxygen and skin temperature on the body figure.
+
+Cold hands give weak signals: ask the judge to rub their fingertips first.
+
+---
+
+## 7. Fallback ladder
+
+| What happens | Say | Do |
 |---|---|---|
-| Station shows "Try again" | *"That's our signal-quality gate rejecting finger motion instead of guessing—exactly as designed."* | Retry once with warm, still finger |
-| USB cable gets bumped / disconnects | *"Let me show you the exact same JSON stream on our built-in hardware simulator."* | Flip the Simulator switch in the app |
+| Someone rushes to help the actor | "It's okay, this is part of our pitch." | Actor: thumbs-up, gets up, carries on from "Now rewind" |
+| Station shows "Try again" or a weak-signal hint | "That's the quality check refusing a bad signal, exactly as designed. Once more." | Retry **once** with a warm, still finger |
+| Fails again | "Let me show you on mine." | Station Host does a check on themselves |
+| Station disconnects | "Here's the same check on our simulator. **This one is simulated.**" | Flip the Simulator switch in the app |
+| Laptop or app dies | "Here's what it looks like." | Stay on the slides (screenshots on Slide 3) |
+
+**Never let a simulated check look live.** Losing a judge's trust costs more than a failed demo.
 
 ---
 
-## 6. Sulaiman's Complete Q&A Playbook (Under 20 Seconds Each)
+## 8. If the drama is not allowed (or no actor)
 
-**Rule:** **Sulaiman answers 100% of Q&A questions** (both technical/NASA questions and Qatar impact/adoption questions). Never open with *"That's a great question"*—lead with the answer in the first sentence.
+Abdullah opens without it, same timings with 10 seconds more to breathe:
+> "Imagine you are on the way to Mars, and your heart starts racing. A message to your doctor on Earth can take **up to 22 minutes** to arrive. The answer takes 22 more."
 
-### A. Technical, NASA Sources, AI & Hardware Questions (Sulaiman)
+**[PAUSE - 3 SECONDS]**, then carry on from "Small changes can show up days before." In Part 2, Sulaiman says "Here are a crew member's days before, in sample mission data" and skips the point back to the stage.
 
-| Judge Question | Sulaiman's Answer |
-|---|---|
-| **Where do your health ranges and NASA data come from?** | "Our spaceflight risks, countermeasures, and guidance cards come from NASA-STD-3001, 14 NASA OCHMO Technical Briefs, and the Canadian Space Agency—verified across 91 exact PDF quotes by our automated script. Because NASA-STD-3001 doesn't set numeric resting vital ranges, our vital-sign thresholds come from MedlinePlus, the NHS, CDC, and WHO, all logged in `docs/CONTENT_REVIEW.md`. Real astronaut vitals are private, so our 47-day history is labelled sample data." |
-| **How do you prevent the AI Coach from hallucinating medical advice?** | "Three hard guardrails: first, the Coach (`Llama 3.3 70B` on Cloudflare Workers AI) only receives our written guidance cards and must cite their IDs. Second, our post-processor strips any unknown card ID and forces flight-surgeon escalation on any red reading. Third, red-flag symptoms like chest pain bypass AI completely and open our offline Emergency screen." |
-| **What happens if the internet or Earth link goes down?** | "Everything critical runs locally in the browser and on the ESP32 over USB serial: the signal check, the threshold and 7-day baseline rules, the Trends charts, and the Emergency screen all work 100% offline. If the Coach Worker is unreachable, the app automatically falls back to displaying the matching written cards." |
-| **How accurate is the hardware station, and how much did it cost?** | "The station costs about QAR 290 in parts—an ESP32, a MAX30102 pulse oximeter, an MLX90614 infrared thermometer, and an OLED display. Because these are hobby-grade sensors, we don't rely on a single raw reading: the firmware checks signal quality every second, rejects motion artifacts, and tracks multi-day change against your personal baseline." |
-| **Why is forehead temperature around 33–35 °C instead of 37 °C?** | "37 °C is core body temperature. Forehead skin temperature sits lower—published infrared thermometry studies put normal forehead skin temperature between 31.0 and 35.6 °C, while 38.0 °C or above triggers an immediate fever escalation, alongside tracking a 1 °C rise above your personal 7-day baseline." |
-| **What doesn't work yet?** | "Three things we state openly in `docs/CONTENT_REVIEW.md`: first, the sensors are hobby-grade with no ECG, so they cannot rule out a heart attack—and our Emergency screen warns the crew of that. Second, sending the report to Earth or family is simulated. Third, while every card cites NASA or public health sources, our threshold table awaits formal clinician sign-off." |
+---
 
-### B. Qatar Impact, Elderly Users & Rollout Questions (Also Answered by Sulaiman)
+## 9. Rehearsal checks
 
-| Judge Question | Sulaiman's Answer |
-|---|---|
-| **Who would use this in Qatar, and how would you reach them?** | "In space, crew medical operations issue it in the mission kit. Here in Qatar, we target home-care services and primary health clinics following up older adults with hypertension or diabetes—starting with a small clinic pilot to validate daily adherence." |
-| **Why wouldn't an older person just use an Apple Watch?** | "Three reasons: watches require small-screen navigation, daily charging, and steady wrist contact. Dalil sits on the bedside table with one big button, huge text in Home Mode, a steadier fingertip sensor, and a one-tap 'Send to family' button." |
-| **Where did your Qatar statistics come from?** | "Every number is sourced: the tenfold growth of residents aged 60+ (from ~60,000 to ~690,000 by 2050) is from the WHO's Healthy Ageing report on Qatar; the 24.6% adult diabetes rate is from the 2024 International Diabetes Federation Atlas; and the 32.9% hypertension figure is from the Qatar STEPwise national survey of Qatari adults aged 18–64." |
-| **Is this approved as a medical device in Qatar?** | "No—today Dalil is a guidance prototype, not a diagnostic medical device, and it states that on every screen. Clinical deployment in Qatar would require clinician sign-off and Ministry of Public Health approval, which is step three on our roadmap." |
+- [ ] Organisers / MC / first-aid staff told about the drama, and OK given.
+- [ ] Time a full run, drama included, with a phone timer. **Over 2:55 → cut words, never speed up.**
+- [ ] The actor gets up exactly on "Now rewind", every run.
+- [ ] Both presenters say "**up to** 22 minutes", "**about** twice a mission" and "**sample** mission data" exactly.
+- [ ] Practise one run with the USB unplugged halfway through.
+- [ ] Sulaiman drills the Q&A in [PRESENTER_MASTER_GUIDE.md, Part 6](PRESENTER_MASTER_GUIDE.md#part-6-complete-qa-playbook-for-sulaiman-under-20-seconds-each), especially **"Would Dalil have caught that fall?"**

@@ -1,6 +1,6 @@
 # Dalil: crew health, guided by evidence
 
-**Team Baseera**'s entry for **NASA Space Apps 2026 (Doha)**, challenge
+Built by **Team Baseera** (بصيرة, Arabic for *insight*) for **NASA Space Apps 2026 (Doha)**, challenge
 [Create Health Monitoring Software for Astronauts on Space Missions](https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/).
 
 **Not a medical device: guidance only.** Dalil never diagnoses, and a red result always says to contact the flight surgeon.
