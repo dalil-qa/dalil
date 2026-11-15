@@ -227,10 +227,18 @@ export const useStore = create<DalilState>()(
             armWatchdog(); // also covers a check started with the button on the box
             set({ live: { stage: m.stage, hr: m.hr, spo2: m.spo2, temp: m.temp, q: m.q, left: m.left, finger: m.finger, error: null } });
             return;
-          case 'done':
+          case 'done': {
+            // Only a check that is actually running can finish. After a reconnect, the Mac's USB driver can replay
+            // stale lines from before; an old `done` must never be saved as a new result.
+            const stage = get().live.stage;
+            if (stage !== 'starting' && stage !== 'finger' && stage !== 'forehead') {
+              console.debug('Ignored a done line with no check running.');
+              return;
+            }
             clearWatchdog();
             finishCheck(m);
             return;
+          }
           case 'error': {
             if (m.code === 'busy') return; // a check is already running; the watchdog covers a station that never starts
             const text = STATION_ERROR_TEXT[m.code] ?? null;
