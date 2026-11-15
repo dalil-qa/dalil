@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { EmergencyBar } from './layout/EmergencyBar.tsx';
 import { Footer } from './layout/Footer.tsx';
 import { Header } from './layout/Header.tsx';
@@ -12,12 +12,16 @@ import { Earth } from './screens/Earth.tsx';
 import { HomeHeader, HomeToday } from './screens/Home.tsx';
 import { Landing } from './screens/Landing.tsx';
 import { Sources } from './screens/Sources.tsx';
-import { Trends } from './screens/Trends.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import { Emergency } from './screens/Emergency.tsx';
 import { Settings } from './screens/Settings.tsx';
 import { Today } from './screens/Today.tsx';
 import { autoReconnectStation, useStore } from './store.ts';
+
+// Trends carries the chart library (Recharts), the biggest part of the app, so the first screen doesn't wait for it.
+// App fetches it in the background a moment after start, so Trends still works if the Wi-Fi drops later (offline first).
+const loadTrends = () => import('./screens/Trends.tsx');
+const Trends = lazy(() => loadTrends().then((m) => ({ default: m.Trends })));
 
 function Screen() {
   const screen = useNav((s) => s.screen);
@@ -29,7 +33,11 @@ function Screen() {
     case 'body':
       return <Body />;
     case 'trends':
-      return <Trends />;
+      return (
+        <Suspense fallback={<p className="text-base text-slate-400">Loading the charts…</p>}>
+          <Trends />
+        </Suspense>
+      );
     case 'coach':
       return <Coach />;
     case 'earth':
@@ -56,6 +64,12 @@ function App() {
   // Reopen a station the user allowed before, with no popup.
   useEffect(() => {
     void autoReconnectStation();
+  }, []);
+
+  // Fetch the charts in the background straight after the first screen draws (it doesn't wait for them),
+  // so they are ready even if the connection drops a moment later.
+  useEffect(() => {
+    void loadTrends().catch(() => undefined);
   }, []);
 
   // A check started with the button on the box: show it.
