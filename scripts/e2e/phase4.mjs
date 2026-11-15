@@ -242,6 +242,8 @@ await fresh('earth');
 await pick('#mission', 'rover'); await sleep(300);
 check('Lunar rover: delay about 1.3 s', (await text()).includes('about 1.3 s'));
 await hash('body'); await sleep(500);
+// Hazards start hidden on the Body screen; show them, then the rover's risks must be pre-marked.
+await click('Show hazards'); await sleep(300);
 const stars = await evalJs(`[...document.querySelectorAll('button[aria-pressed]')].filter(b=>b.innerText.includes('★')).map(b=>b.innerText.replace(' ★',''))`);
 check("Lunar rover: its risks are highlighted on the Body screen", ['Radiation', 'Isolation', 'Environment'].every((x) => stars.includes(x)) && (await evalJs(`document.querySelectorAll('svg [class*="stroke-dasharray"]').length`)) > 0, stars.join(','));
 
