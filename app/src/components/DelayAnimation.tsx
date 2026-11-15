@@ -26,7 +26,7 @@ export function DelayAnimation({ oneWaySec, sentAt }: { oneWaySec: number; sentA
     <div className="mt-2">
       <div className="flex items-center gap-3 text-slate-300">
         <Satellite aria-hidden size={22} />
-        <div className="relative h-1.5 flex-1 rounded-full bg-white/10">
+        <div className="relative h-1.5 flex-1 rounded-full bg-contrast/10">
           <motion.div
             className={`absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full ${delivered ? 'bg-ok' : 'bg-cyan-400'}`}
             animate={{ left: `${progress * 100}%` }}

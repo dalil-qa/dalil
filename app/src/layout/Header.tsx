@@ -1,4 +1,4 @@
-import { TriangleAlert } from 'lucide-react';
+import { Moon, Sun, TriangleAlert } from 'lucide-react';
 import { crew, crewById, missions } from '../data/index.ts';
 import { useNow } from '../hooks.ts';
 import { useNav } from '../nav.ts';
@@ -12,7 +12,7 @@ function ConnectionPill() {
   const station = useStore((s) => s.station);
   const sim = station?.fw === 'sim';
   const label: Record<ConnectionState, string> = { none: 'No station', connecting: silent ? 'Station not answering' : 'Connecting…', connected: sim ? '🧪 Simulator' : 'Station connected', lost: 'Station disconnected' };
-  const tone = connection === 'connected' ? 'text-ok border-ok/40' : connection === 'connecting' ? 'text-watch border-watch/40' : connection === 'lost' ? 'text-act border-act/40' : 'text-slate-400 border-white/15';
+  const tone = connection === 'connected' ? 'text-ok border-ok/40' : connection === 'connecting' ? 'text-watch border-watch/40' : connection === 'lost' ? 'text-act border-act/40' : 'text-slate-400 border-contrast/15';
   return (
     <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium ${tone}`}>
       <span aria-hidden className="h-2 w-2 rounded-full bg-current" />
@@ -21,7 +21,25 @@ function ConnectionPill() {
   );
 }
 
-const selectClass = 'rounded-lg border border-white/15 bg-space-900 px-2.5 py-1.5 text-base text-slate-100 focus-visible:outline-2 focus-visible:outline-cyan-400';
+/** Switches between the light (default) and dark themes. */
+export function ThemeToggle() {
+  const theme = useStore((s) => s.theme);
+  const setTheme = useStore((s) => s.setTheme);
+  const dark = theme === 'dark';
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(dark ? 'light' : 'dark')}
+      aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+      title={dark ? 'Light mode' : 'Dark mode'}
+      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-contrast/20 text-slate-200 hover:bg-contrast/10 focus-visible:outline-2 focus-visible:outline-cyan-400"
+    >
+      {dark ? <Sun aria-hidden size={20} /> : <Moon aria-hidden size={20} />}
+    </button>
+  );
+}
+
+const selectClass = 'rounded-lg border border-contrast/15 bg-space-900 px-2.5 py-1.5 text-base text-slate-100 focus-visible:outline-2 focus-visible:outline-cyan-400';
 
 export function Header() {
   const { crewId, missionId, missionDay, setCrew, setMission, openEmergency } = useStore();
@@ -30,7 +48,7 @@ export function Header() {
   const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
   return (
-    <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-white/10 bg-space-950 px-4 py-3">
+    <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-contrast/10 bg-space-950 px-4 py-3">
       <div className="flex items-center gap-2 text-xl font-semibold text-slate-50">
         <Logo />
         Dalil
@@ -45,7 +63,8 @@ export function Header() {
         {crew.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
       </select>
       <ConnectionPill />
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center gap-3">
+        <ThemeToggle />
         {/* Always visible, never in a menu (10.1). */}
         <button
           type="button"

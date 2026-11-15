@@ -16,8 +16,10 @@ type Range = '7' | '30' | 'all';
 const RANGES: { id: Range; label: string }[] = [{ id: '7', label: '7 days' }, { id: '30', label: '30 days' }, { id: 'all', label: 'Whole mission' }];
 const TAB_ORDER: IndicatorId[] = ['hr', 'spo2', 'temp', 'sleep', 'mood', 'bp_sys', 'glucose', 'water', 'meals', 'exercise'];
 
-// Recharts needs real colour values (these are the brand tokens from index.css).
-const COLOR: Record<Status | 'none', string> = { ok: '#34d399', watch: '#fbbf24', act: '#f87171', none: '#22d3ee' };
+// The brand tokens from index.css, as CSS variables, so the chart follows the light / dark theme.
+const COLOR: Record<Status | 'none', string> = { ok: 'var(--color-ok)', watch: 'var(--color-watch)', act: 'var(--color-act)', none: 'var(--color-cyan-400)' };
+const AXIS = 'var(--color-slate-400)';
+const GRID = 'color-mix(in srgb, var(--color-contrast) 8%, transparent)';
 
 interface Point { day: number; value: number; dia?: number; status: Status | null; source: Source; unit: string }
 
@@ -43,7 +45,7 @@ function seriesFor(mine: Reading[], indicator: IndicatorId, from: number, to: nu
 function Dot(props: { cx?: number; cy?: number; payload?: Point }) {
   const { cx, cy, payload } = props;
   if (cx === undefined || cy === undefined || !payload) return null;
-  return <circle cx={cx} cy={cy} r={5} fill={COLOR[payload.status ?? 'none']} stroke="#0b1426" strokeWidth={2} />;
+  return <circle cx={cx} cy={cy} r={5} fill={COLOR[payload.status ?? 'none']} stroke="var(--color-space-900)" strokeWidth={2} />;
 }
 
 function Tip({ active, payload, indicator }: { active?: boolean; payload?: { payload: Point }[]; indicator: IndicatorId }) {
@@ -52,7 +54,7 @@ function Tip({ active, payload, indicator }: { active?: boolean; payload?: { pay
   const f = formatValue(indicator, p.value, p.unit);
   const { label, Icon } = SOURCE_INFO[p.source];
   return (
-    <div className="rounded-xl border border-white/15 bg-space-900 p-3 text-base text-slate-100 shadow-lg">
+    <div className="rounded-xl border border-contrast/15 bg-space-900 p-3 text-base text-slate-100 shadow-lg">
       <p className="font-semibold">{p.day <= 0 ? `Before launch (day ${p.day})` : `Day ${p.day}`}</p>
       <p className="tabular-nums">{f.value} {f.unit}{p.dia !== undefined ? ` / ${p.dia}` : ''}</p>
       {p.status && <p className={STATUS_INFO[p.status].text}>{STATUS_INFO[p.status].word}</p>}
@@ -106,14 +108,14 @@ export function Trends() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div role="tablist" aria-label="Indicator" className="flex flex-wrap gap-2">
           {tabs.map((i) => (
-            <button key={i} type="button" role="tab" aria-selected={i === indicator} onClick={() => setChosen(i)} className={`rounded-full border px-4 py-1.5 text-base ${i === indicator ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-white/20 text-slate-200 hover:bg-white/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
+            <button key={i} type="button" role="tab" aria-selected={i === indicator} onClick={() => setChosen(i)} className={`rounded-full border px-4 py-1.5 text-base ${i === indicator ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-contrast/20 text-slate-200 hover:bg-contrast/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
               {i === 'bp_sys' ? 'Blood pressure' : INDICATOR_LABELS[i]}
             </button>
           ))}
         </div>
         <div role="group" aria-label="Range" className="flex gap-2">
           {RANGES.map((r) => (
-            <button key={r.id} type="button" aria-pressed={range === r.id} onClick={() => setRange(r.id)} className={`rounded-lg border px-3 py-1.5 text-sm ${range === r.id ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-white/20 text-slate-300 hover:bg-white/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
+            <button key={r.id} type="button" aria-pressed={range === r.id} onClick={() => setRange(r.id)} className={`rounded-lg border px-3 py-1.5 text-sm ${range === r.id ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-contrast/20 text-slate-300 hover:bg-contrast/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
               {r.label}
             </button>
           ))}
@@ -124,16 +126,16 @@ export function Trends() {
         <div className="h-80 w-full" role="img" aria-label={`${INDICATOR_LABELS[indicator]} over time. ${data.length} readings.`}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 12, right: 16, bottom: 8, left: 0 }}>
-              <CartesianGrid stroke="#ffffff14" vertical={false} />
-              <XAxis dataKey="day" type="number" domain={[xMin, day]} allowDecimals={false} stroke="#94a3b8" tick={{ fontSize: 14 }} label={{ value: 'Mission day', position: 'insideBottom', offset: -2, fill: '#94a3b8', fontSize: 14 }} />
-              <YAxis domain={[yMin, yMax]} allowDecimals={false} stroke="#94a3b8" tick={{ fontSize: 14 }} width={44} />
+              <CartesianGrid stroke={GRID} vertical={false} />
+              <XAxis dataKey="day" type="number" domain={[xMin, day]} allowDecimals={false} stroke={AXIS} tick={{ fontSize: 14, fill: AXIS }} label={{ value: 'Mission day', position: 'insideBottom', offset: -2, fill: AXIS, fontSize: 14 }} />
+              <YAxis domain={[yMin, yMax]} allowDecimals={false} stroke={AXIS} tick={{ fontSize: 14, fill: AXIS }} width={44} />
               <Tooltip content={<Tip indicator={indicator} />} />
-              {earth && <ReferenceArea x1={xMin} x2={0} fill="#94a3b8" fillOpacity={0.08} label={{ value: 'Earth', position: 'insideTopLeft', fill: '#94a3b8', fontSize: 14 }} />}
-              {threshold && <ReferenceArea y1={threshold.green.min ?? yMin} y2={threshold.green.max ?? yMax} fill="#34d399" fillOpacity={0.08} />}
-              {base !== null && <ReferenceArea y1={base - limit} y2={base + limit} fill="#22d3ee" fillOpacity={0.18} />}
-              {pre !== null && <ReferenceLine y={pre} stroke="#fde68a" strokeDasharray="6 4" label={{ value: 'Before launch', position: 'insideBottomRight', fill: '#fde68a', fontSize: 14 }} />}
-              <Line type="monotone" dataKey="value" stroke="#22d3ee" strokeWidth={2.5} dot={<Dot />} activeDot={<Dot />} isAnimationActive={false} />
-              {isBp && <Line type="monotone" dataKey="dia" stroke="#a5b4fc" strokeWidth={2.5} dot={{ r: 4, fill: '#a5b4fc', stroke: '#0b1426' }} isAnimationActive={false} />}
+              {earth && <ReferenceArea x1={xMin} x2={0} fill={AXIS} fillOpacity={0.08} label={{ value: 'Earth', position: 'insideTopLeft', fill: AXIS, fontSize: 14 }} />}
+              {threshold && <ReferenceArea y1={threshold.green.min ?? yMin} y2={threshold.green.max ?? yMax} fill={COLOR.ok} fillOpacity={0.1} />}
+              {base !== null && <ReferenceArea y1={base - limit} y2={base + limit} fill={COLOR.none} fillOpacity={0.18} />}
+              {pre !== null && <ReferenceLine y={pre} stroke="var(--color-gold-200)" strokeDasharray="6 4" label={{ value: 'Before launch', position: 'insideBottomRight', fill: 'var(--color-gold-200)', fontSize: 14 }} />}
+              <Line type="monotone" dataKey="value" stroke={COLOR.none} strokeWidth={2.5} dot={<Dot />} activeDot={<Dot />} isAnimationActive={false} />
+              {isBp && <Line type="monotone" dataKey="dia" stroke="var(--color-series-2)" strokeWidth={2.5} dot={{ r: 4, fill: 'var(--color-series-2)', stroke: 'var(--color-space-900)' }} isAnimationActive={false} />}
             </LineChart>
           </ResponsiveContainer>
         </div>

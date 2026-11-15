@@ -13,14 +13,14 @@ const ITEMS: { screen: Screen; label: string; Icon: LucideIcon }[] = [
 export function NavRail() {
   const { screen, go } = useNav();
   return (
-    <nav aria-label="Screens" className="flex gap-1 border-b border-white/10 p-2 md:w-28 md:flex-col md:border-b-0 md:border-r">
+    <nav aria-label="Screens" className="flex gap-1 border-b border-contrast/10 p-2 md:w-28 md:flex-col md:border-b-0 md:border-r">
       {ITEMS.map(({ screen: s, label, Icon }) => (
         <button
           key={s}
           type="button"
           onClick={() => go(s)}
           aria-current={screen === s ? 'page' : undefined}
-          className={`flex flex-1 flex-col items-center gap-1 rounded-xl px-2 py-3 text-base font-medium md:flex-none focus-visible:outline-2 focus-visible:outline-cyan-400 ${screen === s ? 'bg-cyan-700/30 text-cyan-400' : 'text-slate-300 hover:bg-white/5'}`}
+          className={`flex flex-1 flex-col items-center gap-1 rounded-xl px-2 py-3 text-base font-medium md:flex-none focus-visible:outline-2 focus-visible:outline-cyan-400 ${screen === s ? 'bg-cyan-700/30 text-cyan-400' : 'text-slate-300 hover:bg-contrast/5'}`}
         >
           <Icon aria-hidden size={24} />
           {label}

@@ -22,13 +22,13 @@ export function HomeHeader() {
   const showEmergency = useNav((s) => s.showEmergency);
   const { lang, t } = useT();
   return (
-    <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-space-950 px-5 py-4">
+    <header className="flex flex-wrap items-center justify-between gap-3 border-b border-contrast/10 bg-space-950 px-5 py-4">
       <div className="flex items-center gap-2 text-2xl font-semibold text-slate-50"><Logo size={36} /> {t('appName')}</div>
       <div className="flex flex-wrap items-center gap-4">
         <button
           type="button"
           onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-          className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 bg-space-900 px-4 text-base font-medium text-slate-100 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-cyan-400"
+          className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-contrast/20 bg-space-900 px-4 text-base font-medium text-slate-100 hover:bg-contrast/10 focus-visible:outline-2 focus-visible:outline-cyan-400"
         >
           <Languages aria-hidden size={20} /> {t('switchLang')}
         </button>
@@ -134,7 +134,7 @@ export function HomeResult({ assessments, overall, lowConfidence = false, onDone
       {overall === 'act' && (
         <div role="alert" className="flex flex-col gap-3 rounded-2xl border-2 border-act bg-act/10 p-5 text-2xl text-act">
           <p>{t('callNowIfUnwell')}</p>
-          <a href="tel:999" className="inline-flex w-fit items-center gap-2 rounded-xl bg-act px-5 py-3 text-xl font-semibold text-space-950 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><Phone aria-hidden size={24} /> {t('call999')}</a>
+          <a href="tel:999" className="inline-flex w-fit items-center gap-2 rounded-xl bg-act px-5 py-3 text-xl font-semibold text-space-950 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-contrast"><Phone aria-hidden size={24} /> {t('call999')}</a>
         </div>
       )}
       <ul className="flex flex-col gap-3 text-2xl text-slate-100">

@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 export function Card({ title, action, children, className = '' }: { title?: ReactNode; action?: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <section className={`rounded-2xl border border-white/10 bg-space-900 p-5 ${className}`}>
+    <section className={`rounded-2xl border border-contrast/10 bg-space-900 p-5 ${className}`}>
       {(title || action) && (
         <header className="mb-3 flex items-center justify-between gap-3">
           {title && <h2 className="text-lg font-semibold text-slate-100">{title}</h2>}
@@ -17,7 +17,7 @@ export function Card({ title, action, children, className = '' }: { title?: Reac
 type Variant = 'primary' | 'secondary' | 'danger';
 const VARIANTS: Record<Variant, string> = {
   primary: 'bg-cyan-700 text-white hover:bg-cyan-700/80 border border-cyan-400/30',
-  secondary: 'bg-transparent text-slate-100 border border-white/25 hover:bg-white/10',
+  secondary: 'bg-transparent text-slate-100 border border-contrast/25 hover:bg-contrast/10',
   danger: 'bg-act/15 text-act border border-act hover:bg-act/25',
 };
 

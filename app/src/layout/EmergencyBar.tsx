@@ -19,7 +19,7 @@ export function EmergencyBar() {
         {t('emergencyOpenBar')} · {clock(emergency.startedAt)}
         {!home && ` · ${emergency.reportSentAt ? t('reportSentBar') : t('reportNotSentBar')}`}
       </span>
-      <button type="button" onClick={show} className="rounded-lg bg-space-950 px-3 py-1 text-act hover:bg-space-900 focus-visible:outline-2 focus-visible:outline-white">
+      <button type="button" onClick={show} className="rounded-lg bg-space-950 px-3 py-1 text-act hover:bg-space-900 focus-visible:outline-2 focus-visible:outline-contrast">
         {t('returnToEmergency')}
       </button>
     </div>

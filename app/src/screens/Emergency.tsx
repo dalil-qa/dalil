@@ -86,11 +86,11 @@ export function Emergency() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 1: tell a crewmate">
+        <section className="rounded-2xl border border-contrast/15 bg-space-900 p-5" aria-label="Step 1: tell a crewmate">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-semibold text-slate-50">{home ? t('step1Home') : '1 · Tell a crewmate now.'}</h2>
             {home ? (
-              <a href="tel:999" className="inline-flex min-h-14 items-center gap-2 rounded-xl bg-act px-7 text-lg font-semibold text-space-950 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><Phone aria-hidden size={22} /> {t('call999')}</a>
+              <a href="tel:999" className="inline-flex min-h-14 items-center gap-2 rounded-xl bg-act px-7 text-lg font-semibold text-space-950 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-contrast"><Phone aria-hidden size={22} /> {t('call999')}</a>
             ) : (
               <Button big variant="danger" onClick={alertCrew} disabled={!!emergency.crewAlertedAt}>
                 <BellRing aria-hidden size={22} /> {emergency.crewAlertedAt ? `Alerted ${clock(emergency.crewAlertedAt)} (simulated)` : 'Alert crew'}
@@ -103,7 +103,7 @@ export function Emergency() {
         </section>
 
         {home ? (
-          <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 2: notify family">
+          <section className="rounded-2xl border border-contrast/15 bg-space-900 p-5" aria-label="Step 2: notify family">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-xl font-semibold text-slate-50">{t('step2Home')}</h2>
               <Button big variant="danger" onClick={alertCrew} disabled={!!emergency.crewAlertedAt}>
@@ -112,7 +112,7 @@ export function Emergency() {
             </div>
           </section>
         ) : (
-          <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 2: contact the flight surgeon">
+          <section className="rounded-2xl border border-contrast/15 bg-space-900 p-5" aria-label="Step 2: contact the flight surgeon">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-semibold text-slate-50">2 · Contact the flight surgeon.</h2>
             <span className="inline-flex items-center gap-2 text-base font-semibold text-ok"><Send aria-hidden size={18} /> PRIORITY report sent {emergency.reportSentAt ? clock(emergency.reportSentAt) : ''} (simulated)</span>
@@ -126,7 +126,7 @@ export function Emergency() {
         </section>
         )}
 
-        <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 3: while you wait">
+        <section className="rounded-2xl border border-contrast/15 bg-space-900 p-5" aria-label="Step 3: while you wait">
           <h2 className="mb-3 text-xl font-semibold text-slate-50">{t('step3')}</h2>
           <ul className="flex flex-col gap-2">
             {steps.map((text) => (
@@ -143,7 +143,7 @@ export function Emergency() {
           </p>
         </section>
 
-        <section className="rounded-2xl border border-white/15 bg-space-900 p-5" aria-label="Step 4: procedures">
+        <section className="rounded-2xl border border-contrast/15 bg-space-900 p-5" aria-label="Step 4: procedures">
           <h2 className="inline-flex items-center gap-2 text-xl font-semibold text-slate-50"><Stethoscope aria-hidden size={22} /> {home ? t('step4Home') : "4 · Follow your mission's medical procedures and the crew medical officer."}</h2>
         </section>
 
@@ -174,7 +174,7 @@ export function Emergency() {
         </div>
 
         {closing && (
-          <div role="group" aria-label={t('whyClosing')} className="rounded-2xl border-2 border-white/25 bg-space-900 p-5">
+          <div role="group" aria-label={t('whyClosing')} className="rounded-2xl border-2 border-contrast/25 bg-space-900 p-5">
             <p className="mb-3 text-lg font-semibold text-slate-100">{t('whyClosing')}</p>
             <div className="flex flex-wrap gap-3">
               {REASONS.map((r) => <Button key={r.id} variant="secondary" onClick={() => { closeEmergency(r.id); setClosing(false); }}>{r.id === 'help_arrived' ? t('helpArrived') : r.id === 'feel_better' ? t('feelBetter') : t('mistake')}</Button>)}

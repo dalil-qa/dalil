@@ -15,12 +15,12 @@ export function MetricTile({ label, value, unit, status, source, spark, size = '
   onClick?: () => void;
 }) {
   const lg = size === 'lg';
-  const border = status ? STATUS_INFO[status].border : 'border-white/10';
+  const border = status ? STATUS_INFO[status].border : 'border-contrast/10';
   const Tag = onClick ? 'button' : 'div';
   return (
     <Tag
       {...(onClick ? { type: 'button' as const, onClick } : {})}
-      className={`flex flex-col gap-2 rounded-2xl border bg-space-900 p-4 text-left ${border} ${onClick ? 'hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-cyan-400' : ''}`}
+      className={`flex flex-col gap-2 rounded-2xl border bg-space-900 p-4 text-left ${border} ${onClick ? 'hover:bg-contrast/5 focus-visible:outline-2 focus-visible:outline-cyan-400' : ''}`}
     >
       <div className="flex items-center justify-between gap-2">
         <span className="text-base font-medium text-slate-300">{label}</span>

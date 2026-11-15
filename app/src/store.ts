@@ -26,6 +26,8 @@ import type {
 } from './types.ts';
 
 export type ConnectionState = 'none' | 'connecting' | 'connected' | 'lost';
+/** Light is the default; dark is the original mission-control look. */
+export type Theme = 'light' | 'dark';
 
 /** What the Check screen shows while a check runs. */
 export interface LiveCheck {
@@ -84,6 +86,7 @@ interface DalilState {
   homeMode: boolean;
   /** Home mode language (the space screens stay in English). */
   lang: Lang;
+  theme: Theme;
 
   // actions
   connectDevice: (kind: 'serial' | 'simulator', options?: { reuseGranted?: boolean }) => Promise<void>;
@@ -105,6 +108,7 @@ interface DalilState {
   setUseSimulator: (on: boolean) => void;
   setHomeMode: (on: boolean) => void;
   setLang: (lang: Lang) => void;
+  setTheme: (theme: Theme) => void;
   /** Light the station for a status (used after typed readings). An open emergency keeps it red. */
   showStatusLight: (status: Status) => void;
   resetDemo: () => void;
@@ -338,6 +342,7 @@ export const useStore = create<DalilState>()(
         simScenario: 'normal',
         homeMode: false,
         lang: 'en',
+        theme: 'light',
 
         connectDevice: async (kind, options) => {
           await closeLink();
@@ -441,6 +446,7 @@ export const useStore = create<DalilState>()(
         setUseSimulator: (on) => set({ useSimulator: on }),
         setHomeMode: (on) => set({ homeMode: on }),
         setLang: (lang) => set({ lang }),
+        setTheme: (theme) => set({ theme }),
 
         resetDemo: () => {
           abortRunningCheck();
@@ -543,6 +549,7 @@ export const useStore = create<DalilState>()(
         emergency: s.emergency,
         emergencies: s.emergencies.filter((e) => e.crewId !== 'guest'),
         lang: s.lang,
+        theme: s.theme,
       }),
     },
   ),
