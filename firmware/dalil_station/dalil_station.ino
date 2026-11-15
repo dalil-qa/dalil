@@ -25,7 +25,7 @@
 #include <Adafruit_SSD1306.h>
 
 // ----------------------------------- settings (change and upload again) ---------------------------------
-const char *FW_VERSION = "1.2";          // shown by the app; raise it every time you upload a new version
+const char *FW_VERSION = "1.3";          // shown by the app; raise it every time you upload a new version
 const uint32_t FINGER_IR_MIN = 50000;    // infrared above this = a finger is on the MAX30102
 const int FINGER_SECONDS = 20;           // seconds of finger time per check
 const int NO_FINGER_TIMEOUT_S = 15;      // no finger this long in a row = error no_finger
@@ -53,6 +53,13 @@ const float SKIN_EMISSIVITY = 0.98;      // skin emits slightly less than the se
 const float TEMP_STABLE_RANGE = 0.3;     // 3 readings within 0.3 C = the forehead is held still at the right distance
 const float WEAK_PULSE_PERCENT = 0.15;   // pulse strength (AC/DC of infrared) below this % = weak signal: show a hint
 const float MOVE_PERCENT = 3.0;          // infrared level changing more than this % between windows = moving: show a hint
+// The Dalil algorithm (added in 1.3; see dalilSample). Both algorithms always run; this picks which one reports.
+const bool USE_DALIL_ALGORITHM = false;  // false = Maxim's sample algorithm (tested at the event), true = the new one
+const bool AUTO_BRIGHTNESS = false;      // true = adjust the LED brightness while the finger settles
+const bool SHADOW_DEBUG = true;          // once a second during the finger step, print "# maxim ... | dalil ..." to compare
+const int LED_DEFAULT = 60;              // LED brightness (0-255) when a finger first lands
+const uint32_t IR_TARGET_LOW = 90000;    // automatic brightness keeps the infrared level between these two
+const uint32_t IR_TARGET_HIGH = 220000;  // (the 18-bit sensor saturates near 262000)
 // Standalone colour limits (used only when the app is not connected)
 const int RED_HR_LOW = 40, RED_HR_HIGH = 130, RED_SPO2_BELOW = 90;
 const float RED_TEMP_FROM = 38.0;
@@ -119,6 +126,29 @@ unsigned long lastPulseSampleMs = 0, lastBeatMs = 0, lastPulseResultMs = 0;
 unsigned long beatIntervals[8];
 int beatCount = 0, beatIndex = 0;
 int pulseAmplitude = 0;
+
+// Results from each algorithm. The selected one is copied into goodHr / goodSpo2 / goodCount / resultCount.
+struct Results { int hr[MAX_GOOD]; int spo2[MAX_GOOD]; int good; int all; };
+Results maximRes, dalilRes;
+
+// The sensor runs at 100 samples a second; Maxim's algorithm gets the average of every 4 (25 a second, as it expects).
+uint32_t accRed = 0, accIr = 0;
+int accN = 0;
+
+// The Dalil algorithm: filters, beat finder and the last 2.56 s of raw samples (100 a second).
+const int DW = 256;
+uint32_t dRawIr[DW], dRawRed[DW];
+unsigned long dN = 0;              // samples since the finger settled
+bool dInit = false;
+float dDcIr = 0, dLp1 = 0, dLp2 = 0, dPrev1 = 0, dPrev2 = 0, dEnvelope = 0;
+long dLastPeak = -1;
+int dRecent[8];                    // recent beat intervals (samples), to spot missed or extra beats
+int dRecentCount = 0, dRecentIndex = 0;
+
+// Automatic LED brightness (only while the finger settles).
+int ledAmp = 60;
+uint32_t agcSum = 0;
+int agcN = 0;
 
 // Forehead.
 unsigned long lastTempReadMs = 0, firstForeheadMs = 0;
@@ -421,6 +451,10 @@ void startCheck() {
   hrValue = spo2Value = -1;
   tempValue = qValue = NAN;
   goodCount = resultCount = 0;
+  clearResults(maximRes);
+  clearResults(dalilRes);
+  dalilReset();
+  if (AUTO_BRIGHTNESS) setLed(LED_DEFAULT);
   resultOnScreen = false;
   errorUntil = 0;
   shownColour = C_OFF;
@@ -449,22 +483,154 @@ void cancelCheck() { failCheck("cancelled", "Check cancelled", "Cancelled"); }
 // Sensors: read in every state, without blocking
 // =====================================================================================================
 
+void clearResults(Results &r) { r.good = 0; r.all = 0; }
+
+void addResult(Results &r, bool valid, int hr, int spo2) {
+  r.all++;
+  if (valid && r.good < MAX_GOOD) {
+    r.hr[r.good] = hr;
+    r.spo2[r.good] = spo2;
+    r.good++;
+  }
+}
+
+// Make one algorithm's results the check's values (hr, spo2, q and the count MIN_GOOD_RESULTS looks at).
+void publish(const Results &r) {
+  goodCount = r.good;
+  resultCount = r.all;
+  for (int i = 0; i < r.good; i++) { goodHr[i] = r.hr[i]; goodSpo2[i] = r.spo2[i]; }
+  if (goodCount > 0) {
+    hrValue = robustCenter(goodHr, goodCount, HR_OUTLIER_MIN_BAND);
+    spo2Value = robustCenter(goodSpo2, goodCount, SPO2_OUTLIER_MIN_BAND);
+  }
+  qValue = resultCount > 0 ? (float)goodCount / (float)resultCount : NAN;
+}
+
+void dalilReset() {
+  dInit = false;
+  dN = 0;
+  dEnvelope = 0;
+  dLastPeak = -1;
+  dPrev1 = dPrev2 = 0;
+  dRecentCount = dRecentIndex = 0;
+}
+
+// One heartbeat, from peak a to peak b (sample numbers): heart rate from the time between them, and SpO2 from how
+// much red pulses compared with infrared over that beat ("ratio of ratios"). Each beat is checked on its own.
+void dalilBeat(long a, long b) {
+  int n = (int)(b - a);
+  uint32_t irStart = dRawIr[a % DW], irEnd = dRawIr[b % DW];
+  uint32_t redStart = dRawRed[a % DW], redEnd = dRawRed[b % DW];
+  float irMin = 1e12, irMax = -1e12, redMin = 1e12, redMax = -1e12;
+  double irSum = 0, redSum = 0;
+  for (long k = a; k <= b; k++) {
+    // A 7-sample (70 ms) average first: random noise would otherwise make the highest-minus-lowest span bigger,
+    // and it hits the weaker red signal harder, which would skew SpO2 low. Both colours are smoothed the same way.
+    float irAvg = 0, redAvg = 0;
+    int m = 0;
+    for (long j = k - 3; j <= k + 3; j++) {
+      if (j < a || j > b) continue;
+      irAvg += dRawIr[j % DW];
+      redAvg += dRawRed[j % DW];
+      m++;
+    }
+    irAvg /= m;
+    redAvg /= m;
+    float t = (float)(k - a) / (float)n;
+    // Remove the straight-line drift across the beat, so slow changes don't inflate the pulse size.
+    float ir = irAvg - ((float)irStart + ((float)irEnd - (float)irStart) * t);
+    float red = redAvg - ((float)redStart + ((float)redEnd - (float)redStart) * t);
+    irMin = min(irMin, ir); irMax = max(irMax, ir);
+    redMin = min(redMin, red); redMax = max(redMax, red);
+    irSum += dRawIr[k % DW];
+    redSum += dRawRed[k % DW];
+  }
+  float dcIr = irSum / (n + 1), dcRed = redSum / (n + 1);
+  float acIr = irMax - irMin, acRed = redMax - redMin;
+  int hr = (int)lroundf(6000.0f / (float)n);  // 100 samples a second
+  bool valid = hr >= 40 && hr <= 180 && dcIr > 0 && dcRed > 0 && acIr > 0;
+  float perfusion = valid ? 100.0f * acIr / dcIr : 0;   // pulse strength, %
+  float r = valid ? (acRed / dcRed) / (acIr / dcIr) : 0;
+  // Maxim's calibration curve (the same one its algorithm's look-up table follows).
+  float spo2f = -45.060f * r * r + 30.354f * r + 94.845f;
+  if (spo2f > 100) spo2f = 100;
+  valid = valid && perfusion >= 0.02f && perfusion <= 10.0f && r > 0.3f && r < 1.6f && spo2f >= 70;
+  // Rhythm check: a beat much shorter or longer than the recent ones is probably a missed or extra peak.
+  if (dRecentCount >= 3) {
+    int med = median(dRecent, dRecentCount);
+    if (abs(n - med) > med / 4) valid = false;
+  }
+  dRecent[dRecentIndex] = n;
+  dRecentIndex = (dRecentIndex + 1) % 8;
+  if (dRecentCount < 8) dRecentCount++;
+  addResult(dalilRes, valid, hr, (int)lroundf(spo2f));
+  if (USE_DALIL_ALGORITHM) publish(dalilRes);
+}
+
+// The Dalil algorithm, sample by sample (100 a second, after the finger has settled):
+// 1. remove the slow level (a moving average of about 0.5 s), 2. smooth out fast noise (two gentle low-pass steps,
+// leaving the heartbeat band of about 0.5-4 Hz), 3. find each beat as a peak above half of a slowly fading envelope,
+// at least 300 ms after the last one, 4. measure each beat on its own (dalilBeat).
+void dalilSample(uint32_t red, uint32_t ir) {
+  if (!dInit) {
+    dDcIr = ir;
+    dLp1 = dLp2 = 0;
+    dInit = true;
+  }
+  dDcIr += 0.02f * ((float)ir - dDcIr);
+  float hp = -((float)ir - dDcIr);   // inverted: each heartbeat makes the reflected infrared dip
+  dLp1 += 0.3f * (hp - dLp1);
+  dLp2 += 0.3f * (dLp1 - dLp2);
+  float f = dLp2;
+  int idx = dN % DW;
+  dRawIr[idx] = ir;
+  dRawRed[idx] = red;
+  dEnvelope = max(dEnvelope * 0.995f, f);
+  if (dN >= 100 && dPrev1 > dPrev2 && dPrev1 >= f && dPrev1 > 0 && dPrev1 > 0.5f * dEnvelope) {  // skip the first second
+    long peak = (long)dN - 1;
+    if (dLastPeak < 0 || peak - dLastPeak >= 30) {          // at least 300 ms apart (at most 200 bpm)
+      if (dLastPeak >= 0 && peak - dLastPeak <= 150) dalilBeat(dLastPeak, peak);  // at most 1.5 s (at least 40 bpm)
+      dLastPeak = peak;
+    }
+  }
+  dPrev2 = dPrev1;
+  dPrev1 = f;
+  dN++;
+}
+
+// Automatic brightness while the finger settles: aim for a strong infrared level that isn't saturated.
+void agcSample(uint32_t ir) {
+  agcSum += ir / 16;  // scaled down so the sum fits
+  agcN++;
+  if (agcN < 25) return;
+  uint32_t avg = (agcSum / agcN) * 16;
+  agcSum = 0;
+  agcN = 0;
+  int next = ledAmp;
+  if (avg > IR_TARGET_HIGH) next = max(10, (ledAmp * 4) / 5);
+  else if (avg < IR_TARGET_LOW) next = min(255, (ledAmp * 5) / 4 + 1);
+  if (next != ledAmp) {
+    ledAmp = next;
+    particleSensor.setPulseAmplitudeRed(ledAmp);
+    particleSensor.setPulseAmplitudeIR(ledAmp);
+  }
+}
+
+void setLed(int amp) {
+  ledAmp = amp;
+  if (!hasMax) return;
+  particleSensor.setPulseAmplitudeRed(amp);
+  particleSensor.setPulseAmplitudeIR(amp);
+}
+
 // The algorithm runs on the latest 100 samples; a result is good only if valid and believable.
 void runSpo2Algorithm() {
   int32_t spo2, hr;
   int8_t validSpo2, validHr;
   maxim_heart_rate_and_oxygen_saturation(irBuffer, 100, redBuffer, &spo2, &validSpo2, &hr, &validHr);
-  resultCount++;
-  if (validHr == 1 && validSpo2 == 1 && hr >= 40 && hr <= 180 && spo2 >= 70 && spo2 <= 100 && goodCount < MAX_GOOD) {
-    goodHr[goodCount] = hr;
-    goodSpo2[goodCount] = spo2;
-    goodCount++;
-  }
-  if (goodCount > 0) {
-    hrValue = robustCenter(goodHr, goodCount, HR_OUTLIER_MIN_BAND);
-    spo2Value = robustCenter(goodSpo2, goodCount, SPO2_OUTLIER_MIN_BAND);
-  }
-  qValue = (float)goodCount / (float)resultCount;
+  bool valid = validHr == 1 && validSpo2 == 1 && hr >= 40 && hr <= 180 && spo2 >= 70 && spo2 <= 100;
+  addResult(maximRes, valid, hr, spo2);
+  if (!USE_DALIL_ALGORITHM) publish(maximRes);
 
   // Coaching: pulse strength (perfusion) and movement, from the infrared window.
   uint32_t mn = irBuffer[0], mx = irBuffer[0];
@@ -506,7 +672,19 @@ void readMax30102() {
     particleSensor.nextSample();
     lastIr = ir;
     bool on = ir > FINGER_IR_MIN;
-    if (state == FINGER && on && fingerOn && millis() >= settleUntil) addMaxSample(red, ir);
+    if (state != FINGER || !on || !fingerOn) continue;
+    if (millis() < settleUntil) {   // settling: no results, but the brightness may adjust
+      if (AUTO_BRIGHTNESS) agcSample(ir);
+      continue;
+    }
+    accRed += red;
+    accIr += ir;
+    if (++accN == 4) {              // Maxim's algorithm: 25 averaged samples a second
+      addMaxSample(accRed / 4, accIr / 4);
+      accRed = accIr = 0;
+      accN = 0;
+    }
+    dalilSample(red, ir);           // the Dalil algorithm: every sample
   }
 }
 
@@ -563,6 +741,25 @@ bool currentFinger() {
 
 int secondsLeftUp(long msLeft) { return msLeft <= 0 ? 0 : (int)((msLeft + 999) / 1000); }
 
+// "# maxim hr=72 spo2=97 q=0.80 n=14 | dalil hr=73 spo2=98 q=0.90 n=20 | led=60": both algorithms side by side.
+// Lines starting with # are debug lines: the app ignores them (contract 9.5).
+void printShadow() {
+  const Results *both[2] = {&maximRes, &dalilRes};
+  char part[2][48];
+  for (int k = 0; k < 2; k++) {
+    const Results &r = *both[k];
+    if (r.good > 0) {
+      snprintf(part[k], sizeof part[k], "hr=%d spo2=%d q=%.2f n=%d", robustCenter(r.hr, r.good, HR_OUTLIER_MIN_BAND),
+               robustCenter(r.spo2, r.good, SPO2_OUTLIER_MIN_BAND), (float)r.good / (float)r.all, r.good);
+    } else {
+      snprintf(part[k], sizeof part[k], "hr=-- spo2=-- n=0/%d", r.all);
+    }
+  }
+  char line[160];
+  snprintf(line, sizeof line, "# maxim %s | dalil %s | led=%d", part[0], part[1], ledAmp);
+  Serial.println(line);
+}
+
 void runFinger() {
   unsigned long now = millis();
   bool on = currentFinger();
@@ -572,7 +769,13 @@ void runFinger() {
     settleUntil = now + FINGER_SETTLE_MS;
     lastWindowDc = 0;
     fingerHint = HINT_NONE;
+    dalilReset();
+    accRed = accIr = 0;
+    accN = 0;
+    agcSum = 0;
+    agcN = 0;
   }
+  if (!on && fingerOn && AUTO_BRIGHTNESS) setLed(LED_DEFAULT);  // finger lifted: back to the default brightness
   if (!on && fingerOn) noFingerSince = now;
   fingerOn = on;
   if (fingerOn && now >= settleUntil) {  // the settling time doesn't count towards the 20 s
@@ -600,6 +803,7 @@ void runFinger() {
   if (now - lastLineMs >= 1000) {
     lastLineMs = now;
     sendMeasure("finger", hrValue, spo2Value, NAN, fingerOn, qValue, left);
+    if (SHADOW_DEBUG && hasMax) printShadow();
   }
 
   if (fingerOnMs >= (unsigned long)FINGER_SECONDS * 1000UL) {
@@ -803,7 +1007,9 @@ void setup() {
       if (!hasMax) delay(50);
     }
   }
-  if (hasMax) particleSensor.setup(60, 4, 2, 100, 411, 4096);  // 25 samples a second, red + IR
+  // 100 samples a second (no averaging in the sensor), red + IR. Maxim's algorithm gets the average of every 4.
+  if (hasMax) particleSensor.setup(LED_DEFAULT, 1, 2, 100, 411, 4096);
+  ledAmp = LED_DEFAULT;
   usePulse = !hasMax && PULSE_SENSOR_FALLBACK;
   if (usePulse) analogReadResolution(12);
   TwoWire &mlxBus = MLX_ON_WIRE1 ? Wire1 : Wire;
