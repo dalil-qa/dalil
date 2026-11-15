@@ -7,7 +7,7 @@ One name for both: Baseera is how we see the problem, and what we give people: a
 **Memory anchor:** **`Personal. Sourced. Immediate.`** Said in full at the start and at the end, and each word once in the middle.
 **Slides:** [SLIDES.md](SLIDES.md) · **Everything else (background, hardware, the maths, every screen, the full Q&A):** [PRESENTER_MASTER_GUIDE.md](PRESENTER_MASTER_GUIDE.md) · **Health sources:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
 
-> **Why "Sourced", not "Proven":** our thresholds still need a clinician's sign-off ([CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)), so "proven" invites the question "proven by whom?". "Sourced" is true today: every tip cites NASA or a public health body, and it matches *dalil* = evidence.
+> **Why "Sourced", not "Proven":** our thresholds still need a clinician's sign-off ([CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)), so "proven" invites the question "proven by whom?". "Sourced" is true today: every tip cites NASA or a public health body.
 
 ---
 
