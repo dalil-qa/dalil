@@ -1,4 +1,4 @@
-# Team Baseera (بصيرة) — Dalil (دليل) Complete Presenter Master Guide
+# Baseera (بصيرة), by Team Baseera: Complete Presenter Master Guide
 
 Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challenge Doha 2026**—in one document.
 
@@ -9,14 +9,14 @@ Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challen
 ## PART 1: Identity, Core Story & Stage Roles
 
 ### 1.1 Names & Meaning
-- **Team Name:** **Team Baseera (بصيرة)** — Arabic for *"insight / foresight / clear vision"*. Baseera is how we see the problem; Dalil is what we give people.
-- **Project Name:** **Dalil (دليل)** — Arabic for both *"guide"* and *"evidence"*.
-  - **Guide:** Tells an astronaut (or an older adult at home in Qatar) what their numbers mean and what to do next.
-  - **Evidence:** Every vital range, spaceflight risk, and health action cites a verified NASA document or public-health authority (NHS, CDC, WHO, MedlinePlus).
+- **Team Name:** **Team Baseera (بصيرة)** — Arabic for *"insight / foresight / clear vision"*. One name for both: how we see the problem, and what we give people.
+- **Project Name:** **Baseera (بصيرة)**, the same as the team: Arabic for *"insight"*, seeing clearly.
+  - **Seeing clearly:** Shows an astronaut (or an older adult at home in Qatar) what their numbers mean and what to do next.
+  - **Grounded in sources:** Every vital range, spaceflight risk, and health action cites a verified NASA document or public-health authority (NHS, CDC, WHO, MedlinePlus).
 - **Challenge:** *Create Health Monitoring Software for Astronauts on Space Missions* (Category: **HealthTech** · Stage: **Working MVP**).
 - **3-Word Memory Anchor (repeated 3× in the pitch):** **`Personal. Sourced. Immediate.`** *("Sourced", not "Proven": the thresholds still await clinician sign-off, so "proven" invites "proven by whom?". Every tip is sourced today.)*
 
-### 1.2 Why Dalil Exists (The Problem in Space & in Qatar)
+### 1.2 Why Baseera Exists (The Problem in Space & in Qatar)
 1. **The Communication Delay in Deep Space:**
    - On the Space Station (ISS), Earth is **1 second** away. On the Moon, it is **1.3 seconds** away.
    - On a **Mars mission**, radio signals take from about **3 minutes** (planets closest) to **up to 22 minutes one way** (planets farthest), so **up to 44 minutes** for a reply to come back. The app's Mars transit demo uses **14 minutes one way / 28 minutes round trip** as an example. **On stage, always say "up to 22 minutes"**, never "14 to 22".
@@ -27,10 +27,10 @@ Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challen
    - An older parent living at home in Doha with diabetes or high blood pressure faces the exact same gap: their doctor is not in the room every morning, smartwatches have tiny screens and need daily charging, and subtle changes go unnoticed until they become an emergency.
 
 ### 1.3 Presenter Division (Why Sulaiman Speaks Last)
-- **The Crew Member (actor, no lines):** the Station Host, or a rehearsed volunteer, or Sulaiman only if nobody else is there. Gets dizzy and sits down safely at `0:00`, gets up on Abdullah's "Now rewind". It's a dizzy spell (orthostatic intolerance, NASA TB-019), **never a heart attack**: Dalil can't detect heart attacks, and the drama must not suggest it can.
+- **The Crew Member (actor, no lines):** the Station Host, or a rehearsed volunteer, or Sulaiman only if nobody else is there. Gets dizzy and sits down safely at `0:00`, gets up on Abdullah's "Now rewind". It's a dizzy spell (orthostatic intolerance, NASA TB-019), **never a heart attack**: Baseera can't detect heart attacks, and the drama must not suggest it can.
 - **Abdullah (Human Story, Hook & Qatari Impact — No Q&A):**
-  - **Part 1 (`0:00–0:50`, Slide 1):** a silent staged dizzy spell by the Crew Member (actor), the Mars signal-delay hook, "Now rewind" (the actor gets up), the about-twice-a-mission testing gap, and introducing Dalil.
-  - **Part 3 (`1:55–2:32`, Slide 5):** Connecting Mars to Doha, the 3 official Qatar statistics (WHO, IDF, STEPwise), and Dalil's built-in **Arabic & English Home Mode**.
+  - **Part 1 (`0:00–0:50`, Slide 1):** a silent staged dizzy spell by the Crew Member (actor), the Mars signal-delay hook, "Now rewind" (the actor gets up), the about-twice-a-mission testing gap, and introducing Baseera.
+  - **Part 3 (`1:55–2:32`, Slide 5):** Connecting Mars to Doha, the 3 official Qatar statistics (WHO, IDF, STEPwise), and Baseera's built-in **Arabic & English Home Mode**.
   - **During Q&A:** Stands beside Sulaiman; Sulaiman answers 100% of questions.
 - **Sulaiman (Technical MVP, NASA Evidence, Close & 100% of Q&A):**
   - **Part 2 (`0:50–1:55`, Slides 2–4):** How the 30-second station + personal baseline work (`Slide 2`), the Day 47 Mars amber and red walkthrough on **sample mission data** (`Slide 3`), and the comparison table (`Slide 4`).
@@ -39,7 +39,7 @@ Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challen
 
 ### 1.4 The Two-Screen Stage Setup
 - **Main Stage Screen (Projector):** Shows **only the slides (`Slide 0` to `Slide 6`)** with high-resolution screenshots of the app. **Zero `Alt+Tab` switching** on the projector—no HDMI lag or resolution glitches.
-- **Judges' Desk (Right in Front of Judges):** A dedicated laptop running the live Dalil web app (`F11` full-screen, sleep disabled) connected via USB to the physical **Dalil Crew Health Station**.
+- **Judges' Desk (Right in Front of Judges):** A dedicated laptop running the live Baseera web app (`F11` full-screen, sleep disabled) connected via USB to the physical **Baseera Crew Health Station**.
   - **Before `0:00`:** Leave the desk laptop open on Crew Member 2's **Today** screen (`Mars transit · Day 47`).
   - **At `2:52` (Start of Q&A):** As Sulaiman invites the judges to try it, the Station Host wipes the finger slot, switches the desk laptop to **Guest → Check**, and lets a judge press `START` to run a live 30-second check on themselves while Sulaiman answers Q&A.
 
@@ -53,7 +53,7 @@ Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challen
 
 ---
 
-## PART 3: The Physical Hardware ("Dalil Crew Health Station")
+## PART 3: The Physical Hardware ("Baseera Crew Health Station")
 
 ### 3.1 Inside the Box (~QAR 290 planned, including spares: **confirm against the receipts before quoting it**)
 
@@ -88,7 +88,7 @@ All status decisions are made by **100% deterministic TypeScript rules** (`statu
 
 ### 4.2 All 11 Indicators & Their Sources (`thresholds.json`)
 
-| Indicator | How It Enters Dalil | Green (`OK`) | Amber (`Watch`) | Red (`Act`) | Official Source |
+| Indicator | How It Enters Baseera | Green (`OK`) | Amber (`Watch`) | Red (`Act`) | Official Source |
 |---|---|---|---|---|---|
 | **1. Resting Heart Rate (`hr`)** | Measured by station (finger) | `60–100 bpm` | `40–59` or `101–130 bpm` *(or baseline rule)* | `< 40` or `> 130 bpm` | **MedlinePlus** (`60–100 bpm` normal resting; `40/130` & baseline band are team defaults) |
 | **2. Blood Oxygen (`spo2`)** | Measured by station (finger) | `95–100%` | `93–94%` | `≤ 92%` | **NHS England** home pulse oximetry guide |
@@ -102,7 +102,7 @@ All status decisions are made by **100% deterministic TypeScript rules** (`statu
 | **11. Meals (`meals`)** | Quick Log (`0–3`) | `3 meals` | `< 3 meals` | *(Never Red)* | **NASA OCHMO TB-013** Food & Nutrition |
 
 ### 4.3 The Personal Baseline Algorithm (`baseline.ts`)
-1. **7-Day Rolling Median:** For `hr` and `temp`, Dalil takes the median of daily readings over the **7 days before today** (`today - 7` to `today - 1`), excluding pre-flight days (`day <= 0`) and weak-signal readings (`q < 0.5`). Requires **at least 5 days** of data (otherwise it says *"Still learning your normal: X of 5 days so far"*).
+1. **7-Day Rolling Median:** For `hr` and `temp`, Baseera takes the median of daily readings over the **7 days before today** (`today - 7` to `today - 1`), excluding pre-flight days (`day <= 0`) and weak-signal readings (`q < 0.5`). Requires **at least 5 days** of data (otherwise it says *"Still learning your normal: X of 5 days so far"*).
 2. **3-Day Sustained Deviation (`Watch`):**
    - **Heart Rate:** More than **`8 bpm`** above or below your 7-day normal for **3 consecutive days** (`today`, `yesterday`, `2 days ago`).
    - **Skin Temperature:** More than **`1.0 °C`** above or below your 7-day normal for **3 consecutive days**.
@@ -112,7 +112,7 @@ All status decisions are made by **100% deterministic TypeScript rules** (`statu
    - **This is sample data** (real astronaut vitals are private). Say so on stage.
    - Days 38–44: Crew Member 2's heart rate sits at **`63–65 bpm`**. On Day 45 it **jumps to `74 bpm` and stays there** on Days 46 and 47. It's a step, not a slow creep, so say "jumped ten beats and stayed up", never "crept up".
    - Their 7-day normal is `64 bpm` on Days 45–46 and `65 bpm` on Day 47 (the window then includes two of the 74s), so each day is `+9` to `+10 bpm` above normal, beyond the `8 bpm` band for 3 days in a row. Meanwhile sleep fell to `5.5 h`, mood to `2/5`, water to `1.2 L` and meals to `2/3`, with `fatigue` logged on Days 46–47.
-   - `74 bpm` is well inside the textbook `60–100 bpm` green range, so a normal device says nothing. Dalil catches the personal shift over 3 days and turns **Amber (`Watch`)**.
+   - `74 bpm` is well inside the textbook `60–100 bpm` green range, so a normal device says nothing. Baseera catches the personal shift over 3 days and turns **Amber (`Watch`)**.
 
 ---
 
@@ -184,7 +184,7 @@ All status decisions are made by **100% deterministic TypeScript rules** (`statu
 9. **"Where did your Qatar statistics come from?"**
    > "Every figure is officially sourced: the **tenfold growth** of residents aged 60+ (from **~60,000 to ~690,000 by 2050**) is from the **WHO's Healthy Ageing report on Qatar**; the **24.6%** adult diabetes rate is from the **2024 International Diabetes Federation Atlas**; and the **32.9%** hypertension figure for Qatari nationals aged 18–64 is from the **Qatar STEPwise national survey** published with the Ministry of Public Health."
 10. **"Why wouldn't an older person in Qatar just use an Apple Watch?"**
-    > "Three reasons: smartwatches have tiny menus, need daily charging, and suffer from wrist-motion noise. Dalil sits plugged in on the bedside table with a steady fingertip slot, and its built-in **Arabic and English Home Mode** gives older parents huge text, one giant Start button, plain-language sentences, and a one-tap alert to family or 999."
+    > "Three reasons: smartwatches have tiny menus, need daily charging, and suffer from wrist-motion noise. Baseera sits plugged in on the bedside table with a steady fingertip slot, and its built-in **Arabic and English Home Mode** gives older parents huge text, one giant Start button, plain-language sentences, and a one-tap alert to family or 999."
 11. **"Who would use or pay for this in Qatar?"**
     > "In space, crew medical operations issue it in the mission kit. Here in Qatar, we target home-care services and primary health clinics following up older adults managing hypertension and diabetes—starting with a clinic pilot after clinician and Ministry of Public Health sign-off."
 
@@ -199,7 +199,7 @@ All status decisions are made by **100% deterministic TypeScript rules** (`statu
     > "It helped draft the code and text, and it powers the Coach. The team tested and checked everything, and it's disclosed on our Sources page and in the README. The AI never decides a status colour."
 16. **"Was the Day 47 data real?"**
     > "No, it's sample mission data, and the slides say so. Real astronaut vitals are private. What's real is the station: the check you just did used live sensor readings."
-17. **"Would Dalil have caught that fall?"** *(expect this one: it's the opening drama)*
-    > "Not the fall itself: Dalil doesn't detect falls or heart attacks, and it says so. What it catches is the slower change in the days before, like the heart rate that jumped and stayed up for Crew Member 2. And if someone feels unwell, one button opens the emergency steps, offline."
+17. **"Would Baseera have caught that fall?"** *(expect this one: it's the opening drama)*
+    > "Not the fall itself: Baseera doesn't detect falls or heart attacks, and it says so. What it catches is the slower change in the days before, like the heart rate that jumped and stayed up for Crew Member 2. And if someone feels unwell, one button opens the emergency steps, offline."
 18. **"Why a dizzy spell?"**
     > "Feeling faint on standing is a real spaceflight risk. NASA documents it as orthostatic intolerance, in a Technical Brief we use as a source."

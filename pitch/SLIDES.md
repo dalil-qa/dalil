@@ -1,6 +1,6 @@
-# Slides: Team Baseera (بصيرة), Dalil (دليل)
+# Slides: Baseera (بصيرة), by Team Baseera
 
-**Team:** **Team Baseera (بصيرة)**: Arabic for *insight*, seeing clearly. · **Project:** **Dalil (دليل)**: Arabic for *guide* and *evidence*.
+**Team and project:** **Baseera (بصيرة)**: Arabic for *insight*, seeing clearly.
 **Presenters:** **Abdullah** (hook, Qatar) and **Sulaiman** (how it works, close, all Q&A).
 **Spoken script:** [PITCH_SCRIPT.md](PITCH_SCRIPT.md) (about 2:52 inside a 3:00 slot, opening with a short staged dizzy spell) · **Sources:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
 **Memory anchor:** **`Personal. Sourced. Immediate.`**
@@ -21,7 +21,7 @@
 ## 2. Slides 0 to 6
 
 ### Slide 0: Silent title *(on screen before anyone speaks)*
-- Centre: Dalil icon ([app/public/favicon.svg](../app/public/favicon.svg)) and wordmark **`Dalil دليل`**.
+- Centre: Baseera icon ([app/public/favicon.svg](../app/public/favicon.svg)) and wordmark **`Baseera بصيرة`**.
 - Tagline: ***"Evidence-based health guidance, from deep space to every home"***
 - Three pills: **`Team Baseera · بصيرة · insight`** | **`Category: HealthTech`** | **`Stage: Working MVP`**
 - Footer: `NASA Space Apps Challenge Doha 2026`
@@ -36,12 +36,12 @@
   - **`Up to 44 min`** *before a reply arrives*
   - Smaller: *"In flight, NASA's standard health tests: about 2× per mission."*
 - **Keep this slide calm and readable from the stage floor:** it stays up during the drama, so the judges' eyes go between the actor and the numbers.
-- **Bottom banner:** **`Dalil دليل · Personal. Sourced. Immediate.`**
+- **Bottom banner:** **`Baseera بصيرة · Personal. Sourced. Immediate.`**
 - **Source:** `NASA (Mars communication delay) · NASA Spaceflight Standard Measures (NTRS 20200001281)`
 
 ---
 
-### Slide 2: How Dalil works in 30 seconds *(0:50–1:12 · Sulaiman)*
+### Slide 2: How Baseera works in 30 seconds *(0:50–1:12 · Sulaiman)*
 Mind map, left to right:
 ```mermaid
 flowchart LR
@@ -50,7 +50,7 @@ flowchart LR
   C --> D1["Deep space\nreport for the flight surgeon\n+ countdown to Earth's reply"]
   C --> D2["Qatar Home Mode (Arabic/English)\nbig text · one button\nplain words · alert family"]
 ```
-- **Photo:** the real **Dalil Crew Health Station** beside the laptop, with a small tag: `Tested on the real board, 15 Nov 2026`.
+- **Photo:** the real **Baseera Crew Health Station** beside the laptop, with a small tag: `Tested on the real board, 15 Nov 2026`.
 - **Bottom:** **`Personal`** *learns your normal* · **`Sourced`** *every tip cites NASA or public health* · **`Immediate`** *answers in 30 seconds, offline*
 
 ---
@@ -64,16 +64,16 @@ Two screenshots side by side in laptop frames. **Tag both corners: `Sample missi
 
 ---
 
-### Slide 4: Why only Dalil *(1:45–1:55 · Sulaiman)*
+### Slide 4: Why only Baseera *(1:45–1:55 · Sulaiman)*
 
-| | Smartwatches & rings | Telehealth apps | Clinic visits / in-flight tests | **Dalil** |
+| | Smartwatches & rings | Telehealth apps | Clinic visits / in-flight tests | **Baseera** |
 |---|:---:|:---:|:---:|:---:|
 | Learns your personal normal | ✔ | ✘ | ✘ | **✔** |
 | A check every day, results on the spot | ✔ | ✘ | ✘ | **✔** |
 | Every health tip cites a NASA or public health source | ✘ | ✘ | ✘ | **✔** |
 | Guidance and emergency steps with no doctor or internet | ✘ | ✘ | ✘ | **✔** |
 | Simple Home Mode for older people, Arabic and English | ✘ | ✘ | ✘ | **✔** |
-| **Built for the delay: doctor's report + countdown to the reply + first steps while waiting** | **✘** | **✘** | **✘** | **✔ Only Dalil** |
+| **Built for the delay: doctor's report + countdown to the reply + first steps while waiting** | **✘** | **✘** | **✘** | **✔ Only Baseera** |
 
 - **Why the watch gets two ticks:** judges know Fitbit, Oura and Apple Watch learn your baseline. Admitting that makes the rows below believable.
 - **Footer (team resilience):** `Every part has a fallback: weak signal → measure again · no internet → written cards · station unplugged → labelled simulator`
@@ -95,7 +95,7 @@ Two screenshots side by side in laptop frames. **Tag both corners: `Sample missi
   1. **Bluetooth blood-pressure cuff and glucose meter** *(no typing)*
   2. **AI running on board** *(no Earth or cloud link needed)*
   3. **Clinic and home-care pilot in Qatar** *(clinician sign-off + Ministry of Public Health approval)*
-- **Centre:** Dalil logo · **"Dalil دليل: guide, and evidence."** · **`Personal. Sourced. Immediate.`**
+- **Centre:** Baseera logo · **"Baseera بصيرة: insight, seeing clearly."** · **`Personal. Sourced. Immediate.`**
 - **Bottom:** QR codes to the live app (`https://dalil.msulaiman00711.workers.dev`) and the GitHub repo (`https://github.com/dalil-qa/dalil`, **check it's public before 17:30**), and **Team Baseera · بصيرة · insight · Sulaiman & Abdullah**.
 - **Stage note:** leave this slide up for all of Q&A.
 
