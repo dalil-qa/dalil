@@ -70,6 +70,42 @@ describe('red-flag word check (12.5)', () => {
   it('stays quiet for ordinary questions, including non-symptom uses of "confused"', () => {
     for (const t of ['Why is my heart rate amber?', 'I feel a bit tired', 'how do I improve my sleep', 'I am confused by this chart', '']) assert.deepEqual(detectRedFlags(t), []);
   });
+  it('catches everyday ways of typing a red flag (no apostrophes, other word orders)', () => {
+    const cases: [string, string][] = [
+      ['I cant breathe', 'breathing'],
+      ['i can not breathe', 'breathing'],
+      ['I cannot breathe', 'breathing'],
+      ['trouble breathing', 'breathing'],
+      ['difficulty breathing since this morning', 'breathing'],
+      ['im breathless', 'breathing'],
+      ['short of breath', 'breathing'],
+      ['my chest hurts', 'chest_pain'],
+      ['chest is tight', 'chest_pain'],
+      ['tightness in my chest', 'chest_pain'],
+      ['tight chest', 'chest_pain'],
+      ['pain in my chest', 'chest_pain'],
+      ['I feel faint', 'fainting'],
+      ['I feel like fainting', 'fainting'],
+      ['slurred', 'stroke_signs'],
+      ['my face is drooping', 'stroke_signs'],
+      ["I can't move my arm", 'stroke_signs'],
+      ['numbness on one side', 'stroke_signs'],
+      ['sudden headache, really bad', 'severe_headache'],
+      ['I dont know where I am', 'confusion'],
+    ];
+    for (const [text, flag] of cases) assert.ok(detectRedFlags(text).includes(flag as never), `${text} → ${flag}`);
+  });
+  it('stays quiet for everyday space-health questions that only share a word', () => {
+    for (const t of [
+      'How much water should I drink?',
+      'I did a breathing exercise this morning',
+      'I took a short walk and practiced breathing',
+      'my chest strap fits fine',
+      'the rash is faintly visible',
+      'my legs feel weak after exercise',
+      'I have a mild headache',
+    ]) assert.deepEqual(detectRedFlags(t), [], t);
+  });
 });
 
 describe('the emergency report template', () => {
