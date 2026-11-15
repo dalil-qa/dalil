@@ -12,9 +12,19 @@ const dayValue = (readings: Reading[], indicator: IndicatorId, day: number): num
 
 const round1 = (v: number) => Math.round(v * 10) / 10;
 
+/** An insight and the indicators it is about, so Trends can show the ones for the chosen tab first. */
+export interface Insight {
+  text: string;
+  indicators: IndicatorId[];
+}
+
 export function insights(allReadings: Reading[], crewId: string, day: number): string[] {
+  return insightList(allReadings, crewId, day).map((i) => i.text);
+}
+
+export function insightList(allReadings: Reading[], crewId: string, day: number): Insight[] {
   const mine = allReadings.filter((r) => r.crewId === crewId);
-  const out: string[] = [];
+  const out: Insight[] = [];
 
   // 1 (and 2): an indicator outside its baseline band for as many days as its rule asks (3), with the sleep link when it applies.
   for (const indicator of ['hr', 'temp'] as IndicatorId[]) {
@@ -37,12 +47,14 @@ export function insights(allReadings: Reading[], crewId: string, day: number): s
     // Template 2: sleep at least 1 h below its own normal over the same days.
     const sleepToday = dayValue(mine, 'sleep', day);
     const sleepBase = computeBaseline(mine, 'sleep', day).value;
+    const about: IndicatorId[] = [indicator];
     if (indicator === 'hr' && sleepToday !== undefined && sleepBase !== null && sleepBase - sleepToday >= 1) {
       text += `, while sleep dropped to ${round1(sleepToday)} h. NASA warns that sleep loss affects health and performance.`;
+      about.push('sleep');
     } else {
       text += '.';
     }
-    out.push(text);
+    out.push({ text, indicators: about });
   }
 
   // 3: seven days with every assessed indicator green.
@@ -58,7 +70,7 @@ export function insights(allReadings: Reading[], crewId: string, day: number): s
         if (assessReading({ indicator, value: v, missionDay: d }, mine, t).status !== 'ok') steady = false;
       }
     }
-    if (steady && seen >= 7) out.push('All indicators steady this week. Keep your routine.');
+    if (steady && seen >= 7) out.push({ text: 'All indicators steady this week. Keep your routine.', indicators: ['hr', 'spo2', 'temp'] });
   }
   return out.slice(0, 2);
 }
