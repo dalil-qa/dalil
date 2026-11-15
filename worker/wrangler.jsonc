@@ -16,6 +16,15 @@
 	"ai": {
 		"binding": "AI"
 	},
+	// Rate limits (free on Cloudflare). The free Workers AI allowance is per day, and anyone can script requests that
+	// fake our Origin, so this caps the damage. Over the limit, the Worker returns "unavailable" and the app shows the cards.
+	// Periods can only be 10 or 60 seconds. Limits are approximate and counted per Cloudflare location.
+	"ratelimits": [
+		// Per internet address: generous, because a whole venue can share one Wi-Fi address.
+		{ "name": "IP_LIMITER", "namespace_id": "1001", "simple": { "limit": 20, "period": 60 } },
+		// Everyone together.
+		{ "name": "ALL_LIMITER", "namespace_id": "1002", "simple": { "limit": 60, "period": 60 } }
+	],
 	"vars": {
 		// Comma-separated list of origins allowed to call /coach (CORS + origin check).
 		// After the first Cloudflare Pages deploy, add its https://<name>.pages.dev address here.

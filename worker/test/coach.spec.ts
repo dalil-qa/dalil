@@ -173,3 +173,47 @@ describe('handleCoach with a fake model', () => {
 		expect(calls).toBe(0);
 	});
 });
+
+describe('rate limits', () => {
+	const post = () =>
+		new Request('https://coach.test/coach', {
+			method: 'POST',
+			headers: { Origin: 'http://localhost:5173', 'Content-Type': 'application/json', 'CF-Connecting-IP': '203.0.113.7' },
+			body: JSON.stringify(valid),
+		});
+	const good = { answer: 'Your heart rate is above your normal.', cardIds: ['hr-rising'], escalate: false };
+	const limiter = (success: boolean, seen: string[] = []) => ({ limit: async ({ key }: { key: string }) => (seen.push(key), { success }) });
+
+	it('answers when both limits allow it, keyed by internet address and for everyone', async () => {
+		const seen: string[] = [];
+		const res = await handleCoach(post(), { ALLOWED_ORIGINS: 'http://localhost:5173', IP_LIMITER: limiter(true, seen), ALL_LIMITER: limiter(true, seen) }, async () => good);
+		expect(res.status).toBe(200);
+		expect(seen.sort()).toEqual(['all', 'ip:203.0.113.7']);
+	});
+	it('returns 429 "unavailable" without calling the model when either limit is used up', async () => {
+		for (const env of [
+			{ ALLOWED_ORIGINS: 'http://localhost:5173', IP_LIMITER: limiter(false), ALL_LIMITER: limiter(true) },
+			{ ALLOWED_ORIGINS: 'http://localhost:5173', IP_LIMITER: limiter(true), ALL_LIMITER: limiter(false) },
+		]) {
+			let calls = 0;
+			const res = await handleCoach(post(), env, async () => (calls++, good));
+			expect(res.status).toBe(429);
+			expect(await res.json()).toEqual({ error: 'unavailable' });
+			expect(res.headers.get('Access-Control-Allow-Origin')).toBe('http://localhost:5173');
+			expect(calls).toBe(0);
+		}
+	});
+	it('does not count the browser preflight, and keeps answering if the limiter itself fails', async () => {
+		const seen: string[] = [];
+		const pre = await handleCoach(
+			new Request('https://coach.test/coach', { method: 'OPTIONS', headers: { Origin: 'http://localhost:5173' } }),
+			{ ALLOWED_ORIGINS: 'http://localhost:5173', IP_LIMITER: limiter(false, seen) },
+			async () => good,
+		);
+		expect(pre.status).toBe(204);
+		expect(seen).toEqual([]);
+		const broken = { limit: async () => { throw new Error('limiter down'); } };
+		const res = await handleCoach(post(), { ALLOWED_ORIGINS: 'http://localhost:5173', IP_LIMITER: broken }, async () => good);
+		expect(res.status).toBe(200);
+	});
+});
