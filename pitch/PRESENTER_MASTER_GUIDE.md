@@ -2,7 +2,7 @@
 
 Everything **Abdullah** and **Sulaiman** must know for **NASA Space Apps Challenge Doha 2026**—in one document.
 
-**The spoken script and stage cues live only in [PITCH_SCRIPT.md](PITCH_SCRIPT.md)** and the slides in [SLIDES.md](SLIDES.md), so there is one copy to keep up to date. This guide is the background, the hardware, the maths, the screens and the full Q&A.
+**The spoken script and stage cues live only in [PITCH_SCRIPT.md](PITCH_SCRIPT.md)** and the slides in [SLIDES.md](SLIDES.md), so there is one copy to keep up to date. This guide is the background, the hardware, the maths, the screens and the full Q&A. **The judges, the rubric and judge-specific answers:** [JUDGES_AND_RUBRIC.md](JUDGES_AND_RUBRIC.md). **The 30-second video:** [VIDEO_30S.md](VIDEO_30S.md).
 
 ---
 

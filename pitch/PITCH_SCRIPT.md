@@ -5,6 +5,7 @@ One name for both: Baseera is how we see the problem, and what we give people: a
 
 **Length:** about **2:52** in total: a 6-second silent drama, ~350 spoken words at a calm 135 words a minute, two 3-second pauses and the handoffs. That leaves **8 seconds spare** inside the **3:00** slot.
 **Memory anchor:** **`Personal. Sourced. Immediate.`** Said in full at the start and at the end, and each word once in the middle.
+**Judges and the rubric:** [JUDGES_AND_RUBRIC.md](JUDGES_AND_RUBRIC.md) (where each line scores) · **30-second video:** [VIDEO_30S.md](VIDEO_30S.md)
 **Slides:** [SLIDES.md](SLIDES.md) · **Everything else (background, hardware, the maths, every screen, the full Q&A):** [PRESENTER_MASTER_GUIDE.md](PRESENTER_MASTER_GUIDE.md) · **Health sources:** [docs/CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)
 
 > **Why "Sourced", not "Proven":** our thresholds still need a clinician's sign-off ([CONTENT_REVIEW.md](../docs/CONTENT_REVIEW.md)), so "proven" invites the question "proven by whom?". "Sourced" is true today: every tip cites NASA or a public health body.
@@ -96,15 +97,15 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 **[TONE: crisp and confident. Point at the station on the desk, then follow the mind map left to right.]**
 
 **Sulaiman:**
-> "For 30 seconds, you rest your finger and forehead on our station, the one on your desk now. If your finger moves, it throws the reading away instead of guessing.
+> "For 30 seconds, you rest your finger and forehead on the station on your desk. If your finger moves, it throws the reading away instead of guessing.
 >
-> **Personal:** Baseera learns your own normal over seven days, and checks each reading against it and against NASA and public health ranges."
+> **Personal:** Baseera learns your own normal over seven days, and checks each reading against it. Its advice is built on **NASA's crew health standard and 14 NASA technical briefs**."
 
 **[1:12 · Slide 3: Day 47 to Mars, two screenshots]**
 **[GESTURE: point back to where the Crew Member sat, then at the left screenshot (amber), then the right one (red, countdown).]**
 
 **Sulaiman:**
-> "Here are our crew member's days before, in **sample mission data**. Day 47 to Mars: their heart rate **jumped ten beats and stayed up for three days**, while sleep and mood fell. Each number still looks normal. Against their own normal it's a change, so Baseera turns **amber**, and the Coach explains why, citing NASA.
+> "Here are our crew member's days before, in **sample mission data**. Day 47 to Mars: their heart rate **jumped ten beats and stayed up for three days**, while sleep and mood fell. Each number still looks normal. Against their own normal it's a change, so Baseera turns **amber**, and the Coach explains why, with the source.
 >
 > If a reading turns **red**, fixed rules decide, never the AI. Baseera writes the report for the flight surgeon and counts down to Earth's reply, with first steps for now. **Immediate**, and offline."
 
@@ -122,14 +123,14 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 **[TONE: warm. Point to the stats as you say them.]**
 
 **Abdullah:**
-> "And it's not only astronauts. Here in Qatar, an older parent living at home faces the same gap. The **WHO** expects Qatar's people over 60 to grow **more than tenfold** by 2050: from about **60,000 to nearly 690,000**."
+> "Here in Qatar, an older parent at home faces the same gap. The **WHO** expects Qatar's people over 60 to grow **more than tenfold** by 2050: from about **60,000 to nearly 690,000**."
 
 **[PAUSE - 3 SECONDS]** *(Let "tenfold" land.)*
 
 **[GESTURE: count on fingers for the two health numbers, then point at the Home Mode screenshot.]**
 
 **Abdullah:**
-> "Nearly **one in four** adults here has diabetes. **One in three** Qatari nationals has high blood pressure. So Baseera already has **Home Mode**, in Arabic and English: big text, one button, plain words, one tap to alert family."
+> "Nearly **one in four** adults here has diabetes. **One in three** Qatari nationals has high blood pressure. So Baseera has **Home Mode**, in Arabic and English: big text, one button, one tap to alert family."
 
 *(Abdullah turns to Sulaiman and hands over the mic.)*
 
@@ -141,11 +142,13 @@ The Crew Member **gets dizzy and sits down**. They do **not** fall, and nobody s
 **[TONE: step to centre, slow down. One beat between each anchor word.]**
 
 **Sulaiman:**
-> "Next: Bluetooth blood-pressure cuffs, the AI running on board, and a clinic pilot here in Doha.
+> "The station costs about **[290] riyals** in parts. Next: a clinic and home-care pilot here in Doha, then Bluetooth cuffs and the AI running on board.
 >
-> We are **Team Baseera**, and this is **Baseera**, بصيرة: *insight*, seeing your health clearly. **Personal. Sourced. Immediate.** Thank you. Try the station while I take your questions."
+> We are **Team Baseera**. **Baseera**, بصيرة: seeing your health clearly. **Personal. Sourced. Immediate.** Thank you. Try the station while I take your questions."
 
 **[2:52 · Stop. Leave Slide 6 up for all of Q&A.]**
+
+> **[290]:** replace with the real receipt total before rehearsal. If you have no receipts, say "under 300 riyals" only if that is true, or drop the sentence.
 
 ---
 

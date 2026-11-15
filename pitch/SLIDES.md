@@ -51,6 +51,7 @@ flowchart LR
   C --> D2["Qatar Home Mode (Arabic/English)\nbig text · one button\nplain words · alert family"]
 ```
 - **Photo:** the real **Baseera Crew Health Station** beside the laptop, with a small tag: `Tested on the real board, 15 Nov 2026`.
+- **NASA source strip (for the Relevance score):** a thin row of document names under the mind map: `NASA-STD-3001 Vol. 1` · `14 NASA OCHMO technical briefs` · `NASA Spaceflight Standard Measures` · `Canadian Space Agency`. Text only, no NASA logo.
 - **Bottom:** **`Personal`** *learns your normal* · **`Sourced`** *every tip cites NASA or public health* · **`Immediate`** *answers in 30 seconds, offline*
 
 ---
@@ -91,10 +92,12 @@ Two screenshots side by side in laptop frames. **Tag both corners: `Sample missi
 ---
 
 ### Slide 6: What's next and close *(2:32–2:52 · Sulaiman, then all Q&A)*
-- **Top, 3 next steps:**
-  1. **Bluetooth blood-pressure cuff and glucose meter** *(no typing)*
-  2. **AI running on board** *(no Earth or cloud link needed)*
-  3. **Clinic and home-care pilot in Qatar** *(clinician sign-off + Ministry of Public Health approval)*
+- **Top, 3 next steps (pilot first, for the QSTP and QDB judges):**
+  1. **Clinic and home-care pilot in Doha** *(clinician sign-off + Ministry of Public Health approval)*
+  2. **Bluetooth blood-pressure cuff and glucose meter** *(no typing)*
+  3. **AI running on board** *(no Earth or cloud link needed)*
+- **Business strip, one line:** `About QAR [290] in parts · Customers: home-care services and clinics · Station + app subscription`
+- **Small badge:** `Built and tested in 2 days by Team Baseera · Open source (MIT)`
 - **Centre:** Baseera logo · **"Baseera بصيرة: insight, seeing clearly."** · **`Personal. Sourced. Immediate.`**
 - **Bottom:** QR codes to the live app (`https://dalil.msulaiman00711.workers.dev`) and the GitHub repo (`https://github.com/dalil-qa/dalil`, **check it's public before 17:30**), and **Team Baseera · بصيرة · insight · Sulaiman & Abdullah**.
 - **Stage note:** leave this slide up for all of Q&A.
