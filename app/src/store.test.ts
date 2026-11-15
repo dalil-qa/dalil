@@ -65,6 +65,22 @@ describe('store + simulator, end to end', () => {
     assert.equal(useStore.getState().emergencies[0].closedReason, 'mistake');
   });
 
+  it("never loses another person's open emergency when a new one opens", () => {
+    const s = useStore.getState();
+    s.setCrew('guest');
+    s.openEmergency('button', ['fainting']);
+    const guestId = useStore.getState().emergency?.id;
+    s.setCrew('c2');
+    s.openEmergency('quicklog', ['chest_pain']);
+    const { emergency, emergencies } = useStore.getState();
+    assert.equal(emergency?.crewId, 'c2');
+    const moved = emergencies.find((e) => e.id === guestId);
+    assert.ok(moved, "the guest's emergency is in the history");
+    assert.ok(moved.closedAt);
+    assert.match(moved.updates.at(-1)?.text ?? '', /Moved to history/);
+    s.closeEmergency('mistake');
+  });
+
   it('switches language between English and Arabic', () => {
     const s = useStore.getState();
     assert.equal(s.lang, 'en');
