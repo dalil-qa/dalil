@@ -25,7 +25,7 @@
 #include <Adafruit_SSD1306.h>
 
 // ----------------------------------- settings (change and upload again) ---------------------------------
-const char *FW_VERSION = "1.1";          // shown by the app; raise it every time you upload a new version
+const char *FW_VERSION = "1.2";          // shown by the app; raise it every time you upload a new version
 const uint32_t FINGER_IR_MIN = 50000;    // infrared above this = a finger is on the MAX30102
 const int FINGER_SECONDS = 20;           // seconds of finger time per check
 const int NO_FINGER_TIMEOUT_S = 15;      // no finger this long in a row = error no_finger
@@ -44,6 +44,15 @@ const int AMBER_GREEN_LEVEL = 60;        // green mixed with full red to make am
 const bool MLX_ON_WIRE1 = false;         // true = thermometer on its own bus: SDA 18, SCL 19
 const bool PULSE_SENSOR_FALLBACK = true; // true = use the Pulse Sensor on GPIO 34 when no MAX30102 answers
 const int PULSE_MIN_AMPLITUDE = 200;     // Pulse Sensor: smallest swing that counts as a heartbeat signal
+// Accuracy settings (added in 1.2)
+const unsigned long FINGER_SETTLE_MS = 2500; // ignore the first 2.5 s after the finger lands (the signal jumps while it settles)
+const int ALGO_STEP = 12;                // run the SpO2 algorithm every 12 new samples (about twice a second)
+const int HR_OUTLIER_MIN_BAND = 6;       // results further than this (bpm) from the middle may be outliers
+const int SPO2_OUTLIER_MIN_BAND = 2;     // the same for SpO2 (%)
+const float SKIN_EMISSIVITY = 0.98;      // skin emits slightly less than the sensor's factory setting (1.0)
+const float TEMP_STABLE_RANGE = 0.3;     // 3 readings within 0.3 C = the forehead is held still at the right distance
+const float WEAK_PULSE_PERCENT = 0.15;   // pulse strength (AC/DC of infrared) below this % = weak signal: show a hint
+const float MOVE_PERCENT = 3.0;          // infrared level changing more than this % between windows = moving: show a hint
 // Standalone colour limits (used only when the app is not connected)
 const int RED_HR_LOW = 40, RED_HR_HIGH = 130, RED_SPO2_BELOW = 90;
 const float RED_TEMP_FROM = 38.0;
@@ -96,6 +105,10 @@ uint32_t irBuffer[100], redBuffer[100];
 int bufCount = 0;        // samples in the buffer while it fills
 int newSamples = 0;      // new samples since the last calculation, once it is full
 uint32_t lastIr = 0;
+unsigned long settleUntil = 0;     // finger samples are ignored until then
+float lastWindowDc = 0;            // infrared level of the previous window (to spot movement)
+enum Hint { HINT_NONE, HINT_STILL, HINT_LIGHT };
+Hint fingerHint = HINT_NONE;       // coaching shown on the screen during the finger step
 
 // Pulse Sensor beat detection.
 const int PULSE_WINDOW = 200;            // 2 s of samples at 100 per second
@@ -111,7 +124,8 @@ int pulseAmplitude = 0;
 unsigned long lastTempReadMs = 0, firstForeheadMs = 0;
 float tempRun[3];
 int tempRunCount = 0;
-float bestTemp = NAN;
+float bestTemp = NAN;        // best average of any 3 readings in a row
+float bestStableTemp = NAN;  // best average of 3 steady readings in a row (preferred)
 
 // Result / error / light shown after a check.
 enum Colour { C_OFF, C_WHITE, C_GREEN, C_AMBER, C_RED, C_BLUE };
@@ -214,6 +228,20 @@ int median(const int *values, int n) {
     copy[j + 1] = v;
   }
   return n % 2 ? copy[n / 2] : (copy[n / 2 - 1] + copy[n / 2]) / 2;
+}
+
+// The middle value after dropping outliers: results far from the median (more than 3 x the typical spread, and at
+// least `minBand`) are left out, so one bad second can't pull the result.
+int robustCenter(const int *values, int n, int minBand) {
+  if (n <= 2) return median(values, n);
+  int m = median(values, n);
+  int dev[MAX_GOOD];
+  for (int i = 0; i < n; i++) dev[i] = abs(values[i] - m);
+  int mad = median(dev, n);
+  int band = max(minBand, (int)(3.0f * 1.4826f * mad + 0.5f));
+  int kept[MAX_GOOD], k = 0;
+  for (int i = 0; i < n; i++) if (abs(values[i] - m) <= band) kept[k++] = values[i];
+  return k > 0 ? median(kept, k) : m;
 }
 
 unsigned long medianUL(const unsigned long *values, int n) {
@@ -374,6 +402,7 @@ void startForehead() {
   firstForeheadMs = 0;
   tempRunCount = 0;
   bestTemp = NAN;
+  bestStableTemp = NAN;
   tempValue = NAN;
   showColour(C_BLUE);  // blue, steady
   beep(100);
@@ -405,6 +434,9 @@ void startCheck() {
     noFingerSince = millis();
     fingerOn = false;
     resetFingerData();
+    settleUntil = 0;
+    lastWindowDc = 0;
+    fingerHint = HINT_NONE;
     beep(100);
   } else {
     startForehead();
@@ -429,10 +461,20 @@ void runSpo2Algorithm() {
     goodCount++;
   }
   if (goodCount > 0) {
-    hrValue = median(goodHr, goodCount);
-    spo2Value = median(goodSpo2, goodCount);
+    hrValue = robustCenter(goodHr, goodCount, HR_OUTLIER_MIN_BAND);
+    spo2Value = robustCenter(goodSpo2, goodCount, SPO2_OUTLIER_MIN_BAND);
   }
   qValue = (float)goodCount / (float)resultCount;
+
+  // Coaching: pulse strength (perfusion) and movement, from the infrared window.
+  uint32_t mn = irBuffer[0], mx = irBuffer[0];
+  double sum = 0;
+  for (int i = 0; i < 100; i++) { mn = min(mn, irBuffer[i]); mx = max(mx, irBuffer[i]); sum += irBuffer[i]; }
+  float dc = sum / 100.0;
+  float pulsePercent = dc > 0 ? 100.0f * (float)(mx - mn) / dc : 0;
+  bool moving = lastWindowDc > 0 && fabsf(dc - lastWindowDc) / lastWindowDc * 100.0f > MOVE_PERCENT;
+  lastWindowDc = dc;
+  fingerHint = moving ? HINT_STILL : (pulsePercent < WEAK_PULSE_PERCENT ? HINT_LIGHT : HINT_NONE);
 }
 
 void addMaxSample(uint32_t red, uint32_t ir) {
@@ -443,14 +485,14 @@ void addMaxSample(uint32_t red, uint32_t ir) {
     if (bufCount == 100) runSpo2Algorithm();
     return;
   }
-  if (newSamples == 0) {  // start of a new second: shift out the oldest 25 samples (as in Example8)
-    memmove(redBuffer, redBuffer + 25, 75 * sizeof(uint32_t));
-    memmove(irBuffer, irBuffer + 25, 75 * sizeof(uint32_t));
+  if (newSamples == 0) {  // start of a new step: shift out the oldest ALGO_STEP samples (as Example8 does with 25)
+    memmove(redBuffer, redBuffer + ALGO_STEP, (100 - ALGO_STEP) * sizeof(uint32_t));
+    memmove(irBuffer, irBuffer + ALGO_STEP, (100 - ALGO_STEP) * sizeof(uint32_t));
   }
-  redBuffer[75 + newSamples] = red;
-  irBuffer[75 + newSamples] = ir;
+  redBuffer[100 - ALGO_STEP + newSamples] = red;
+  irBuffer[100 - ALGO_STEP + newSamples] = ir;
   newSamples++;
-  if (newSamples == 25) {
+  if (newSamples == ALGO_STEP) {
     runSpo2Algorithm();
     newSamples = 0;
   }
@@ -464,7 +506,7 @@ void readMax30102() {
     particleSensor.nextSample();
     lastIr = ir;
     bool on = ir > FINGER_IR_MIN;
-    if (state == FINGER && on && fingerOn) addMaxSample(red, ir);
+    if (state == FINGER && on && fingerOn && millis() >= settleUntil) addMaxSample(red, ir);
   }
 }
 
@@ -505,7 +547,7 @@ void pulseResult() {
     goodHr[goodCount] = hr;
     goodCount++;
   }
-  if (goodCount > 0) hrValue = median(goodHr, goodCount);
+  if (goodCount > 0) hrValue = robustCenter(goodHr, goodCount, HR_OUTLIER_MIN_BAND);
   qValue = (float)goodCount / (float)resultCount;
 }
 
@@ -524,13 +566,16 @@ int secondsLeftUp(long msLeft) { return msLeft <= 0 ? 0 : (int)((msLeft + 999) /
 void runFinger() {
   unsigned long now = millis();
   bool on = currentFinger();
-  if (on && !fingerOn) {  // finger came back: the buffers restart empty
+  if (on && !fingerOn) {  // finger came back: the buffers restart empty, and the first seconds are ignored
     resetFingerData();
     lastFingerTick = now;
+    settleUntil = now + FINGER_SETTLE_MS;
+    lastWindowDc = 0;
+    fingerHint = HINT_NONE;
   }
   if (!on && fingerOn) noFingerSince = now;
   fingerOn = on;
-  if (fingerOn) {
+  if (fingerOn && now >= settleUntil) {  // the settling time doesn't count towards the 20 s
     fingerOnMs += now - lastFingerTick;
     if (usePulse) pulseResult();
   }
@@ -548,8 +593,8 @@ void runFinger() {
     if (hrValue >= 0) snprintf(h, sizeof h, "%d", hrValue); else strcpy(h, "--");
     if (spo2Value >= 0) snprintf(s, sizeof s, "%d%%", spo2Value); else strcpy(s, "--");
     snprintf(a, sizeof a, "HR %s  SpO2 %s", h, s);
-    snprintf(b, sizeof b, "Keep still  %ds", left);
-    setScreen(a, b);
+    snprintf(b, sizeof b, now < settleUntil ? "Settling..." : "Keep still  %ds", left);
+    setScreen(a, b, fingerHint == HINT_STILL ? "! Keep still" : fingerHint == HINT_LIGHT ? "! Rest finger lightly" : "");
   }
 
   if (now - lastLineMs >= 1000) {
@@ -568,11 +613,25 @@ void runFinger() {
   }
 }
 
+// The sensor's object temperature assumes a perfect emitter (emissivity 1.0). Skin is about 0.98, and the sensor
+// also sees some reflected room heat. Correct both in software with the sensor's own room (ambient) reading:
+// T_skin^4 = (T_measured^4 - (1 - e) * T_room^4) / e, in kelvin. Nothing is written to the sensor's memory.
+float skinTemperature() {
+  float obj = mlx.readObjectTempC();
+  float amb = mlx.readAmbientTempC();
+  if (isnan(obj)) return NAN;
+  if (isnan(amb) || SKIN_EMISSIVITY >= 0.999f) return obj;
+  double to = obj + 273.15, ta = amb + 273.15;
+  double t4 = (pow(to, 4) - (1.0 - SKIN_EMISSIVITY) * pow(ta, 4)) / SKIN_EMISSIVITY;
+  if (t4 <= 0) return obj;
+  return (float)(pow(t4, 0.25) - 273.15);
+}
+
 void runForehead() {
   unsigned long now = millis();
   if (now - lastTempReadMs >= 250) {
     lastTempReadMs = now;
-    float t = mlx.readObjectTempC();
+    float t = skinTemperature();
     if (!isnan(t) && t >= TEMP_MIN_VALID && t <= TEMP_MAX_VALID) {
       if (firstForeheadMs == 0) firstForeheadMs = now;
       if (tempRunCount < 3) {
@@ -584,8 +643,12 @@ void runForehead() {
       }
       if (tempRunCount == 3) {
         float avg = (tempRun[0] + tempRun[1] + tempRun[2]) / 3.0f;
+        float spread = max(tempRun[0], max(tempRun[1], tempRun[2])) - min(tempRun[0], min(tempRun[1], tempRun[2]));
         if (isnan(bestTemp) || avg > bestTemp) bestTemp = avg;
-        tempValue = roundf(bestTemp * 10.0f) / 10.0f;
+        // Prefer readings that have stopped changing: the forehead is held still at the right distance.
+        if (spread <= TEMP_STABLE_RANGE && (isnan(bestStableTemp) || avg > bestStableTemp)) bestStableTemp = avg;
+        float use = isnan(bestStableTemp) ? bestTemp : bestStableTemp;
+        tempValue = roundf(use * 10.0f) / 10.0f;
       }
     } else {
       tempRunCount = 0;  // "3 readings in a row": a non-forehead reading breaks the run

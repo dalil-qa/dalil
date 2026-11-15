@@ -125,6 +125,10 @@ function Measuring() {
         <p className="mt-6 text-center text-xl text-slate-200" aria-live="polite">
           {live.stage === 'starting' ? t('waitingStation') : finger ? (live.finger ? t('keepStill') : t('restFinger')) : t('holdForehead')}
         </p>
+        {/* Coaching: a weak signal a few seconds in usually means pressing too hard, moving, or a cold hand. */}
+        {finger && live.finger && live.q !== null && live.q < 0.5 && live.left !== null && live.left <= 14 && (
+          <p role="status" className="mt-3 rounded-xl border border-watch/50 bg-watch/10 px-4 py-3 text-center text-lg text-watch">{t('weakHint')}</p>
+        )}
       </Card>
       <div><Button variant="secondary" onClick={stopCheck}><X aria-hidden size={20} /> {t('cancel')}</Button></div>
     </div>
@@ -138,6 +142,13 @@ function Result({ onContinue }: { onContinue: () => void }) {
   const ar = lang === 'ar';
   if (!lastCheck) return <Ready />;
   const { assessments, readings, overall, lowConfidence, unassessed } = lastCheck;
+  // Measure again straight away (the newer reading becomes the latest; low-quality ones never shape "your normal").
+  const measureAgain = () => {
+    const s = useStore.getState();
+    s.resetLive();
+    if (s.connection === 'connected') s.startCheck();
+    else void s.startCheckWithSimulator();
+  };
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5">
       <div className="flex flex-wrap items-center gap-4">
@@ -146,9 +157,10 @@ function Result({ onContinue }: { onContinue: () => void }) {
         <span className="text-base text-slate-300">{t('ledLight')} <strong className={STATUS_INFO[overall].text}>{t(STATUS_LED[overall])}</strong>{station?.fw === 'sim' ? t('simParen') : ''}</span>
       </div>
       {lowConfidence && (
-        <p role="status" className="rounded-xl border border-watch/50 bg-watch/10 px-4 py-3 text-base text-watch">
-          {t('lowConfidence')}
-        </p>
+        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-watch/50 bg-watch/10 px-4 py-3 text-base text-watch">
+          <span>{t('lowConfidence')}</span>
+          <Button variant="secondary" onClick={measureAgain}><RotateCcw aria-hidden size={18} /> {t('measureAgain')}</Button>
+        </div>
       )}
       {unassessed.length > 0 && (
         <p role="status" className="text-sm text-slate-400">
@@ -219,7 +231,7 @@ export function Check() {
   if (stage === 'error') return <CheckError />;
   if (stage === 'starting' || stage === 'finger' || stage === 'forehead') return <Measuring />;
   // Home mode: the result in plain words, and no quick log.
-  if (stage === 'done' && home && lastCheck) return <HomeResult assessments={lastCheck.assessments} overall={lastCheck.overall} lowConfidence={lastCheck.lowConfidence} onDone={finish} />;
+  if (stage === 'done' && home && lastCheck) return <HomeResult assessments={lastCheck.assessments} overall={lastCheck.overall} lowConfidence={lastCheck.lowConfidence} onDone={finish} onAgain={() => { const s = useStore.getState(); s.resetLive(); if (s.connection === 'connected') s.startCheck(); else void s.startCheckWithSimulator(); }} />;
   if (stage === 'done') return <Result onContinue={() => setLogging(true)} />;
   return <Ready />;
 }

@@ -207,7 +207,7 @@ export function HomeToday() {
   );
 }
 
-export function HomeResult({ assessments, overall, lowConfidence = false, onDone }: { assessments: Assessment[]; overall: Assessment['status']; lowConfidence?: boolean; onDone: () => void }) {
+export function HomeResult({ assessments, overall, lowConfidence = false, onDone, onAgain }: { assessments: Assessment[]; overall: Assessment['status']; lowConfidence?: boolean; onDone: () => void; onAgain?: () => void }) {
   const [asked, setAsked] = useState(false);
   const { lang, t } = useT();
   const list = dedupeBloodPressure(assessments);
@@ -220,9 +220,10 @@ export function HomeResult({ assessments, overall, lowConfidence = false, onDone
         <h1 className={`text-4xl font-semibold ${STATUS_INFO[overall].text}`}>{headline}</h1>
       </div>
       {lowConfidence && (
-        <p role="status" className="rounded-2xl border border-watch/50 bg-watch/10 px-5 py-4 text-xl text-watch">
-          {t('lowConfidence')}
-        </p>
+        <div role="status" className="flex flex-col items-start gap-3 rounded-2xl border border-watch/50 bg-watch/10 px-5 py-4 text-xl text-watch">
+          <p>{t('lowConfidence')}</p>
+          {onAgain && <Button big variant="secondary" onClick={onAgain}><Play aria-hidden size={22} /> {t('measureAgain')}</Button>}
+        </div>
       )}
       {overall === 'act' && (
         <div role="alert" className="flex flex-col gap-3 rounded-2xl border-2 border-act bg-act/10 p-5 text-2xl text-act">

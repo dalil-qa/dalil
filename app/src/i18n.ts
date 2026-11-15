@@ -103,6 +103,8 @@ const EN = {
   familyHint: 'Dalil can tell him how your check went.',
   callFamily: 'Call Ahmed',
   callingFamily: 'Calling Ahmed… (simulated)',
+  weakHint: "Weak signal: rest your fingertip lightly (don't press), keep still, and warm your hand.",
+  measureAgain: 'Measure again',
 };
 
 export type Key = keyof typeof EN;
@@ -201,6 +203,8 @@ const AR: Record<Key, string> = {
   familyHint: 'يستطيع دليل أن يخبره بنتيجة فحصك.',
   callFamily: 'اتصل بأحمد',
   callingFamily: 'جارٍ الاتصال بأحمد… (محاكاة)',
+  weakHint: 'الإشارة ضعيفة: ضع طرف إصبعك برفق (دون ضغط)، وابقَ ثابتًا، وقم بتدفئة يدك.',
+  measureAgain: 'أعد القياس',
 };
 
 export function translate(lang: Lang, key: Key, vars: Record<string, string | number> = {}): string {
