@@ -1,6 +1,6 @@
 # Dalil station firmware
 
-The program for the Crew Health Station's ESP32. It follows the fixed device ↔ app contract in the planning repo's `DEVICE_BUILD_GUIDE.md` section 9: one JSON line per message over USB at 115200 baud.
+**Team Baseera (بصيرة)**, NASA Space Apps 2026, Doha. The program for the Crew Health Station's ESP32. It follows the fixed device ↔ app contract in the planning repo's `DEVICE_BUILD_GUIDE.md` section 9: one JSON line per message over USB at 115200 baud.
 
 **Tested on the real station (15 Nov 2026):** MAX30102, MLX90614 and the 0.91" OLED all found. The automated connection tests pass (all except one line in about 60 that was corrupted by electrical noise, which the app ignores). The board was restarted 10 times in a row and found all three parts every time.
 
@@ -54,4 +54,4 @@ It runs the build guide's §9.6 tests that need no finger: hello, idle timing, t
 - **The same driver can replay old lines right after you reconnect,** so the app ignores a `done` line unless a check is actually running.
 
 ## Credits
-SparkFun MAX3010x library and examples (MIT); Maxim's SpO2 algorithm; Adafruit MLX90614, SSD1306 and GFX libraries (BSD). Written with an AI assistant (Claude Code) to the team's spec. MIT licence, like the rest of the repo.
+SparkFun MAX3010x library and examples (MIT); Maxim's SpO2 algorithm; Adafruit MLX90614, SSD1306 and GFX libraries (BSD). Written by Team Baseera with an AI assistant (Claude Code), to the team's spec. MIT licence, like the rest of the repo.

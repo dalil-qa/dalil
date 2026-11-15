@@ -25,7 +25,7 @@
 #include <Adafruit_SSD1306.h>
 
 // ----------------------------------- settings (change and upload again) ---------------------------------
-const char *FW_VERSION = "1.3";          // shown by the app; raise it every time you upload a new version
+const char *FW_VERSION = "1.5";          // shown by the app; raise it every time you upload a new version
 const uint32_t FINGER_IR_MIN = 50000;    // infrared above this = a finger is on the MAX30102
 const int FINGER_SECONDS = 20;           // seconds of finger time per check
 const int NO_FINGER_TIMEOUT_S = 15;      // no finger this long in a row = error no_finger
@@ -57,6 +57,7 @@ const float MOVE_PERCENT = 3.0;          // infrared level changing more than th
 const bool USE_DALIL_ALGORITHM = false;  // false = Maxim's sample algorithm (tested at the event), true = the new one
 const bool AUTO_BRIGHTNESS = false;      // true = adjust the LED brightness while the finger settles
 const bool SHADOW_DEBUG = true;          // once a second during the finger step, print "# maxim ... | dalil ..." to compare
+const bool RAW_SIGNAL_DEBUG = false;            // true = also print the raw signal ("#r ir red", 25 a second) to study it on a laptop
 const int LED_DEFAULT = 60;              // LED brightness (0-255) when a finger first lands
 const uint32_t IR_TARGET_LOW = 90000;    // automatic brightness keeps the infrared level between these two
 const uint32_t IR_TARGET_HIGH = 220000;  // (the 18-bit sensor saturates near 262000)
@@ -65,6 +66,8 @@ const int RED_HR_LOW = 40, RED_HR_HIGH = 130, RED_SPO2_BELOW = 90;
 const float RED_TEMP_FROM = 38.0;
 const int AMBER_HR_LOW = 50, AMBER_HR_HIGH = 100, AMBER_SPO2_BELOW = 95;
 const float AMBER_TEMP_FROM = 37.5;
+
+const char *SCREEN_NAME = "Baseera";     // the name shown on the box's screen (Team Baseera)
 
 // ----------------------------------- pins (never use GPIO 6-11) ----------------------------------------
 const int PIN_SDA = 21, PIN_SCL = 22;
@@ -680,6 +683,7 @@ void readMax30102() {
     accRed += red;
     accIr += ir;
     if (++accN == 4) {              // Maxim's algorithm: 25 averaged samples a second
+      if (RAW_SIGNAL_DEBUG) Serial.printf("#r %lu %lu\n", (unsigned long)(accIr / 4), (unsigned long)(accRed / 4));
       addMaxSample(accRed / 4, accIr / 4);
       accRed = accIr = 0;
       accN = 0;
@@ -878,11 +882,11 @@ void runIdle() {
   if (errorUntil && now < errorUntil) {
     setScreen("Try again", errorReason);
   } else if (resultOnScreen && now < resultUntil) {
-    setScreen("Dalil", resultLine, resultWord);
+    setScreen(SCREEN_NAME, resultLine, resultWord);
   } else {
     if (resultOnScreen) resultOnScreen = false;
     errorUntil = 0;
-    setScreen("Dalil", "Press START");
+    setScreen(SCREEN_NAME, "Press START");
   }
   // The result colour (or the app's LED command) stays for RESULT_SHOW_S, then the light goes off.
   if (shownColour != C_OFF && now >= colourUntil) {
@@ -1016,7 +1020,7 @@ void setup() {
   hasMlx = i2cAnswersRetry(mlxBus, 0x5A) && mlx.begin(0x5A, &mlxBus);
 
   // D1 BOOT: name, which sensors work, the light flashes red-green-blue, one short beep.
-  setScreen("Dalil", hasMax ? "PULSE OK" : (usePulse ? "PULSE BACKUP" : "PULSE MISSING"), hasMlx ? "TEMP OK" : "TEMP MISSING");
+  setScreen(SCREEN_NAME, hasMax ? "PULSE OK" : (usePulse ? "PULSE BACKUP" : "PULSE MISSING"), hasMlx ? "TEMP OK" : "TEMP MISSING");
   lastDrawMs = 0;
   updateScreen();
   showColour(C_RED); delay(200);
