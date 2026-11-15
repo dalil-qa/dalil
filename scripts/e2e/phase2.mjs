@@ -80,7 +80,7 @@ await click('Chest pain or pressure'); await sleep(300);
 check('Ticking a red flag adds it', (await text()).includes('New red flags'));
 await click('Show report'); await sleep(200);
 const rep = await text();
-check('Report shows PRIORITY header and red flag', rep.includes('PRIORITY · Dalil emergency report') && rep.includes('Red flags: chest pain or pressure'));
+check('Report shows PRIORITY header and red flag', rep.includes('PRIORITY · Baseera emergency report') && rep.includes('Red flags: chest pain or pressure'));
 await shot('b2-emergency-report');
 await click('Back to app'); await sleep(400);
 check('Red emergency bar stays on every screen', (await text()).includes('Emergency open'));

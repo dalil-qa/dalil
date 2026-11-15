@@ -69,7 +69,7 @@ export function Header() {
     <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-contrast/10 bg-space-950 px-4 py-3">
       <div className="flex items-center gap-2 text-xl font-semibold text-slate-50">
         <Logo />
-        Dalil
+        Baseera
       </div>
       <label className="sr-only" htmlFor="mission">{t('mission')}</label>
       <select id="mission" className={selectClass} value={missionId} onChange={(e) => setMission(e.target.value as MissionId)}>

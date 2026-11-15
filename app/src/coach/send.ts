@@ -10,7 +10,7 @@ import { useStore } from '../store.ts';
 import type { Assessment, GuidanceCard } from '../types.ts';
 import { MAX_HISTORY, MAX_QUESTION_CHARS, askCoach, type CoachRequestBody } from './client.ts';
 
-export const URGENT_NOTE = "This sounds urgent, so Dalil is skipping the Coach. If it isn't an emergency, close this page and rephrase.";
+export const URGENT_NOTE = "This sounds urgent, so Baseera is skipping the Coach. If it isn't an emergency, close this page and rephrase.";
 export const OFFLINE_NOTE = 'Offline: showing the guidance cards.';
 export const NO_CARD_NOTE = 'The Coach could not be reached, and no guidance card matches your readings right now.';
 

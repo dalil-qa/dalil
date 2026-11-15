@@ -8,7 +8,7 @@ export type Lang = 'en' | 'ar';
 
 const EN = {
   ...APP_EN,
-  appName: 'Dalil',
+  appName: 'Baseera',
   exitHome: 'Exit Home mode',
   unwell: 'I feel unwell now',
   switchLang: 'العربية',
@@ -56,7 +56,7 @@ const EN = {
   reconnectStation: 'Reconnect station',
   serialUnsupported: 'Live checks need Chrome or Edge on a computer. You can still explore with the simulator.',
   connectOrSimHint: 'Connect the station, or turn on the simulator in Settings.',
-  stationSilentTip: 'Station not answering. Re-upload the Dalil program to the board, check the cable, and click Connect again.',
+  stationSilentTip: 'Station not answering. Re-upload the Baseera program to the board, check the cable, and click Connect again.',
   stationLostTip: 'The station was disconnected. Check the cable and reconnect.',
   lowConfidence: 'The signal was weak, so treat this result with caution and measure again.',
   // emergency (home)
@@ -100,7 +100,7 @@ const EN = {
   alsoToday: 'Also today',
   familyTitle: 'Your family',
   familyMember: 'Ahmed (your son)',
-  familyHint: 'Dalil can tell him how your check went.',
+  familyHint: 'Baseera can tell him how your check went.',
   callFamily: 'Call Ahmed',
   callingFamily: 'Calling Ahmed… (simulated)',
   weakHint: "Weak signal: rest your fingertip lightly (don't press), keep still, and warm your hand.",
@@ -111,7 +111,7 @@ export type Key = keyof typeof EN;
 
 const AR: Record<Key, string> = {
   ...APP_AR,
-  appName: 'دليل',
+  appName: 'بصيرة',
   exitHome: 'الخروج من الوضع المنزلي',
   unwell: 'أشعر بتوعك الآن',
   switchLang: 'English',
@@ -158,7 +158,7 @@ const AR: Record<Key, string> = {
   reconnectStation: 'إعادة توصيل الجهاز',
   serialUnsupported: 'تحتاج الفحوصات المباشرة إلى متصفح Chrome أو Edge على جهاز كمبيوتر. لا يزال بإمكانك التجربة باستخدام المحاكاة.',
   connectOrSimHint: 'وصّل الجهاز، أو فعّل المحاكاة من الإعدادات.',
-  stationSilentTip: 'الجهاز لا يستجيب. أعد رفع برنامج دليل إلى اللوحة، وتحقق من الكابل، ثم اضغط توصيل مرة أخرى.',
+  stationSilentTip: 'الجهاز لا يستجيب. أعد رفع برنامج بصيرة إلى اللوحة، وتحقق من الكابل، ثم اضغط توصيل مرة أخرى.',
   stationLostTip: 'تم فصل الجهاز. تحقق من الكابل وأعد التوصيل.',
   lowConfidence: 'كانت الإشارة ضعيفة، لذا تعامل مع هذه النتيجة بحذر وأعد القياس.',
   emergency: 'حالة طارئة',
@@ -200,7 +200,7 @@ const AR: Record<Key, string> = {
   alsoToday: 'أيضًا اليوم',
   familyTitle: 'عائلتك',
   familyMember: 'أحمد (ابنك)',
-  familyHint: 'يستطيع دليل أن يخبره بنتيجة فحصك.',
+  familyHint: 'تستطيع بصيرة أن تخبره بنتيجة فحصك.',
   callFamily: 'اتصل بأحمد',
   callingFamily: 'جارٍ الاتصال بأحمد… (محاكاة)',
   weakHint: 'الإشارة ضعيفة: ضع طرف إصبعك برفق (دون ضغط)، وابقَ ثابتًا، وقم بتدفئة يدك.',

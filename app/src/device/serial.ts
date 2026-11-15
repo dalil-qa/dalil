@@ -38,7 +38,7 @@ function explain(err: unknown): SerialConnectError {
   if (name === 'InvalidStateError' || name === 'NetworkError') {
     return new SerialConnectError(
       'port_busy',
-      'Failed to open the serial port. Close the Arduino Serial Monitor and other Dalil tabs, then click Connect.',
+      'Failed to open the serial port. Close the Arduino Serial Monitor and other Baseera tabs, then click Connect.',
     );
   }
   return new SerialConnectError('unknown', err instanceof Error ? err.message : 'Could not connect to the station.');

@@ -11,8 +11,8 @@
     "hazards": [
       "gravity"
     ],
-    "measureInSpace": "Dalil's station measures heart rate; blood pressure is typed in. NASA records heart rate and blood pressure around flight and requires programs to record, monitor and trend vital signs.",
-    "whyCheck": "One reading is a snapshot. NASA requires crew health results to be kept so trends can be studied, and Dalil compares you with your own normal.",
+    "measureInSpace": "Baseera's station measures heart rate; blood pressure is typed in. NASA records heart rate and blood pressure around flight and requires programs to record, monitor and trend vital signs.",
+    "whyCheck": "One reading is a snapshot. NASA requires crew health results to be kept so trends can be studied, and Baseera compares you with your own normal.",
     "hazardEffects": "After time in microgravity, standing up can make blood pressure and blood flow to the brain hard to keep up, causing light-headedness or fainting. NASA says this is a major concern when crews return to gravity.",
     "whenToAct": {
       "crew": "Act when the app shows Call surgeon, or if you feel faint, dizzy or have chest pain. Chest pain or fainting: press 'I feel unwell now'.",
@@ -52,7 +52,7 @@
     "hazards": [
       "environment"
     ],
-    "measureInSpace": "Dalil's station measures blood oxygen (SpO2). Spacecraft also monitor cabin air and alert the crew when oxygen, carbon dioxide or pressure leave safe limits.",
+    "measureInSpace": "Baseera's station measures blood oxygen (SpO2). Spacecraft also monitor cabin air and alert the crew when oxygen, carbon dioxide or pressure leave safe limits.",
     "whyCheck": "Low oxygen can be hard to notice yourself: NASA says its symptoms can be mistaken for fatigue, and thinking can be affected.",
     "hazardEffects": "Too little oxygen can cause tiredness, nausea, headache, dizziness, mood changes, poorer sleep and loss of colour, night and side vision. Too much oxygen can slow breathing and heart rate, and raises fire risk.",
     "whenToAct": {
@@ -174,7 +174,7 @@
     "hazards": [
       "environment"
     ],
-    "measureInSpace": "Dalil's station measures forehead skin temperature, which is not core body temperature. NASA also photographs skin as required before, during and after flight.",
+    "measureInSpace": "Baseera's station measures forehead skin temperature, which is not core body temperature. NASA also photographs skin as required before, during and after flight.",
     "whyCheck": "A raised temperature can be an early sign of infection. Forehead readings are affected by the room and by exercise, so your own trend matters.",
     "hazardEffects": "The cabin environment (temperature, humidity and air) shapes comfort and health, and the spacecraft alerts the crew when it goes outside safe limits.",
     "whenToAct": {
@@ -246,7 +246,7 @@
       "gravity",
       "isolation"
     ],
-    "measureInSpace": "Dalil measures nothing here: this system is coloured by the symptoms you log. NASA asks crews about allergies, rashes, infections and wound healing, and monitors immune function.",
+    "measureInSpace": "Baseera measures nothing here: this system is coloured by the symptoms you log. NASA asks crews about allergies, rashes, infections and wound healing, and monitors immune function.",
     "whyCheck": "NASA says the immune system can be affected by the stress of long-term life in microgravity, and by poor nutrition.",
     "hazardEffects": "Stress, long stays in microgravity and too little food can weaken immune function. NASA lists infections such as throat infections and influenza among conditions seen in flight.",
     "whenToAct": {
@@ -288,7 +288,7 @@
     "hazards": [
       "gravity"
     ],
-    "measureInSpace": "Dalil measures nothing here: this system is coloured by the symptoms you log. NASA schedules eye exams during long missions.",
+    "measureInSpace": "Baseera measures nothing here: this system is coloured by the symptoms you log. NASA schedules eye exams during long missions.",
     "whyCheck": "Some astronauts develop vision changes on long missions. About 16% show swelling of the optic disc during or after long missions, most of it mild.",
     "hazardEffects": "NASA believes the eye changes (called SANS) are linked to fluid shifting towards the head in microgravity, and possibly to diet or the environment.",
     "whenToAct": {
