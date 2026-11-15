@@ -35,7 +35,7 @@ function Tip({ indicator }: { indicator: IndicatorId }) {
   );
 }
 
-const inputClass = 'w-full rounded-lg border border-white/15 bg-space-950 px-3 py-2 text-base text-slate-100 tabular-nums focus-visible:outline-2 focus-visible:outline-cyan-400';
+const inputClass = 'w-full rounded-lg border border-contrast/15 bg-space-950 px-3 py-2 text-base text-slate-100 tabular-nums focus-visible:outline-2 focus-visible:outline-cyan-400';
 
 function Field({ label, indicator, children, error }: { label: string; indicator: IndicatorId; children: React.ReactNode; error?: string | null }) {
   return (
@@ -120,7 +120,7 @@ export function QuickLog({ onDone }: { onDone: () => void }) {
   };
 
   const toggle = (id: SymptomId) => setChips((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]));
-  const chip = (on: boolean) => `rounded-full border px-3 py-1.5 text-base ${on ? 'border-cyan-400 bg-cyan-700/40 text-slate-50' : 'border-white/20 text-slate-200 hover:bg-white/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`;
+  const chip = (on: boolean) => `rounded-full border px-3 py-1.5 text-base ${on ? 'border-cyan-400 bg-cyan-700/40 text-slate-50' : 'border-contrast/20 text-slate-200 hover:bg-contrast/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`;
   const groups: { title: string; group: 'common' | 'immune' | 'eyes' }[] = [{ title: 'Common', group: 'common' }, { title: 'Immune', group: 'immune' }, { title: 'Eyes', group: 'eyes' }];
 
   return (
@@ -149,7 +149,7 @@ export function QuickLog({ onDone }: { onDone: () => void }) {
           <Field label="Mood" indicator="mood">
             <div className="flex gap-2" role="radiogroup" aria-label="Mood">
               {MOODS.map((emoji, i) => (
-                <button key={emoji} type="button" role="radio" aria-checked={mood === i + 1} aria-label={`${i + 1}, ${MOOD_WORDS[i]}`} onClick={() => setMood(i + 1)} className={`h-12 w-12 rounded-xl border text-2xl ${mood === i + 1 ? 'border-cyan-400 bg-cyan-700/40' : 'border-white/20 hover:bg-white/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
+                <button key={emoji} type="button" role="radio" aria-checked={mood === i + 1} aria-label={`${i + 1}, ${MOOD_WORDS[i]}`} onClick={() => setMood(i + 1)} className={`h-12 w-12 rounded-xl border text-2xl ${mood === i + 1 ? 'border-cyan-400 bg-cyan-700/40' : 'border-contrast/20 hover:bg-contrast/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
                   {emoji}
                 </button>
               ))}
@@ -164,7 +164,7 @@ export function QuickLog({ onDone }: { onDone: () => void }) {
           <Field label="Meals eaten today" indicator="meals">
             <div className="flex gap-2" role="radiogroup" aria-label="Meals eaten">
               {[0, 1, 2, 3].map((n) => (
-                <button key={n} type="button" role="radio" aria-checked={meals === n} onClick={() => setMeals(n)} className={`h-12 w-12 rounded-xl border text-xl font-semibold ${meals === n ? 'border-cyan-400 bg-cyan-700/40' : 'border-white/20 hover:bg-white/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
+                <button key={n} type="button" role="radio" aria-checked={meals === n} onClick={() => setMeals(n)} className={`h-12 w-12 rounded-xl border text-xl font-semibold ${meals === n ? 'border-cyan-400 bg-cyan-700/40' : 'border-contrast/20 hover:bg-contrast/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
                   {n}
                 </button>
               ))}

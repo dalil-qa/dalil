@@ -49,6 +49,7 @@ function App() {
   const emergencyOpen = emergencyId !== null;
   const home = useStore((s) => s.homeMode);
   const lang = useStore((s) => s.lang);
+  const theme = useStore((s) => s.theme);
   const guest = useStore((s) => s.crewId === 'guest');
   const endGuestSession = useStore((s) => s.endGuestSession);
 
@@ -75,6 +76,11 @@ function App() {
     document.documentElement.dir = isAr ? 'rtl' : 'ltr';
     document.documentElement.lang = isAr ? 'ar' : 'en';
   }, [home, lang, screen]);
+
+  // Light (default) or dark: index.css switches every colour on <html data-theme>.
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   // The intro page is full-screen. The emergency page and its red bar still work from everywhere else.
   if (screen === 'landing') return <Landing />;

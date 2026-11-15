@@ -100,7 +100,7 @@ export function Today() {
 
       <Card>
         <div className="flex flex-wrap items-center gap-8">
-          <Ring value={score === null ? 0 : score / 100} size={168} strokeClass={score === null ? 'stroke-white/20' : STATUS_INFO[worst as Status].stroke}>
+          <Ring value={score === null ? 0 : score / 100} size={168} strokeClass={score === null ? 'stroke-contrast/20' : STATUS_INFO[worst as Status].stroke}>
             <span className="text-5xl font-semibold tabular-nums text-gold-200">{score ?? '–'}</span>
             <span className="text-sm text-slate-400">Crew health score</span>
           </Ring>
@@ -165,7 +165,7 @@ export function Today() {
         <Card title="Badges">
           <ul className="flex flex-wrap gap-2">
             {earned.map((b) => (
-              <li key={b.id} className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm ${b.earned ? 'border-gold-200/50 text-gold-200' : 'border-white/10 text-slate-500'}`}>
+              <li key={b.id} className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm ${b.earned ? 'border-gold-200/50 text-gold-200' : 'border-contrast/10 text-slate-500'}`}>
                 <Star aria-hidden size={14} fill={b.earned ? 'currentColor' : 'none'} />
                 {b.label}
                 <span className="sr-only">{b.earned ? 'earned' : 'not earned yet'}</span>

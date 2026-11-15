@@ -29,7 +29,7 @@ function Bubble({ m }: { m: ChatMessage }) {
     );
   }
   return (
-    <div className="flex max-w-[92%] flex-col gap-2 rounded-2xl border border-white/10 bg-space-900 p-4">
+    <div className="flex max-w-[92%] flex-col gap-2 rounded-2xl border border-contrast/10 bg-space-900 p-4">
       <p className="flex items-start gap-2 text-lg text-slate-100">
         <Bot aria-hidden className="mt-1 shrink-0 text-cyan-400" size={20} />
         <span>{m.text}</span>
@@ -109,7 +109,7 @@ export function Coach() {
       <Card>
         <div className="mb-4 flex flex-wrap gap-2" aria-label="Suggested questions">
           {suggestions.map((s) => (
-            <button key={s} type="button" disabled={sending} onClick={() => send(s)} className="rounded-full border border-white/20 px-3 py-1.5 text-base text-slate-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-cyan-400 disabled:opacity-40">
+            <button key={s} type="button" disabled={sending} onClick={() => send(s)} className="rounded-full border border-contrast/20 px-3 py-1.5 text-base text-slate-200 hover:bg-contrast/10 focus-visible:outline-2 focus-visible:outline-cyan-400 disabled:opacity-40">
               {s}
             </button>
           ))}
@@ -122,7 +122,7 @@ export function Coach() {
           <div ref={endRef} />
         </div>
 
-        <form onSubmit={submit} className="mt-4 flex gap-3 border-t border-white/10 pt-4">
+        <form onSubmit={submit} className="mt-4 flex gap-3 border-t border-contrast/10 pt-4">
           <label className="sr-only" htmlFor="coach-input">Ask about your health</label>
           <input
             id="coach-input"
@@ -130,7 +130,7 @@ export function Coach() {
             maxLength={MAX_QUESTION_CHARS}
             onChange={(e) => setText(e.target.value)}
             placeholder="Ask about your health…"
-            className="min-w-0 flex-1 rounded-xl border border-white/15 bg-space-950 px-4 py-3 text-lg text-slate-100 focus-visible:outline-2 focus-visible:outline-cyan-400"
+            className="min-w-0 flex-1 rounded-xl border border-contrast/15 bg-space-950 px-4 py-3 text-lg text-slate-100 focus-visible:outline-2 focus-visible:outline-cyan-400"
           />
           <Button type="submit" disabled={sending || !text.trim()}><Send aria-hidden size={20} /> Send</Button>
         </form>

@@ -5,7 +5,7 @@ import { SourceList } from './SourceList.tsx';
 /** One guidance card: what it means, what to do, and where it comes from. */
 export function CardView({ card }: { card: GuidanceCard }) {
   return (
-    <article className="rounded-xl border border-white/10 bg-space-950 p-4">
+    <article className="rounded-xl border border-contrast/10 bg-space-950 p-4">
       <h3 className="flex items-center gap-2 text-lg font-semibold text-slate-100">
         {card.title}
         {card.escalate && (

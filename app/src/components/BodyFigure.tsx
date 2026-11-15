@@ -8,7 +8,7 @@ const TONE: Record<Status | 'none', string> = {
   ok: 'fill-ok/30 stroke-ok',
   watch: 'fill-watch/35 stroke-watch',
   act: 'fill-act/40 stroke-act',
-  none: 'fill-white/5 stroke-slate-500',
+  none: 'fill-contrast/5 stroke-slate-500',
 };
 
 interface Props {
@@ -25,7 +25,7 @@ export function BodyFigure({ statuses, names, selected, highlighted, onSelect }:
     const tone = TONE[status ?? 'none'];
     const isSel = selected === id;
     const hot = highlighted.has(id);
-    const cls = `${tone} ${isSel ? '[stroke-width:3.5]' : '[stroke-width:1.5]'} ${hot ? 'stroke-cyan-400 [stroke-dasharray:5_3]' : ''} group-focus-visible:stroke-white group-focus-visible:[stroke-width:4]`;
+    const cls = `${tone} ${isSel ? '[stroke-width:3.5]' : '[stroke-width:1.5]'} ${hot ? 'stroke-cyan-400 [stroke-dasharray:5_3]' : ''} group-focus-visible:stroke-contrast group-focus-visible:[stroke-width:4]`;
     return (
       <g
         key={id}
@@ -67,10 +67,10 @@ export function BodyFigure({ statuses, names, selected, highlighted, onSelect }:
         }}
         className="group cursor-pointer outline-none"
       >
-        <circle cx="110" cy="46" r="30" className={`${outlineTone} ${skinSel ? '[stroke-width:5]' : '[stroke-width:3]'} ${highlighted.has('skin') ? 'stroke-cyan-400 [stroke-dasharray:6_3]' : ''} group-focus-visible:stroke-white`} />
+        <circle cx="110" cy="46" r="30" className={`${outlineTone} ${skinSel ? '[stroke-width:5]' : '[stroke-width:3]'} ${highlighted.has('skin') ? 'stroke-cyan-400 [stroke-dasharray:6_3]' : ''} group-focus-visible:stroke-contrast`} />
         <path
           d="M78 84 Q110 74 142 84 L168 100 Q176 106 172 122 L162 196 Q158 206 150 204 L146 158 L146 250 L138 392 Q137 402 126 402 L116 402 L114 262 L106 262 L104 402 L94 402 Q83 402 82 392 L74 250 L74 158 L70 204 Q62 206 58 196 L48 122 Q44 106 52 100 Z"
-          className={`${outlineTone} ${skinSel ? '[stroke-width:5]' : '[stroke-width:3]'} ${highlighted.has('skin') ? 'stroke-cyan-400 [stroke-dasharray:6_3]' : ''} group-focus-visible:stroke-white`}
+          className={`${outlineTone} ${skinSel ? '[stroke-width:5]' : '[stroke-width:3]'} ${highlighted.has('skin') ? 'stroke-cyan-400 [stroke-dasharray:6_3]' : ''} group-focus-visible:stroke-contrast`}
         />
       </g>
 

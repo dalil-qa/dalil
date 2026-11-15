@@ -7,7 +7,7 @@ export function Footer() {
   const setHomeMode = useStore((s) => s.setHomeMode);
   const link = 'underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-cyan-400';
   return (
-    <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-white/10 px-4 py-3 text-sm text-slate-400">
+    <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-contrast/10 px-4 py-3 text-sm text-slate-400">
       <span>Not a medical device: guidance only</span>
       <span className="flex items-center gap-4">
         <button type="button" className={`inline-flex items-center gap-1 ${link}`} onClick={() => setHomeMode(true)}>

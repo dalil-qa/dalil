@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
-/* Brand tokens (APP_BUILD_GUIDE.md section 9.1) */
+/*
+ * Brand tokens (APP_BUILD_GUIDE.md section 9.1). These are the DARK theme values.
+ * The LIGHT theme (the default) redefines the same names below, so every screen switches without
+ * changing its class names. The theme is chosen in Settings or with the sun/moon button in the header,
+ * and is stored on <html data-theme="light|dark">.
+ */
 @theme {
   --color-space-950: #0b1426;   /* page background */
   --color-space-900: #0f1d33;   /* cards */
@@ -11,6 +16,37 @@
   --color-ok:        #34d399;
   --color-watch:     #fbbf24;
   --color-act:       #f87171;
+  /* Faint lines and overlays (used with opacity, e.g. border-contrast/10): white on dark, navy on light. */
+  --color-contrast:  #ffffff;
+  /* Second line on the charts (diastolic blood pressure). */
+  --color-series-2:  #a5b4fc;
+}
+
+/* Light theme: the default whenever data-theme isn't "dark". */
+:root:not([data-theme="dark"]) {
+  color-scheme: light;
+  --color-space-950: #f4f7fb;
+  --color-space-900: #ffffff;
+  --color-space-800: #e3eef3;
+  --color-cyan-400:  #0e7490;   /* darker, so links and focus rings stay readable on white */
+  --color-gold-200:  #a16207;
+  --color-ok:        #047857;
+  --color-watch:     #b45309;
+  --color-act:       #dc2626;
+  --color-contrast:  #0b1426;
+  --color-series-2:  #4f46e5;
+  /* Text greys flip: the "light" greys used for text on dark become dark greys on light. */
+  --color-slate-50:  #0b1426;
+  --color-slate-100: #0f172a;
+  --color-slate-200: #1e293b;
+  --color-slate-300: #334155;
+  --color-slate-400: #475569;
+  --color-slate-500: #5b6b80;
+  --color-slate-600: #94a3b8;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {

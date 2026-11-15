@@ -1,4 +1,4 @@
-import { Compass, Minus, Plus, RotateCcw, Usb } from 'lucide-react';
+import { Compass, Minus, Moon, Plus, RotateCcw, Sun, Usb } from 'lucide-react';
 import { Button, Card } from '../components/Card.tsx';
 import { SIM_SCENARIOS, type SimScenario } from '../device/simulator.ts';
 import { isSerialSupported, SERIAL_UNSUPPORTED_TEXT } from '../device/serial.ts';
@@ -36,7 +36,7 @@ export function Settings() {
 
       <Card title="Simulator scenario">
         <label className="sr-only" htmlFor="scenario">Scenario</label>
-        <select id="scenario" value={s.simScenario} onChange={(e) => s.setSimScenario(e.target.value as SimScenario)} className="w-full rounded-lg border border-white/15 bg-space-950 px-3 py-2 text-base text-slate-100 focus-visible:outline-2 focus-visible:outline-cyan-400">
+        <select id="scenario" value={s.simScenario} onChange={(e) => s.setSimScenario(e.target.value as SimScenario)} className="w-full rounded-lg border border-contrast/15 bg-space-950 px-3 py-2 text-base text-slate-100 focus-visible:outline-2 focus-visible:outline-cyan-400">
           {SIM_SCENARIOS.map((x) => <option key={x.id} value={x.id}>{x.label}</option>)}
         </select>
         <p className="mt-2 text-sm text-slate-400">The scenario applies to the next check. "Act" gives a red result for the demo.</p>
@@ -50,6 +50,25 @@ export function Settings() {
         </div>
         <div className="mt-4 flex flex-wrap gap-3">
           <Button variant="secondary" onClick={() => { s.setCrew('c2'); s.setMission('mars'); s.setMissionDay(47); }}>Demo: Crew Member 2 · Mars transit · Day 47</Button>
+        </div>
+      </Card>
+
+      <Card title="Appearance">
+        <p className="mb-3 text-base text-slate-300">Light is the default. Dark is easier on the eyes in a dim room.</p>
+        <div role="radiogroup" aria-label="Theme" className="flex flex-wrap gap-3">
+          {(['light', 'dark'] as const).map((t) => (
+            <button
+              key={t}
+              type="button"
+              role="radio"
+              aria-checked={s.theme === t}
+              onClick={() => s.setTheme(t)}
+              className={`inline-flex min-h-11 items-center gap-2 rounded-xl border px-4 text-base font-medium focus-visible:outline-2 focus-visible:outline-cyan-400 ${s.theme === t ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-contrast/20 text-slate-200 hover:bg-contrast/10'}`}
+            >
+              {t === 'light' ? <Sun aria-hidden size={18} /> : <Moon aria-hidden size={18} />}
+              {t === 'light' ? 'Light' : 'Dark'}
+            </button>
+          ))}
         </div>
       </Card>
 

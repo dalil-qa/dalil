@@ -18,7 +18,7 @@ import { QuickLog } from './QuickLog.tsx';
 
 function Step({ n, title, hint, icon }: { n: number; title: string; hint: string; icon: React.ReactNode }) {
   return (
-    <div className="flex flex-1 items-center gap-4 rounded-2xl border border-white/10 bg-space-950 p-4">
+    <div className="flex flex-1 items-center gap-4 rounded-2xl border border-contrast/10 bg-space-950 p-4">
       <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-700/30 text-cyan-400" aria-hidden>{icon}</span>
       <div>
         <p className="text-lg font-semibold text-slate-100">{n}. {title}</p>
@@ -110,7 +110,7 @@ function Measuring() {
               <span className="text-5xl font-semibold tabular-nums text-slate-50">{live.hr ?? '–'}<span className="ms-2 text-xl text-slate-400">bpm</span></span>
               <span className="text-xl tabular-nums text-slate-300">SpO2 {live.spo2 ?? '–'}{live.spo2 !== null ? ' %' : ''}</span>
               <div className="mt-1 w-48" aria-label={t('signalQuality')}>
-                <div className="h-2 rounded-full bg-white/10"><div className="h-2 rounded-full bg-cyan-400" style={{ width: `${Math.round((live.q ?? 0) * 100)}%` }} /></div>
+                <div className="h-2 rounded-full bg-contrast/10"><div className="h-2 rounded-full bg-cyan-400" style={{ width: `${Math.round((live.q ?? 0) * 100)}%` }} /></div>
                 <span className="text-sm text-slate-400">{t('signalQuality')}</span>
               </div>
             </div>

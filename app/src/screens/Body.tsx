@@ -25,7 +25,7 @@ const HAZARDS: { id: HazardId; label: string }[] = [
 /** NASA's five questions, on screen. */
 function Question({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <details className="group rounded-xl border border-white/10 bg-space-950 px-4 py-3">
+    <details className="group rounded-xl border border-contrast/10 bg-space-950 px-4 py-3">
       <summary className="cursor-pointer list-none text-lg font-medium text-slate-100 marker:hidden focus-visible:outline-2 focus-visible:outline-cyan-400">
         <span aria-hidden className="mr-2 inline-block text-cyan-400 transition-transform group-open:rotate-90">▸</span>
         {title}
@@ -149,13 +149,13 @@ export function Body() {
             highlighted={highlighted}
             onSelect={setSelected}
           />
-          <button type="button" aria-pressed={showHazards} onClick={() => setShowHazards(!showHazards)} className={`rounded-xl border px-4 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-cyan-400 ${showHazards ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-white/20 text-slate-200 hover:bg-white/10'}`}>
+          <button type="button" aria-pressed={showHazards} onClick={() => setShowHazards(!showHazards)} className={`rounded-xl border px-4 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-cyan-400 ${showHazards ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-contrast/20 text-slate-200 hover:bg-contrast/10'}`}>
             {showHazards ? 'Hide hazards' : 'Show hazards'}
           </button>
           {showHazards && (
             <div className="flex flex-wrap gap-2" role="group" aria-label="Hazards">
               {HAZARDS.map((h) => (
-                <button key={h.id} type="button" aria-pressed={active.has(h.id)} onClick={() => toggleHazard(h.id)} className={`rounded-full border px-3 py-1.5 text-sm ${active.has(h.id) ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-white/20 text-slate-300 hover:bg-white/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
+                <button key={h.id} type="button" aria-pressed={active.has(h.id)} onClick={() => toggleHazard(h.id)} className={`rounded-full border px-3 py-1.5 text-sm ${active.has(h.id) ? 'border-cyan-400 bg-cyan-700/30 text-cyan-400' : 'border-contrast/20 text-slate-300 hover:bg-contrast/10'} focus-visible:outline-2 focus-visible:outline-cyan-400`}>
                   {h.label}{missionById(missionId).riskHighlights.includes(h.id) ? ' ★' : ''}
                 </button>
               ))}

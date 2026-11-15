@@ -33,7 +33,7 @@ export function SystemsStrip({ assessments }: { assessments: Assessment[] }) {
             initial={reduce ? false : { opacity: 0.25, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={reduce ? { duration: 0 } : { delay: i * 0.15, duration: 0.3 }}
-            className={`flex flex-col items-center gap-1 rounded-xl border p-3 text-sm ${info ? `${info.border} ${info.bg} ${info.text}` : 'border-white/10 text-slate-500'}`}
+            className={`flex flex-col items-center gap-1 rounded-xl border p-3 text-sm ${info ? `${info.border} ${info.bg} ${info.text}` : 'border-contrast/10 text-slate-500'}`}
           >
             <Icon aria-hidden size={26} />
             <span className="font-medium">{name}</span>
