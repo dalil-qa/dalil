@@ -125,7 +125,7 @@ check('Mars: report travels with the 14:00 delay', (await text()).includes('Reac
 await evalJs(`(() => { const el=document.querySelector('#mission'); const d=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value'); d.set.call(el,'iss'); el.dispatchEvent(new Event('change',{bubbles:true})); })()`); await sleep(300);
 await click('Send again'); await sleep(3200);
 check('Space Station: delivered almost at once', (await text()).includes('Delivered to Earth at'));
-await click('Ask the Coach to write it');
+await click('Ask the Coach for a summary');
 check('Coach summary appears (online or offline template)', await waitFor('Check it before you rely on it', 30000) || await waitFor('written from a template', 1000));
 await shot('p3-5-earth');
 
