@@ -57,7 +57,6 @@ worker/     the Coach: a Cloudflare Worker on Workers AI (no API key to keep)
 firmware/   the station's program (ESP32, Arduino)
 scripts/    sample-history generator, PDF quote verifier, browser checks and station tests
 docs/       health content review log and verified NASA source quotes
-pitch/      the 3-minute pitch script, Q&A guide and slide deck structure
 ```
 - **The station talks to the app over USB serial** (Web Serial), one JSON line per message, to a fixed contract.
 - **The app works offline.** Only the Coach uses the internet, and it falls back to the written cards.
